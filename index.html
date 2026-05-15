@@ -134,6 +134,30 @@
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
   @media print { .nav-tabs { display: none; } .container { padding: 20px; } }
+
+  /* ===== Interactive: product card expand ===== */
+  .product-card { cursor: pointer; transition: all 0.3s ease; position: relative; }
+  .product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .product-card.expanded { border-color: #2563eb; box-shadow: 0 4px 16px rgba(37,99,235,0.15); }
+  .product-card.expanded .name { color: #2563eb; }
+  .card-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease; opacity: 0; margin-top: 0; font-size: 12px; color: #4b5563; line-height: 1.7; border-top: 1px solid transparent; }
+  .card-detail.show { max-height: 320px; opacity: 1; margin-top: 12px; padding-top: 12px; border-top-color: #e5e7eb; }
+  .card-detail p { margin-bottom: 6px; }
+
+  /* ===== Interactive: lightbox ===== */
+  .lightbox-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 40px; }
+  .lightbox-overlay.active { opacity: 1; pointer-events: all; }
+  .lightbox-overlay img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); transform: scale(0.92); transition: transform 0.3s ease; }
+  .lightbox-overlay.active img { transform: scale(1); }
+  .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 36px; cursor: pointer; line-height: 1; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.2s; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.15); }
+  .lightbox-caption { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,0.85); font-size: 14px; padding: 0 20px; }
+
+  /* Cursor zoom for deep-dive images */
+  #deep-dive .screenshots-row img,
+  #deep-dive .screenshots-row-2 img,
+  #deep-dive .screenshots-row-4 img { cursor: zoom-in; transition: transform 0.2s ease; }
+  #deep-dive figure:hover img { transform: scale(1.03); }
 </style>
 </head>
 <body>
@@ -1107,6 +1131,75 @@
 </div>
 
 <script>
+  // ===== Product card expand =====
+  const productDetails = {
+    lingji: '灵基侧边栏分为三个区域：顶部固定工具（新会话 / 技能开发 / 灵基智能体开发 / 应用开发）、中部项目-会话列表（项目名作为灰色分组标签，会话项以圆点缩进排列）、底部配置管理。模式切换位于页面顶部中央栏，与侧边栏分离。上下文菜单覆盖基础需求，但所有操作均依赖右键触发，不支持悬停快捷操作。',
+    codex: 'Codex 顶部四个功能入口（快速对话 / 搜索 / 插件 / 自动化）直接暴露核心能力；项目分组标题加粗且有展开/收起控件；会话项展示相对时间戳；置顶区与项目区有清晰视觉分隔。过滤功能提供整理方式、排序条件、显示范围的下拉面板。上下文菜单共9项，覆盖开发场景高级需求。',
+    workbuddy: 'WorkBuddy 侧边栏涵盖 Claw（AI对话）/ 专家 / 技能 / 探索 / 连接器 / 资料库 / 自动化共7大功能区，以图标+文字标签形式呈现。任务状态可视化：进行中时显示运行指示器；置顶任务使用橙色图钉图标标注。底部显示用户头像+名称+展开箭头。',
+    claude: 'Claude Code 将 Chat/Cowork/Code 三个模式以标签形式嵌入侧边栏顶部。Pinned 区域在无置顶内容时显示「Drag to pin」引导文字。支持按 Status/Project/Environment/Last Activity/Group by/Sort by 六维度过滤会话。底部显示头像缩写+用户名+订阅等级+设置图标。',
+    coze: '扣子编程采用「展开+收起」两档宽度（约240px/46px），收起后以图标占位。展开态提供「新建项目」和「导入项目」快捷操作按钮；底部显示用户积分和关注/被关注数，强化社区氛围。',
+    feishu: '飞书妙搭同样采用占位式折叠（约138px/46px）。扁平化导航结构，仅有5个一级入口（新应用/导入/我的应用/市场/开发者社区），配合底部次级设置入口，认知负担最低。',
+    miaowu: '秒悟采用最紧凑的常驻65px图标轨道，悬停「历史」图标时在右侧弹出覆盖式历史面板（约320px），不占用固定布局空间。底部有设置/通知区域。Flyout/Overlay 交互模式适合内容区优先的产品。',
+    qoderwork: 'Qoderwork 默认约268px宽，支持拖拽调整（有最小和最大宽度限制），同时提供「完全关闭」按钮将侧边栏隐藏。这是功能最完整的布局控制方案，适合专业用户。关闭态下内容区可获得最大空间。'
+  };
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    const detail = document.createElement('div');
+    detail.className = 'card-detail';
+    const name = card.querySelector('.name').textContent.trim().toLowerCase();
+    let key = '';
+    if (name.includes('灵基')) key = 'lingji';
+    else if (name.includes('codex')) key = 'codex';
+    else if (name.includes('workbuddy')) key = 'workbuddy';
+    else if (name.includes('claude')) key = 'claude';
+    else if (name.includes('扣子')) key = 'coze';
+    else if (name.includes('飞书')) key = 'feishu';
+    else if (name.includes('秒悟')) key = 'miaowu';
+    else if (name.includes('qoderwork')) key = 'qoderwork';
+    if (key && productDetails[key]) {
+      detail.innerHTML = '<p>' + productDetails[key] + '</p>';
+      card.appendChild(detail);
+    }
+    card.addEventListener('click', () => {
+      const isExpanded = card.classList.contains('expanded');
+      document.querySelectorAll('.product-card').forEach(c => {
+        c.classList.remove('expanded');
+        const d = c.querySelector('.card-detail');
+        if (d) d.classList.remove('show');
+      });
+      if (!isExpanded) {
+        card.classList.add('expanded');
+        detail.classList.add('show');
+      }
+    });
+  });
+
+  // ===== Lightbox for deep-dive images =====
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox-overlay';
+  lightbox.innerHTML = '<div class="lightbox-close">&times;</div><img src="" alt=""><div class="lightbox-caption"></div>';
+  document.body.appendChild(lightbox);
+  const lbImg = lightbox.querySelector('img');
+  const lbCaption = lightbox.querySelector('.lightbox-caption');
+  function openLightbox(src, caption) {
+    lbImg.src = src;
+    lbCaption.textContent = caption || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.classList.contains('lightbox-close')) closeLightbox();
+  });
+  document.querySelectorAll('#deep-dive img').forEach(img => {
+    const fig = img.closest('figure');
+    const caption = fig && fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent : '';
+    img.addEventListener('click', () => openLightbox(img.src, caption));
+  });
+
   // Highlight nav tab based on scroll
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-tabs a");
