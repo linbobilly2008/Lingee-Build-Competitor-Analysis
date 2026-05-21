@@ -35,7 +35,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .topic-select option { color: var(--text); background: #fff; }
 
 /* ===== SECTION TABS BAR ===== */
-.section-tabs-bar { position: sticky; top: 52px; z-index: 90; background: #fff; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section-tabs-bar { position: sticky; top: 52px; z-index: 90; background: #fff; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section-tabs-bar-inner { max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; }
 .section-tabs-bar a { display: inline-flex; align-items: center; height: 48px; padding: 0 18px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; white-space: nowrap; }
 .section-tabs-bar a:hover { color: var(--primary); }
 .section-tabs-bar a.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
@@ -242,14 +243,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 
 <!-- SECTION TABS BAR -->
 <div class="section-tabs-bar">
+  <div class="section-tabs-bar-inner">
   <a href="#overview" class="active" data-section="overview">产品概览</a>
   <a href="#comparison" data-section="comparison">多维度对比</a>
   <a href="#deep" data-section="deep">各产品深度分析</a>
   <a href="#issues" data-section="issues">现存问题</a>
   <a href="#opportunities" data-section="opportunities">优化机会点</a>
+  </div>
 </div>
-
-<!-- MAIN -->
 <div class="main-content">
 
 <!-- ===== PART 1: PRODUCT OVERVIEW ===== -->
