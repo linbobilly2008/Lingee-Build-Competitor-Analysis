@@ -38,7 +38,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .section-tabs-bar { position: sticky; top: 52px; z-index: 90; background: #fff; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .section-tabs-bar a { display: inline-flex; align-items: center; height: 48px; padding: 0 18px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; white-space: nowrap; }
 .section-tabs-bar a:hover { color: var(--primary); }
-.section-tabs-bar a.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+.section-tabs-bar a.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 300; }
 
 /* ===== REPORT HEADER ===== */
 .report-header { background: var(--header-bg); color: #fff; padding: 52px 0 0 0; }
@@ -48,7 +48,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .report-desc { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 640px; margin-bottom: 20px; line-height: 1.7; }
 .report-meta { display: flex; gap: 32px; flex-wrap: wrap; }
 .report-meta-item { font-size: 12px; color: rgba(255,255,255,0.65); }
-.report-meta-item strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+.report-meta-item strong { color: rgba(255,255,255,0.9); font-weight: 300; }
 .report-products { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-bottom: 24px; }
 .product-chip { background: rgba(255,255,255,0.12); border-radius: 4px; padding: 3px 10px; font-size: 12px; color: rgba(255,255,255,0.85); }
 .product-chip.main { background: var(--primary); color: #fff; }
@@ -70,7 +70,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .card-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px; }
 .card-name { font-weight: 700; font-size: 15px; }
 .card-type { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
-.card-badge { display: inline-flex; align-items: center; background: var(--primary); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; margin-left: auto; }
+.card-badge { display: inline-flex; align-items: center; background: var(--primary); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 300; margin-left: auto; }
 .card-features { list-style: none; padding: 0; }
 .card-features li { font-size: 13px; color: var(--text-secondary); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
 .card-features li:last-child { border-bottom: none; }
@@ -84,7 +84,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 /* ===== COMPARISON TABLE ===== */
 .compare-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
 .compare-table { width: 100%; border-collapse: collapse; min-width: 800px; }
-.compare-table th { background: var(--header-bg); color: #fff; padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; }
+.compare-table th { background: var(--header-bg); color: #fff; padding: 10px 14px; font-size: 12px; font-weight: 300; text-align: center; white-space: nowrap; }
 .compare-table th:first-child { text-align: left; }
 .compare-table td { padding: 9px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .compare-table td:first-child { font-weight: 500; color: var(--text); background: var(--gray-light); }
@@ -97,9 +97,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .compare-table .cat-row td:nth-child(2) { background: #D6E4FF; }
 .t-center { text-align: center; }
 
-.tag-full { display: inline-flex; align-items: center; gap: 4px; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
-.tag-partial { display: inline-flex; align-items: center; gap: 4px; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
-.tag-none { display: inline-flex; align-items: center; gap: 4px; background: var(--gray-light); color: var(--gray); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.tag-full { display: inline-flex; align-items: center; gap: 4px; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 300; }
+.tag-partial { display: inline-flex; align-items: center; gap: 4px; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 300; }
+.tag-none { display: inline-flex; align-items: center; gap: 4px; background: var(--gray-light); color: var(--gray); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 300; }
 .tag-unknown { color: var(--text-secondary); font-size: 12px; }
 
 .table-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
@@ -112,7 +112,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .layout-card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .layout-card p { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid #F5F5F5; line-height: 1.6; }
 .layout-card p:last-child { border-bottom: none; }
-.layout-card p strong { color: var(--primary); font-weight: 600; }
+.layout-card p strong { color: var(--primary); font-weight: 300; }
 .layout-card p .product-name { font-weight: 700; color: var(--text); }
 
 /* ===== CONCLUSION BOX ===== */
@@ -131,10 +131,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .panel-avatar { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; overflow: hidden; }
 .panel-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
 .panel-name { font-size: 20px; font-weight: 700; }
-.tag-green { display: inline-flex; align-items: center; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
-.tag-red-label { display: inline-flex; align-items: center; background: var(--red-light); color: var(--red); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
+.tag-green { display: inline-flex; align-items: center; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 300; }
+.tag-red-label { display: inline-flex; align-items: center; background: var(--red-light); color: var(--red); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 300; }
 .tag-gray-label { display: inline-flex; align-items: center; background: var(--gray-light); color: var(--text-secondary); border-radius: 4px; padding: 2px 9px; font-size: 12px; }
-.tag-partial-label { display: inline-flex; align-items: center; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
+.tag-partial-label { display: inline-flex; align-items: center; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 300; }
 .tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* ===== SCREENSHOT GALLERY ===== */
@@ -155,8 +155,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .analysis-text { font-size: 13px; line-height: 1.85; color: var(--text); }
 .analysis-text p { margin-bottom: 12px; }
 .analysis-text strong { color: var(--primary); }
-.analysis-text .advantage { color: var(--green); font-weight: 600; }
-.analysis-text .disadvantage { color: var(--red); font-weight: 600; }
+.analysis-text .advantage { color: var(--green); font-weight: 300; }
+.analysis-text .disadvantage { color: var(--red); font-weight: 300; }
 
 /* ===== ISSUES LIST ===== */
 .issue-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; transition: box-shadow .2s; }
@@ -168,7 +168,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .tag-severity-high { background: var(--red-light); color: var(--red); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
 .tag-severity-mid { background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
 .tag-severity-low { background: var(--gray-light); color: var(--gray); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
-.tag-category { background: var(--primary-light); color: var(--primary); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+.tag-category { background: var(--primary-light); color: var(--primary); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 300; }
 .issue-vote { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
 .vote-btn { border: 1px solid var(--border); background: #fff; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; transition: all .15s; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
 .vote-btn:hover { border-color: var(--primary); color: var(--primary); }
@@ -185,7 +185,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 .opp-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
 .opp-num { font-size: 14px; font-weight: 700; color: var(--green); flex-shrink: 0; }
 .opp-title { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
-.tag-opp-cat { background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+.tag-opp-cat { background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 300; }
 .opp-body { font-size: 13px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; }
 .opp-ref { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
 .opp-ref strong { color: var(--text); }
@@ -283,7 +283,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         </div>
       </div>
       <ul class="card-features">
-        <li>宽度可调（420–855px），顶部 Tab 切换会话/项目，侧边栏可完全折叠收起</li>
+        <li>宽度可调（210–430px），顶部 Tab 切换会话/项目，侧边栏可完全折叠收起</li>
         <li>最强过滤体系：支持按状态/项目/环境/最近活跃时间多维过滤，6种会话分组方式</li>
         <li>支持拖拽置顶、批量全选操作、归档，会话运行/Fork/Needs input 状态实时可视化</li>
         <li>右键菜单最丰富（9项，含快捷键提示）；Cmd+B 折叠侧边栏；底部 Plan 状态常驻展示</li>
@@ -299,7 +299,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         </div>
       </div>
       <ul class="card-features">
-        <li>宽度可调（480–1040px），最大宽度居同类产品之首，适合多信息并排展示</li>
+        <li>宽度可调（240-520px），最大宽度居同类产品之首，适合多信息并排展示</li>
         <li>三段式结构：置顶区 → 项目区（可展开收起）→ 对话区，层级关系明确</li>
         <li>支持对话归档、搜索、右键操作（9项，含复制深度链接/工作目录等开发者专用）；允许对话独立于项目存在</li>
         <li>列表内展示相对时间戳（如2天前/3周前），无需打开会话即可判断时效；⌘B 折叠快捷键</li>
@@ -315,7 +315,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         </div>
       </div>
       <ul class="card-features">
-        <li>宽度可调（495–960px），以「分组（Group）」为核心组织任务，支持频道概念</li>
+        <li>宽度可调（248-480px），以「分组（Group）」为核心组织任务，支持频道概念</li>
         <li>特有「定时任务」专属区块，任务有未读、进行中等多态状态可视化</li>
         <li>任务与分组均支持右键操作；任务可游离于任何分组之外独立存在</li>
         <li>搜索、置顶、移动、重命名、删除操作完整，底部设置功能集中</li>
@@ -331,7 +331,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         </div>
       </div>
       <ul class="card-features">
-        <li>固定宽度 600px，以「工作空间（Workspace）」为项目单元，层级结构清晰</li>
+        <li>固定宽度 300px，以「工作空间（Workspace）」为项目单元，层级结构清晰</li>
         <li>状态过滤粒度最细：5种状态（进行中/已完成/失败/待处理/规划中）+ 日期过滤，任务状态可视化最完整</li>
         <li>任务可独立于工作空间存在，设归档功能；底部提供新建工作空间快捷入口</li>
         <li>不支持右键菜单，操作仅通过悬浮态按钮触发；不支持宽度调节</li>
@@ -347,7 +347,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         </div>
       </div>
       <ul class="card-features">
-        <li>宽度可调（480–800px），顶部设组织切换器，支持多组织/团队间快速切换</li>
+        <li>宽度可调（240-400px），顶部设组织切换器，支持多组织/团队间快速切换</li>
         <li>任务强制归属项目（默认项目/个人项目/自定义项目三类），树形结构清晰；支持一键折叠所有项目</li>
         <li>任务状态可视化最醒目：色块+文字标签（待授权/进行中/未读），可访问性最佳</li>
         <li>不支持全局搜索；支持轻量筛选（全部/普通/定时任务）；滚动条设计简洁优雅</li>
@@ -491,12 +491,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         <tr class="cat-row"><td colspan="7">📐 侧边栏宽度与布局</td></tr>
         <tr>
           <td>宽度自由调整</td>
-          <td class="t-center"><span class="tag-none">✗ 固定560px</span></td>
-          <td class="t-center"><span class="tag-full">✓ 420–855px</span></td>
-          <td class="t-center"><span class="tag-full">✓ 480–1040px</span></td>
-          <td class="t-center"><span class="tag-full">✓ 495–960px</span></td>
-          <td class="t-center"><span class="tag-none">✗ 固定600px</span></td>
-          <td class="t-center"><span class="tag-full">✓ 480–800px</span></td>
+          <td class="t-center"><span class="tag-none">✗ 固定280px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 210-430px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 240-520px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 248-480px</span></td>
+          <td class="t-center"><span class="tag-none">✗ 固定300px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 240-400px</span></td>
         </tr>
         <tr>
           <td>侧边栏折叠</td>
@@ -613,12 +613,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 
       <div class="layout-card">
         <div class="layout-card-title">空间利用率对比</div>
-        <p><span class="product-name">灵基Build：</span>固定 <strong>560px</strong>，顶部 Tab + 底部设置区占用固定空间，内容区中等；信息密度适中但不可伸缩</p>
-        <p><span class="product-name">Claude Code：</span>420–855px 可调，最小态节省空间，最大态可展示充足上下文；<strong>空间弹性最佳</strong></p>
-        <p><span class="product-name">Codex：</span>480–1040px，最大宽度达 <strong>1040px</strong>，适合双栏信息展示，但超宽时大量空白影响信息密度</p>
-        <p><span class="product-name">QoderWork：</span>495–960px，任务列表利用率高，分组折叠后有效节省纵向空间</p>
-        <p><span class="product-name">WorkBuddy：</span>固定 <strong>600px</strong>，整体偏宽但内容密度高，5态状态色彩（进行中/已完成/失败/待处理/规划中）充分利用了视觉空间</p>
-        <p><span class="product-name">悟空：</span>480–800px，顶部组织切换器占用额外高度，项目折叠机制弥补了纵向空间消耗</p>
+        <p><span class="product-name">灵基Build：</span>固定 <strong>280px</strong>，顶部 Tab + 底部设置区占用固定空间，内容区中等；信息密度适中但不可伸缩</p>
+        <p><span class="product-name">Claude Code：</span>210-430px 可调，最小态节省空间，最大态可展示充足上下文；<strong>空间弹性最佳</strong></p>
+        <p><span class="product-name">Codex：</span>240-520px，最大宽度达 <strong>1040px</strong>，适合双栏信息展示，但超宽时大量空白影响信息密度</p>
+        <p><span class="product-name">QoderWork：</span>248-480px，任务列表利用率高，分组折叠后有效节省纵向空间</p>
+        <p><span class="product-name">WorkBuddy：</span>固定 <strong>300px</strong>，整体偏宽但内容密度高，5态状态色彩（进行中/已完成/失败/待处理/规划中）充分利用了视觉空间</p>
+        <p><span class="product-name">悟空：</span>240-400px，顶部组织切换器占用额外高度，项目折叠机制弥补了纵向空间消耗</p>
       </div>
 
       <div class="layout-card">
@@ -920,7 +920,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/LingjiBuild.png" alt="灵基Build"></div>
       <div class="panel-name">灵基Build</div>
       <div class="tags-row">
-        <span class="tag-gray-label">固定宽度 560px</span>
+        <span class="tag-gray-label">固定宽度 280px</span>
         <span class="tag-green">顶部Tab导航</span>
         <span class="tag-green">显示设置面板</span>
         <span class="tag-green">会话/项目置顶</span>
@@ -966,7 +966,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_设置功能.png','设置功能')">
         <img src="screenshots/灵基/灵基Build_侧导航_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
       <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_固定宽度560.png','固定宽度560')">
-        <img src="screenshots/灵基/灵基Build_侧导航_固定宽度560.png" alt="固定宽度560"><div class="ss-label">固定宽度560px</div></div>
+        <img src="screenshots/灵基/灵基Build_侧导航_固定宽度560.png" alt="固定宽度560"><div class="ss-label">固定宽度280px</div></div>
       <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_顶部Tab的选中态&悬浮态.png','顶部Tab')">
         <img src="screenshots/灵基/灵基Build_侧导航_顶部Tab的选中态&悬浮态.png" alt="顶部Tab"><div class="ss-label">顶部Tab状态</div></div>
     </div>
@@ -974,7 +974,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <p>灵基Build的左侧导航整体结构清晰，顶部三段式 Tab（对话 / 工作 / 开发），是6款产品中与Claude Code共同采用的差异化设计。</p>
       <p>在视觉层面，灵基Build的会话列表采用<strong>彩色前缀色块</strong>（绿/橙/蓝/紫）区分会话角色或类型，视觉辨识度较高，是6款产品中独有的设计语言。在显示设置方面，灵基Build提供了「分组依据（按日期/按项目/无）」和「显示项目范围」两套控制维度，是同类产品中<strong>显示自定义能力较强</strong>的设计，有效应对了会话量增长后的管理需求。会话和项目的移动操作也是一个实用的差异化能力，支持跨项目迁移工作内容。</p>
       <p>然而，当前版本存在<span class="disadvantage">数个明显功能缺口</span>。最突出的是<strong>缺少会话搜索</strong>——这是6款产品中唯一不具备的，当会话数量积累后用户查找效率将大幅下降。其次，会话列表虽然使用<strong>彩色圆点</strong>进行状态指示，但<strong>缺少文字标签</strong>，依赖色觉感知状态；相较于 Claude Code、WorkBuddy、悟空等产品的图标+文字组合方案，可读性较弱，多任务并行时认知负担仍然偏高。</p>
-      <p>交互层面，<strong>不支持右键菜单和拖拽操作</strong>，所有操作均需通过悬浮态按钮触发，高频用户的效率路径偏长。固定宽度 560px 在大屏显示器上可能显得偏窄，也无法适配不同工作习惯的用户。底部设置区设计简洁规范，账户与设置入口集中，符合行业惯例。</p>
+      <p>交互层面，<strong>不支持右键菜单和拖拽操作</strong>，所有操作均需通过悬浮态按钮触发，高频用户的效率路径偏长。固定宽度 280px 在大屏显示器上可能显得偏窄，也无法适配不同工作习惯的用户。底部设置区设计简洁规范，账户与设置入口集中，符合行业惯例。</p>
       <p>综合来看，灵基Build的导航设计在<span class="advantage">结构清晰性、显示控制灵活性和彩色前缀色块的视觉辨识度</span>上有一定特色；但在搜索、状态感知（圆点升级为文字标签）、高效交互（右键菜单/快捷键）以及无项目会话灵活性等方向上与竞品有明显差距，是产品成熟度提升的优先方向。</p>
     </div>
   </div>
@@ -985,7 +985,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/Claude.png" alt="Claude Code"></div>
       <div class="panel-name">Claude Code</div>
       <div class="tags-row">
-        <span class="tag-gray-label">宽度可调 420–855px</span>
+        <span class="tag-gray-label">宽度可调 210-430px</span>
         <span class="tag-green">多维过滤/排序</span>
         <span class="tag-green">右键上下文菜单</span>
         <span class="tag-green">拖拽置顶</span>
@@ -1034,7 +1034,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         <img src="screenshots/Claude Code/Claude Code_侧导航_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
     </div>
     <div class="analysis-text">
-      <p>Claude Code 的左侧导航是6款产品中<span class="advantage">功能最完整、交互最丰富</span>的设计。宽度可调（420–855px）让用户在不同屏幕尺寸下都能找到最适合的使用空间，而右键上下文菜单的引入则大幅提升了键鼠配合的操作效率。</p>
+      <p>Claude Code 的左侧导航是6款产品中<span class="advantage">功能最完整、交互最丰富</span>的设计。宽度可调（210-430px）让用户在不同屏幕尺寸下都能找到最适合的使用空间，而右键上下文菜单的引入则大幅提升了键鼠配合的操作效率。</p>
       <p>最突出的是其<strong>多维度过滤与分组系统</strong>：支持按日期、项目、状态、环境4个维度分组，并提供排序方式选择，是所有竞品中过滤能力最强的产品。这对于有大量并发任务的开发者而言是核心价值所在。</p>
       <p><strong>会话状态可视化</strong>设计十分完善：运行中任务有动态指示，Fork 状态有专属标记，归档状态清晰区分——用户无需点开任何对话即可从列表扫视掌握全局任务状态。</p>
       <p>拖拽置顶是同类产品中唯一支持的设计，直观且高效。批量全选操作则面向大量任务清理或管理的场景，大幅降低重复操作成本。底部设置区还内置了主题与字体切换，让个性化配置触手可及。</p>
@@ -1048,7 +1048,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/Codex.png" alt="Codex"></div>
       <div class="panel-name">Codex</div>
       <div class="tags-row">
-        <span class="tag-gray-label">宽度可调 480–1040px</span>
+        <span class="tag-gray-label">宽度可调 240-520px</span>
         <span class="tag-green">树状三层结构</span>
         <span class="tag-green">右键上下文菜单</span>
         <span class="tag-green">会话归档</span>
@@ -1104,7 +1104,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/QoderWork.png" alt="QoderWork"></div>
       <div class="panel-name">QoderWork</div>
       <div class="tags-row">
-        <span class="tag-gray-label">宽度可调 495–960px</span>
+        <span class="tag-gray-label">宽度可调 248-480px</span>
         <span class="tag-green">分组管理体系</span>
         <span class="tag-green">定时任务专区</span>
         <span class="tag-green">右键上下文菜单</span>
@@ -1160,7 +1160,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/WorkBuddy.png" alt="WorkBuddy"></div>
       <div class="panel-name">WorkBuddy</div>
       <div class="tags-row">
-        <span class="tag-gray-label">固定宽度 600px</span>
+        <span class="tag-gray-label">固定宽度 300px</span>
         <span class="tag-green">三态状态可视化</span>
         <span class="tag-green">按状态/日期过滤</span>
         <span class="tag-green">会话归档</span>
@@ -1199,14 +1199,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_工作空间_操作.png" alt="工作空间操作"><div class="ss-label">工作空间操作</div></div>
       <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_新建工作空间.png','新建工作空间')">
         <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_新建工作空间.png" alt="新建工作空间"><div class="ss-label">新建工作空间</div></div>
-      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度600.png','固定宽度600')">
-        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度600.png" alt="固定宽度600"><div class="ss-label">固定宽度 600px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度300.png','固定宽度300')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度300.png" alt="固定宽度300"><div class="ss-label">固定宽度 300px</div></div>
     </div>
     <div class="analysis-text">
       <p>WorkBuddy 的设计亮点在于<strong>任务状态三色系统</strong>：进行中（蓝色/动态）、完成（绿色/勾选）、警告（红色/感叹号）三态清晰区分，用户扫视列表即可快速掌握任务健康状况，这是所有竞品中状态可视化<strong>视觉辨识度最高</strong>的设计。</p>
       <p>双维度过滤（按状态、按日期）设计实用，覆盖了大多数用户的主要管理需求。工作空间（Workspace）概念清晰，底部固定「新建工作空间」快捷入口设计值得借鉴，将高频创建操作固定在视觉稳定区域，减少用户寻找成本。</p>
       <p>任务归档功能完整，既支持「任务区」的独立任务，也支持「工作空间」内任务的分层管理。搜索结果展示也经过专门设计，高亮匹配内容。</p>
-      <p>不足在于<strong>固定宽度 600px</strong> 不可调整；<strong>不支持右键菜单</strong>，所有操作需通过悬浮态按钮触发，高频用户效率受限。整体设计风格偏向<strong>任务管理工具</strong>，对新用户非常友好，适合轻中度使用场景。</p>
+      <p>不足在于<strong>固定宽度 300px</strong> 不可调整；<strong>不支持右键菜单</strong>，所有操作需通过悬浮态按钮触发，高频用户效率受限。整体设计风格偏向<strong>任务管理工具</strong>，对新用户非常友好，适合轻中度使用场景。</p>
     </div>
   </div>
 
@@ -1216,7 +1216,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       <div class="panel-avatar"><img src="icons/Wukong.png" alt="悟空"></div>
       <div class="panel-name">悟空</div>
       <div class="tags-row">
-        <span class="tag-gray-label">宽度可调 480–800px</span>
+        <span class="tag-gray-label">宽度可调 240-400px</span>
         <span class="tag-green">组织切换器</span>
         <span class="tag-green">多态任务状态</span>
         <span class="tag-green">一键折叠所有项目</span>
@@ -1263,7 +1263,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
     <div class="analysis-text">
       <p>悟空的最大差异化设计是<strong>顶部组织切换器</strong>——在6款产品中唯一将「组织/团队」切换整合进侧边栏顶部，适合需要在多个组织账号间工作的企业用户，是典型的<strong>面向团队协作场景</strong>的设计决策。</p>
       <p>任务状态可视化涵盖<strong>进行中、等待授权、未读消息</strong>三种状态，其中「等待授权」是最具特色的状态——明确提示用户某项任务因权限问题暂停，帮助用户快速定位需要人工干预的任务，减少盲目等待。</p>
-      <p>「一键折叠所有项目」设计在项目数量较多时极为实用，用户可以快速清空视野，专注于当前工作。宽度可调（480–800px）覆盖了主流使用场景，弹性适中。</p>
+      <p>「一键折叠所有项目」设计在项目数量较多时极为实用，用户可以快速清空视野，专注于当前工作。宽度可调（240-400px）覆盖了主流使用场景，弹性适中。</p>
       <p>不足在于<strong>不支持置顶</strong>，在会话历史较长时快速访问常用任务的路径较长；<strong>右键菜单仅支持重命名/删除两项基础操作</strong>（不及 Claude Code、Codex、QoderWork 完整的右键菜单能力），且<strong>缺少归档功能</strong>，与深度用户的操作习惯有差距；此外，悟空也不支持全局搜索，与灵基Build同存此缺口。整体设计简洁克制，面向<strong>多组织管理和协作驱动</strong>的场景，视觉风格清爽，新用户友好。</p>
     </div>
   </div>
@@ -1315,7 +1315,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
   <div class="issue-item">
     <div class="issue-header">
       <div class="issue-num">I3</div>
-      <div class="issue-title">固定宽度 560px 不可调整，无法适配不同屏幕与使用习惯</div>
+      <div class="issue-title">固定宽度 280px 不可调整，无法适配不同屏幕与使用习惯</div>
       <div class="issue-tags">
         <span class="tag-severity-mid">中</span>
         <span class="tag-category">交互体验</span>
@@ -1326,8 +1326,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
       </div>
     </div>
-    <div class="issue-desc">固定宽度 560px 在小屏幕（如 13 英寸笔记本）上占据主内容区较大比例，而在大屏显示器上则显得信息密度偏低，缺乏充分利用屏幕空间的能力。用户无法根据个人偏好或工作场景调整侧边栏宽度，灵活性不足。与WorkBuddy相同，是仅有的两款不支持宽度调整的产品。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（420–855px）、<strong>Codex</strong>（480–1040px）、<strong>QoderWork</strong>（495–960px）、<strong>悟空</strong>（480–800px）均支持拖拽调整宽度</div>
+    <div class="issue-desc">固定宽度 280px 在小屏幕（如 13 英寸笔记本）上占据主内容区较大比例，而在大屏显示器上则显得信息密度偏低，缺乏充分利用屏幕空间的能力。用户无法根据个人偏好或工作场景调整侧边栏宽度，灵活性不足。与WorkBuddy相同，是仅有的两款不支持宽度调整的产品。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（210-430px）、<strong>Codex</strong>（480–1040px）、<strong>QoderWork</strong>（248-480px）、<strong>悟空</strong>（240-400px）均支持拖拽调整宽度</div>
   </div>
 
   <!-- I4 -->
@@ -1570,7 +1570,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       长期建议：记住用户上次设定的宽度并在下次启动时恢复；可探索「紧凑模式」（小于 480px 时自动隐藏部分信息，如只显示会话图标不显示名称）。<br><br>
       取舍考量：固定宽度在视觉一致性上有优势，改为可调需要对折叠/展开动画、内容截断逻辑进行相应调整，开发成本中等。
     </div>
-    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（420–855px，弹性最好）、<strong>悟空</strong>（480–800px，范围合理克制）</div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（210-430px，弹性最好）、<strong>悟空</strong>（240-400px，范围合理克制）</div>
   </div>
 
   <!-- O4 -->
