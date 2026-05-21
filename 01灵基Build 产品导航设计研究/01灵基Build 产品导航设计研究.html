@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵基Build产品导航设计研究 · 竞品分析报告</title>
+<style>
+:root {
+  --primary: #2970FF;
+  --primary-light: #EBF1FF;
+  --green: #04B545;
+  --green-light: #E6F9EE;
+  --orange: #FF6D37;
+  --orange-light: #FFF0EB;
+  --red: #F12234;
+  --red-light: #FDEAEC;
+  --gray: rgba(0,0,0,0.64);
+  --gray-light: #F5F5F5;
+  --header-bg: #19276B;
+  --badge-red: #FF5765;
+  --border: #E5E7EB;
+  --text: #111827;
+  --text-secondary: #6B7280;
+  --card-bg: #FFFFFF;
+  --page-bg: #F7F8FC;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--page-bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ===== TOP NAV ===== */
+.top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--header-bg); border-bottom: none; display: flex; align-items: center; padding: 0 32px; height: 52px; gap: 0; box-shadow: 0 1px 6px rgba(0,0,0,0.18); }
+.nav-logo { font-weight: 700; font-size: 15px; color: rgba(255,255,255,0.95); margin-right: 24px; white-space: nowrap; }
+.nav-spacer { flex: 1; }
+.topic-select { border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.12); cursor: pointer; }
+.topic-select option { color: var(--text); background: #fff; }
+
+/* ===== SECTION TABS BAR ===== */
+.section-tabs-bar { position: sticky; top: 52px; z-index: 90; background: #fff; border-bottom: 2px solid var(--border); display: flex; align-items: center; padding: 0 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.section-tabs-bar a { display: inline-flex; align-items: center; height: 48px; padding: 0 18px; font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; white-space: nowrap; }
+.section-tabs-bar a:hover { color: var(--primary); }
+.section-tabs-bar a.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+
+/* ===== REPORT HEADER ===== */
+.report-header { background: var(--header-bg); color: #fff; padding: 52px 0 0 0; }
+.report-header-inner { max-width: 1200px; margin: 0 auto; padding: 40px 32px 36px; }
+.report-issue { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+.report-title { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+.report-desc { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 640px; margin-bottom: 20px; line-height: 1.7; }
+.report-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+.report-meta-item { font-size: 12px; color: rgba(255,255,255,0.65); }
+.report-meta-item strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+.report-products { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-bottom: 24px; }
+.product-chip { background: rgba(255,255,255,0.12); border-radius: 4px; padding: 3px 10px; font-size: 12px; color: rgba(255,255,255,0.85); }
+.product-chip.main { background: var(--primary); color: #fff; }
+
+/* ===== MAIN CONTENT ===== */
+.main-content { max-width: 1200px; margin: 0 auto; padding: 40px 32px; }
+.section { margin-bottom: 56px; scroll-margin-top: 108px; }
+.section-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+.section-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--primary); color: #fff; border-radius: 6px; font-size: 13px; font-weight: 700; }
+
+/* ===== PRODUCT CARDS (Part 1) ===== */
+.product-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 900px) { .product-cards { grid-template-columns: repeat(2, 1fr); } }
+.product-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all .2s; }
+.product-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(41,112,255,0.1); }
+.product-card.selected { border-color: var(--border); background: var(--primary-light); box-shadow: 0 4px 16px rgba(41,112,255,0.08); }
+.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.card-avatar { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0; overflow: hidden; }
+.card-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px; }
+.card-name { font-weight: 700; font-size: 15px; }
+.card-type { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.card-badge { display: inline-flex; align-items: center; background: var(--primary); color: #fff; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; margin-left: auto; }
+.card-features { list-style: none; padding: 0; }
+.card-features li { font-size: 13px; color: var(--text-secondary); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
+.card-features li:last-child { border-bottom: none; }
+.card-features li::before { content: "·"; color: var(--primary); font-weight: 700; font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+/* ===== DIMENSION SECTION ===== */
+.dim-section { margin-bottom: 40px; }
+.dim-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; gap: 8px; }
+.dim-num { background: var(--primary); color: #fff; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+
+/* ===== COMPARISON TABLE ===== */
+.compare-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+.compare-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+.compare-table th { background: var(--header-bg); color: #fff; padding: 10px 14px; font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; }
+.compare-table th:first-child { text-align: left; }
+.compare-table td { padding: 9px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.compare-table td:first-child { font-weight: 500; color: var(--text); background: var(--gray-light); }
+.compare-table td:nth-child(2) { background: #EBF1FF; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: #F9FAFB; }
+.compare-table tr:hover td:first-child { background: #EEEEF2; }
+.compare-table tr:hover td:nth-child(2) { background: #D6E4FF; }
+.compare-table .cat-row td { background: #F0F4FF; font-weight: 700; font-size: 12px; color: var(--primary); letter-spacing: .5px; text-transform: uppercase; }
+.compare-table .cat-row td:nth-child(2) { background: #D6E4FF; }
+.t-center { text-align: center; }
+
+.tag-full { display: inline-flex; align-items: center; gap: 4px; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.tag-partial { display: inline-flex; align-items: center; gap: 4px; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.tag-none { display: inline-flex; align-items: center; gap: 4px; background: var(--gray-light); color: var(--gray); border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.tag-unknown { color: var(--text-secondary); font-size: 12px; }
+
+.table-legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+
+/* ===== LAYOUT CARDS GRID ===== */
+.layout-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 700px) { .layout-grid { grid-template-columns: 1fr; } }
+.layout-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.layout-card-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.layout-card p { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid #F5F5F5; line-height: 1.6; }
+.layout-card p:last-child { border-bottom: none; }
+.layout-card p strong { color: var(--primary); font-weight: 600; }
+.layout-card p .product-name { font-weight: 700; color: var(--text); }
+
+/* ===== CONCLUSION BOX ===== */
+.conclusion-box { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: 0 8px 8px 0; padding: 16px 20px; margin-top: 20px; font-size: 13px; line-height: 1.8; color: var(--text); }
+.conclusion-box strong { color: var(--primary); }
+
+/* ===== PRODUCT DEEP ANALYSIS TABS ===== */
+.product-tabs { display: flex; border-bottom: 2px solid var(--border); gap: 0; overflow-x: auto; margin-bottom: 24px; }
+.product-tab { padding: 10px 20px; font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all .2s; flex-shrink: 0; }
+.product-tab:hover { color: var(--primary); }
+.product-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+.product-panel { display: none; }
+.product-panel.active { display: block; }
+
+.product-panel-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.panel-avatar { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0; overflow: hidden; }
+.panel-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
+.panel-name { font-size: 20px; font-weight: 700; }
+.tag-green { display: inline-flex; align-items: center; background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
+.tag-red-label { display: inline-flex; align-items: center; background: var(--red-light); color: var(--red); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
+.tag-gray-label { display: inline-flex; align-items: center; background: var(--gray-light); color: var(--text-secondary); border-radius: 4px; padding: 2px 9px; font-size: 12px; }
+.tag-partial-label { display: inline-flex; align-items: center; background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 600; }
+.tags-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ===== SCREENSHOT GALLERY ===== */
+.screenshot-gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 16px 0 24px; }
+.screenshot-item { cursor: zoom-in; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); transition: all .2s; background: var(--gray-light); }
+.screenshot-item:hover { border-color: var(--primary); box-shadow: 0 3px 12px rgba(41,112,255,0.2); transform: translateY(-2px); }
+.screenshot-item img { width: 100%; height: 130px; object-fit: cover; object-position: top; display: block; }
+.screenshot-item .ss-label { font-size: 10px; color: var(--text-secondary); padding: 4px 6px; text-align: center; background: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ===== LIGHTBOX ===== */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 8px; object-fit: contain; }
+.lightbox-close { position: fixed; top: 20px; right: 28px; color: #fff; font-size: 32px; cursor: pointer; line-height: 1; }
+.lightbox-label { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.8); font-size: 13px; background: rgba(0,0,0,0.5); padding: 6px 16px; border-radius: 20px; }
+
+/* ===== ANALYSIS TEXT ===== */
+.analysis-text { font-size: 13px; line-height: 1.85; color: var(--text); }
+.analysis-text p { margin-bottom: 12px; }
+.analysis-text strong { color: var(--primary); }
+.analysis-text .advantage { color: var(--green); font-weight: 600; }
+.analysis-text .disadvantage { color: var(--red); font-weight: 600; }
+
+/* ===== ISSUES LIST ===== */
+.issue-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; transition: box-shadow .2s; }
+.issue-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.issue-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.issue-num { font-size: 13px; font-weight: 700; color: var(--text-secondary); flex-shrink: 0; min-width: 28px; }
+.issue-title { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+.issue-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.tag-severity-high { background: var(--red-light); color: var(--red); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.tag-severity-mid { background: var(--orange-light); color: var(--orange); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.tag-severity-low { background: var(--gray-light); color: var(--gray); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.tag-category { background: var(--primary-light); color: var(--primary); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+.issue-vote { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
+.vote-btn { border: 1px solid var(--border); background: #fff; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; transition: all .15s; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+.vote-btn:hover { border-color: var(--primary); color: var(--primary); }
+.vote-btn.agree.active { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.vote-btn.disagree.active { background: var(--red-light); border-color: var(--red); color: var(--red); }
+.vote-count { font-weight: 700; }
+.issue-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; }
+.issue-ref { font-size: 12px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 4px; flex-wrap: nowrap; }
+.issue-ref-label { white-space: nowrap; flex-shrink: 0; }
+.issue-ref strong { color: var(--text); }
+
+/* ===== OPPORTUNITY LIST ===== */
+.opp-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; border-left: 4px solid var(--green); }
+.opp-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.opp-num { font-size: 14px; font-weight: 700; color: var(--green); flex-shrink: 0; }
+.opp-title { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+.tag-opp-cat { background: var(--green-light); color: var(--green); border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+.opp-body { font-size: 13px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; }
+.opp-ref { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
+.opp-ref strong { color: var(--text); }
+.opp-vote { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.opp-vote-btn { border: 1px solid var(--border); background: #fff; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; transition: all .15s; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+.opp-vote-btn:hover { border-color: var(--green); color: var(--green); }
+.opp-vote-btn.adopt.active { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.opp-vote-btn.reject.active { background: var(--red-light); border-color: var(--red); color: var(--red); }
+
+/* ===== SPECULAT BADGE ===== */
+.speculate-badge { display: inline-flex; align-items: center; background: var(--badge-red); color: #fff; border-radius: 4px; padding: 1px 6px; font-size: 10px; font-weight: 700; margin-left: 4px; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .main-content { padding: 24px 16px; }
+  .product-cards { grid-template-columns: 1fr; }
+  .screenshot-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <span class="nav-logo">灵基Build 竞品研究</span>
+  <div class="nav-spacer"></div>
+  <select class="topic-select">
+    <option>第一期：左侧导航设计研究</option>
+  </select>
+</nav>
+
+<!-- REPORT HEADER -->
+<div class="report-header">
+  <div class="report-header-inner">
+    <div class="report-issue">📋 第一期</div>
+    <div class="report-title">灵基Build 产品导航设计研究</div>
+    <div class="report-desc">聚焦左侧导航维度，对灵基Build与5款竞品（Claude Code、Codex、QoderWork、WorkBuddy、悟空）进行系统性功能、布局、交互与视觉对比分析，提炼设计问题与优化机会。</div>
+    <div class="report-meta">
+      <div class="report-meta-item"><strong>研究课题：</strong>左侧导航设计研究</div>
+      <div class="report-meta-item"><strong>分析维度：</strong>功能 · 布局 · 交互 · 视觉</div>
+      <div class="report-meta-item"><strong>更新时间：</strong>2026-05-21</div>
+      <div class="report-meta-item"><strong>用户研究员：</strong>林波 · 卢文婵</div>
+    </div>
+    <div class="report-products">
+      <div class="product-chip main">★ 灵基Build（分析主体）</div>
+      <div class="product-chip">Claude Code</div>
+      <div class="product-chip">Codex</div>
+      <div class="product-chip">QoderWork</div>
+      <div class="product-chip">WorkBuddy</div>
+      <div class="product-chip">悟空</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION TABS BAR -->
+<div class="section-tabs-bar">
+  <a href="#overview" class="active" data-section="overview">产品概览</a>
+  <a href="#comparison" data-section="comparison">多维度对比</a>
+  <a href="#deep" data-section="deep">各产品深度分析</a>
+  <a href="#issues" data-section="issues">现存问题</a>
+  <a href="#opportunities" data-section="opportunities">优化机会点</a>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<!-- ===== PART 1: PRODUCT OVERVIEW ===== -->
+<section class="section" id="overview">
+  <div class="section-title"><span class="section-num">1</span>产品概览</div>
+  <div class="product-cards">
+
+    <div class="product-card selected" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/LingjiBuild.png" alt="灵基Build"></div>
+        <div>
+          <div class="card-name">灵基Build</div>
+          <div class="card-type">AI 工程化平台 · 分析主体</div>
+        </div>
+        <div class="card-badge">主体</div>
+      </div>
+      <ul class="card-features">
+        <li>顶部三段式 Tab（对话 / 工作 / 开发）清晰区分任务模式；快捷工具区提供技能开发/智能体/应用开发快速入口</li>
+        <li>支持会话置顶、按日期/项目分组，显示设置面板灵活控制可见范围；彩色圆点提供基础状态可视化</li>
+        <li>支持会话与项目的移动操作，可跨项目迁移；底部集中设置与账户入口</li>
+        <li>当前缺乏会话搜索、右键菜单、时间戳、会话归档及宽度调节；状态圆点无文字标签，可访问性待提升</li>
+      </ul>
+    </div>
+
+    <div class="product-card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/Claude.png" alt="Claude Code"></div>
+        <div>
+          <div class="card-name">Claude Code</div>
+          <div class="card-type">AI 编码 CLI 工具</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>宽度可调（420–855px），顶部 Tab 切换会话/项目，侧边栏可完全折叠收起</li>
+        <li>最强过滤体系：支持按状态/项目/环境/最近活跃时间多维过滤，6种会话分组方式</li>
+        <li>支持拖拽置顶、批量全选操作、归档，会话运行/Fork/Needs input 状态实时可视化</li>
+        <li>右键菜单最丰富（9项，含快捷键提示）；Cmd+B 折叠侧边栏；底部 Plan 状态常驻展示</li>
+      </ul>
+    </div>
+
+    <div class="product-card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/Codex.png" alt="Codex"></div>
+        <div>
+          <div class="card-name">Codex</div>
+          <div class="card-type">AI 代码生成工具</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>宽度可调（480–1040px），最大宽度居同类产品之首，适合多信息并排展示</li>
+        <li>三段式结构：置顶区 → 项目区（可展开收起）→ 对话区，层级关系明确</li>
+        <li>支持对话归档、搜索、右键操作（9项，含复制深度链接/工作目录等开发者专用）；允许对话独立于项目存在</li>
+        <li>列表内展示相对时间戳（如2天前/3周前），无需打开会话即可判断时效；⌘B 折叠快捷键</li>
+      </ul>
+    </div>
+
+    <div class="product-card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/QoderWork.png" alt="QoderWork"></div>
+        <div>
+          <div class="card-name">QoderWork</div>
+          <div class="card-type">AI 任务协作工具</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>宽度可调（495–960px），以「分组（Group）」为核心组织任务，支持频道概念</li>
+        <li>特有「定时任务」专属区块，任务有未读、进行中等多态状态可视化</li>
+        <li>任务与分组均支持右键操作；任务可游离于任何分组之外独立存在</li>
+        <li>搜索、置顶、移动、重命名、删除操作完整，底部设置功能集中</li>
+      </ul>
+    </div>
+
+    <div class="product-card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/WorkBuddy.png" alt="WorkBuddy"></div>
+        <div>
+          <div class="card-name">WorkBuddy</div>
+          <div class="card-type">AI 任务管理工具</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>固定宽度 600px，以「工作空间（Workspace）」为项目单元，层级结构清晰</li>
+        <li>状态过滤粒度最细：5种状态（进行中/已完成/失败/待处理/规划中）+ 日期过滤，任务状态可视化最完整</li>
+        <li>任务可独立于工作空间存在，设归档功能；底部提供新建工作空间快捷入口</li>
+        <li>不支持右键菜单，操作仅通过悬浮态按钮触发；不支持宽度调节</li>
+      </ul>
+    </div>
+
+    <div class="product-card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-avatar"><img src="icons/Wukong.png" alt="悟空"></div>
+        <div>
+          <div class="card-name">悟空</div>
+          <div class="card-type">AI 智能体工具</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>宽度可调（480–800px），顶部设组织切换器，支持多组织/团队间快速切换</li>
+        <li>任务强制归属项目（默认项目/个人项目/自定义项目三类），树形结构清晰；支持一键折叠所有项目</li>
+        <li>任务状态可视化最醒目：色块+文字标签（待授权/进行中/未读），可访问性最佳</li>
+        <li>不支持全局搜索；支持轻量筛选（全部/普通/定时任务）；滚动条设计简洁优雅</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PART 2: MULTI-DIM COMPARISON ===== -->
+<section class="section" id="comparison">
+  <div class="section-title"><span class="section-num">2</span>多维度对比分析</div>
+
+  <div class="product-tabs" id="dim-tabs">
+    <div class="product-tab active" onclick="switchDimTab(this,'dim-panel-1')">功能维度</div>
+    <div class="product-tab" onclick="switchDimTab(this,'dim-panel-2')">布局维度</div>
+    <div class="product-tab" onclick="switchDimTab(this,'dim-panel-3')">交互模式</div>
+    <div class="product-tab" onclick="switchDimTab(this,'dim-panel-4')">视觉表现</div>
+  </div>
+
+  <!-- DIM 1: FEATURES -->
+  <div class="product-panel active" id="dim-panel-1">
+  <div class="dim-section">
+    <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="min-width:160px;">功能点</th>
+          <th>灵基Build</th>
+          <th>Claude Code</th>
+          <th>Codex</th>
+          <th>QoderWork</th>
+          <th>WorkBuddy</th>
+          <th>悟空</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="7">📋 会话 / 任务管理</td></tr>
+        <tr>
+          <td>新建会话/任务</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>会话/全局搜索</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">同时搜索会话和项目</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">含最近访问快捷项</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">顶部常驻搜索框</small></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>会话置顶</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>会话归档</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>会话过滤/排序</td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span></td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span></td>
+        </tr>
+        <tr>
+          <td>会话操作（重命名/删除等）</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>会话状态可视化</td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span><br><small style="color:#999;font-size:11px;">彩色圆点，无文字标签</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">圆点+归档状态</small></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">状态图标</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">圆点+文字标签最醒目</small></td>
+        </tr>
+        <tr>
+          <td>任务独立于项目存在</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="7">📁 项目 / 分组管理</td></tr>
+        <tr>
+          <td>新建项目/文件夹</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>项目/文件夹分组</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>项目操作（重命名/删除/移动）</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="7">📐 侧边栏宽度与布局</td></tr>
+        <tr>
+          <td>宽度自由调整</td>
+          <td class="t-center"><span class="tag-none">✗ 固定560px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 420–855px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 480–1040px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 495–960px</span></td>
+          <td class="t-center"><span class="tag-none">✗ 固定600px</span></td>
+          <td class="t-center"><span class="tag-full">✓ 480–800px</span></td>
+        </tr>
+        <tr>
+          <td>侧边栏折叠</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>顶部 Tab</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="7">⚙️ 工具与入口</td></tr>
+        <tr>
+          <td>账户区/设置（底部）</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>快捷工具入口（插件/技能）</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">技能开发/智能体/应用开发</small></td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span><br><small style="color:#999;font-size:11px;">Routines/Customize</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">插件/自动化入口</small></td>
+          <td class="t-center"><span class="tag-partial">△ 部分</span><br><small style="color:#999;font-size:11px;">左侧图标模式切换</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">Claw/技能/连接器等7项</small></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span><br><small style="color:#999;font-size:11px;">技能中心/定时/频道/发现</small></td>
+        </tr>
+        <tr>
+          <td>滚动条</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>组织/账号切换入口</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>批量选择/操作</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>会话标记为未读</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>会话/任务独立于项目</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="table-legend">
+      <div class="legend-item"><span class="tag-full">✓ 完整支持</span>功能完备，体验完整</div>
+      <div class="legend-item"><span class="tag-partial">△ 部分支持</span>存在但功能有限或交互受限</div>
+      <div class="legend-item"><span class="tag-none">✗ 不支持</span>功能缺失</div>
+      <div class="legend-item"><span class="tag-unknown">——</span>无法通过截图判断</div>
+    </div>
+    <div class="conclusion-box">
+      <strong>功能维度结论：</strong>灵基Build在基础功能层面覆盖完整（新建、置顶、项目管理、折叠），但与竞品相比有3处明显短板：①<strong>缺少会话搜索</strong>，在6款产品中与悟空共同缺失，缺口明显；②<strong>状态可视化仅依赖彩色圆点</strong>，缺少文字标签，悟空采用「图标/色块+文字标签」的双通道设计；③<strong>固定宽度</strong>不可调整，与Codex、QoderWork、Claude Code、悟空形成差距。此外，归档功能的缺失可能导致长期用户的列表管理负担加重；所有会话必须归属项目的限制与 Codex、QoderWork 等产品存在灵活性差距。整体功能密度处于中等水平，有清晰的补全方向。
+    </div>
+  </div>
+  </div><!-- /dim-panel-1 -->
+
+  <!-- DIM 2: LAYOUT -->
+  <div class="product-panel" id="dim-panel-2">
+  <div class="dim-section">
+    <div class="layout-grid">
+
+      <div class="layout-card">
+        <div class="layout-card-title">层级结构对比</div>
+        <p><span class="product-name">灵基Build：</span>顶部 Tab 将「会话」与「项目」切换分离，<strong>二级扁平结构</strong>，层级清晰但信息密度受限</p>
+        <p><span class="product-name">Claude Code：</span>置顶区 + 项目区（内嵌对话）+ 对话区，<strong>三区递进式</strong>，信息层次丰富</p>
+        <p><span class="product-name">Codex：</span>置顶 → 项目（可展开） → 独立对话，<strong>树状三层结构</strong>，层级关系最明确</p>
+        <p><span class="product-name">QoderWork：</span>定时任务区 + 分组区（内嵌任务）+ 最近任务区，<strong>区块并列式</strong>，同层信息分区管理</p>
+        <p><span class="product-name">WorkBuddy：</span>置顶区 + 任务区 + 工作空间区，<strong>三段垂直堆叠</strong>，区块间有明确分隔线</p>
+        <p><span class="product-name">悟空：</span>组织切换（顶部）+ 项目列表（可折叠），<strong>两层结构</strong>，项目为核心容器，任务内嵌其中</p>
+      </div>
+
+      <div class="layout-card">
+        <div class="layout-card-title">空间利用率对比</div>
+        <p><span class="product-name">灵基Build：</span>固定 <strong>560px</strong>，顶部 Tab + 底部设置区占用固定空间，内容区中等；信息密度适中但不可伸缩</p>
+        <p><span class="product-name">Claude Code：</span>420–855px 可调，最小态节省空间，最大态可展示充足上下文；<strong>空间弹性最佳</strong></p>
+        <p><span class="product-name">Codex：</span>480–1040px，最大宽度达 <strong>1040px</strong>，适合双栏信息展示，但超宽时大量空白影响信息密度</p>
+        <p><span class="product-name">QoderWork：</span>495–960px，任务列表利用率高，分组折叠后有效节省纵向空间</p>
+        <p><span class="product-name">WorkBuddy：</span>固定 <strong>600px</strong>，整体偏宽但内容密度高，5态状态色彩（进行中/已完成/失败/待处理/规划中）充分利用了视觉空间</p>
+        <p><span class="product-name">悟空：</span>480–800px，顶部组织切换器占用额外高度，项目折叠机制弥补了纵向空间消耗</p>
+      </div>
+
+      <div class="layout-card">
+        <div class="layout-card-title">顶部区域策略对比</div>
+        <p><span class="product-name">灵基Build：</span>顶部为「会话/项目」<strong>Tab 导航 + 新建按钮</strong>，切换明确，操作入口集中</p>
+        <p><span class="product-name">Claude Code：</span>顶部 Tab 切换 + 折叠/展开按钮 + 全局操作入口，<strong>功能密集但有序</strong></p>
+        <p><span class="product-name">Codex：</span>无顶部 Tab，顶部直接为「新建对话」按钮 + 折叠按钮，<strong>简洁直接</strong>，操作路径短</p>
+        <p><span class="product-name">QoderWork：</span>顶部为「新建任务」按钮 + 搜索入口，<strong>高频操作前置</strong>，效率优先</p>
+        <p><span class="product-name">WorkBuddy：</span>顶部为标题 + 「新建任务」+「过滤」按钮，<strong>三合一操作区</strong>，适合快速开始</p>
+        <p><span class="product-name">悟空：</span>顶部为<strong>组织切换器</strong>（下拉）+ 新建任务按钮，组织切换是独有设计，适合多组织用户</p>
+      </div>
+
+      <div class="layout-card">
+        <div class="layout-card-title">底部区域策略对比</div>
+        <p><span class="product-name">灵基Build：</span>底部为<strong>账户头像 + 设置齿轮</strong>，入口精简集中，但功能入口较少</p>
+        <p><span class="product-name">Claude Code：</span>底部为<strong>主题/字体设置 + 账户 + 更多操作</strong>，功能最丰富，可直接调整 UI 外观</p>
+        <p><span class="product-name">Codex：</span>底部为<strong>账户入口 + 设置</strong>，与灵基类似，简洁规范</p>
+        <p><span class="product-name">QoderWork：</span>底部集中设置，<strong>图标组排列</strong>，视觉简洁，不占用过多空间</p>
+        <p><span class="product-name">WorkBuddy：</span>底部为「新建工作空间」<strong>快捷入口</strong>，将高频创建操作固定在底部，创建工作流顺畅</p>
+        <p><span class="product-name">悟空：</span>底部较简，主要为系统设置图标，<strong>功能密度最低</strong>，界面留白充足</p>
+      </div>
+
+      <div class="layout-card">
+        <div class="layout-card-title">展开/收起机制对比</div>
+        <p><span class="product-name">灵基Build：</span>置顶区与项目区均支持独立展开/收起，<strong>折叠粒度适中</strong>；侧边栏整体可折叠为图标模式</p>
+        <p><span class="product-name">Claude Code：</span>置顶区、项目区可独立折叠；项目内对话可展开；整体侧边栏支持收起，<strong>折叠层级最丰富</strong></p>
+        <p><span class="product-name">Codex：</span>每个项目节点独立展开；整体侧边栏收起后变为图标模式；<strong>内容感知性强</strong></p>
+        <p><span class="product-name">QoderWork：</span>每个分组独立折叠；定时任务、最近任务区块各自可收起；<strong>区块化折叠体验好</strong></p>
+        <p><span class="product-name">WorkBuddy：</span>任务区与工作空间区可独立折叠；整体侧边栏可收起；<strong>功能与灵基相近</strong></p>
+        <p><span class="product-name">悟空：</span>支持「折叠所有项目」一键收起全部；各项目可独立展开；<strong>批量折叠设计独特</strong></p>
+      </div>
+
+      <div class="layout-card">
+        <div class="layout-card-title">信息密度与可读性对比</div>
+        <p><span class="product-name">灵基Build：</span>行高适中，会话名称单行截断，<strong>可读性强</strong>；彩色前缀色块提供视觉辨识，但状态指示仅靠圆点颜色，缺少文字标签，信息维度有提升空间</p>
+        <p><span class="product-name">Claude Code：</span>每行包含状态图标 + 名称 + 操作按钮（悬浮态），<strong>信息维度最丰富</strong>，轻微信息密度压力</p>
+        <p><span class="product-name">Codex：</span>项目层使用较大字号区分，对话层字号缩小，<strong>层级对比明确</strong>，整体清晰</p>
+        <p><span class="product-name">QoderWork：</span>分组标题加粗突出，任务行包含状态徽章，<strong>信息层次分明</strong>，扫描效率高</p>
+        <p><span class="product-name">WorkBuddy：</span>三态颜色标识任务状态，<strong>状态扫描效率最高</strong>；但整体行距略大，纵向空间消耗多</p>
+        <p><span class="product-name">悟空：</span>项目与任务通过缩进区分，<strong>任务状态角标</strong>清晰标记；整体视觉克制，信息密度中等</p>
+      </div>
+
+    </div>
+    <div class="conclusion-box">
+      <strong>布局维度结论：</strong>灵基Build的顶部 Tab 设计是6款产品中较为独特的切换方式（与Claude Code共用），提供了清晰的一级导航，但也带来了信息切换的割裂感——会话与项目无法同屏展示。固定宽度限制了不同使用场景下的适配性。竞品中，<strong>Codex 和 Claude Code 的层级结构最为清晰</strong>，QoderWork 的区块化分区管理效率最高，WorkBuddy 底部固定新建入口的设计值得借鉴，悟空的一键折叠所有项目是差异化亮点。灵基Build需要在「会话与项目共存展示」和「空间弹性」两个方向上重点改进。
+    </div>
+  </div>
+  </div><!-- /dim-panel-2 -->
+
+  <!-- DIM 3: INTERACTION -->
+  <div class="product-panel" id="dim-panel-3">
+  <div class="dim-section">
+    <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="min-width:160px;">交互行为</th>
+          <th>灵基Build</th>
+          <th>Claude Code</th>
+          <th>Codex</th>
+          <th>QoderWork</th>
+          <th>WorkBuddy</th>
+          <th>悟空</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>主要操作触发方式</td>
+          <td class="t-center" style="font-size:12px;">悬浮态按钮</td>
+          <td class="t-center" style="font-size:12px;">悬浮态 + 右键</td>
+          <td class="t-center" style="font-size:12px;">悬浮态 + 右键</td>
+          <td class="t-center" style="font-size:12px;">悬浮态 + 右键</td>
+          <td class="t-center" style="font-size:12px;">悬浮态按钮</td>
+          <td class="t-center" style="font-size:12px;">悬浮态按钮</td>
+        </tr>
+        <tr>
+          <td>右键菜单</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-partial">△ 仅重命名/删除</span></td>
+        </tr>
+        <tr>
+          <td>侧边栏折叠交互</td>
+          <td class="t-center" style="font-size:12px;">按钮点击</td>
+          <td class="t-center" style="font-size:12px;">按钮点击 / Cmd+B</td>
+          <td class="t-center" style="font-size:12px;">按钮点击 / Cmd+B</td>
+          <td class="t-center" style="font-size:12px;">按钮点击</td>
+          <td class="t-center" style="font-size:12px;">按钮点击</td>
+          <td class="t-center" style="font-size:12px;">按钮点击</td>
+        </tr>
+        <tr>
+          <td>侧边栏宽度调整</td>
+          <td class="t-center"><span class="tag-none">✗ 固定</span></td>
+          <td class="t-center"><span class="tag-full">✓ 拖拽调整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 拖拽调整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 拖拽调整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 固定</span></td>
+          <td class="t-center"><span class="tag-full">✓ 拖拽调整</span></td>
+        </tr>
+        <tr>
+          <td>拖拽（置顶/排序）</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 拖拽置顶</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>展开/收起区块</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>过滤/排序</td>
+          <td class="t-center"><span class="tag-partial">△ 分组依据</span></td>
+          <td class="t-center"><span class="tag-full">✓ 多维过滤</span></td>
+          <td class="t-center"><span class="tag-partial">△ 整理排序</span></td>
+          <td class="t-center"><span class="tag-partial">△ 基础过滤</span></td>
+          <td class="t-center"><span class="tag-full">✓ 状态+日期</span></td>
+          <td class="t-center"><span class="tag-partial">△ 基础筛选</span></td>
+        </tr>
+        <tr>
+          <td>Hover 态反馈</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>快捷键新建</td>
+          <td class="t-center"><span class="tag-unknown">——</span></td>
+          <td class="t-center"><span class="tag-full">✓ 支持</span></td>
+          <td class="t-center"><span class="tag-unknown">——</span></td>
+          <td class="t-center"><span class="tag-unknown">——</span></td>
+          <td class="t-center"><span class="tag-unknown">——</span></td>
+          <td class="t-center"><span class="tag-unknown">——</span></td>
+        </tr>
+        <tr>
+          <td>内联重命名</td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+        </tr>
+        <tr>
+          <td>批量选中操作</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完整</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="conclusion-box">
+      <strong>交互模式结论：</strong>灵基Build的交互模式以「悬浮态按钮触发」为核心，与WorkBuddy、悟空一致，属于主流设计。然而，<strong>缺少右键上下文菜单</strong>是与 Claude Code、Codex、QoderWork 的核心差距——右键操作对于高频用户而言是效率神器，能大幅减少鼠标移动距离。<strong>不支持拖拽</strong>也意味着置顶、排序等操作只能通过菜单多步完成，交互路径偏长。在过滤功能上，灵基Build的「分组依据」设计有一定独特性，但维度较少。此外，Claude Code 和 Codex 均支持 Cmd+B 快捷键折叠侧边栏，而灵基Build目前仅支持鼠标点击触发，键盘快捷操作支持不足。总体来看，灵基Build的交互模式对新用户友好，但缺少面向高频用户的效率快捷通道。
+    </div>
+  </div>
+  </div><!-- /dim-panel-3 -->
+
+  <!-- DIM 4: VISUAL -->
+  <div class="product-panel" id="dim-panel-4">
+  <div class="dim-section">
+    <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="min-width:140px;">视觉属性</th>
+          <th>灵基Build</th>
+          <th>Claude Code</th>
+          <th>Codex</th>
+          <th>QoderWork</th>
+          <th>WorkBuddy</th>
+          <th>悟空</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>色彩基调</td>
+          <td class="t-center" style="font-size:12px;">浅色/深色双模</td>
+          <td class="t-center" style="font-size:12px;">深色为主，可切换</td>
+          <td class="t-center" style="font-size:12px;">深色为主</td>
+          <td class="t-center" style="font-size:12px;">深色为主</td>
+          <td class="t-center" style="font-size:12px;">深色为主</td>
+          <td class="t-center" style="font-size:12px;">浅色为主</td>
+        </tr>
+        <tr>
+          <td>层级区分度</td>
+          <td class="t-center"><span class="tag-partial">△ 中等</span></td>
+          <td class="t-center"><span class="tag-full">✓ 强</span></td>
+          <td class="t-center"><span class="tag-full">✓ 强</span></td>
+          <td class="t-center"><span class="tag-full">✓ 强</span></td>
+          <td class="t-center"><span class="tag-partial">△ 中等</span></td>
+          <td class="t-center"><span class="tag-partial">△ 中等</span></td>
+        </tr>
+        <tr>
+          <td>选中状态</td>
+          <td class="t-center" style="font-size:12px;">蓝色高亮背景</td>
+          <td class="t-center" style="font-size:12px;">高亮背景+左边框</td>
+          <td class="t-center" style="font-size:12px;">高亮背景</td>
+          <td class="t-center" style="font-size:12px;">高亮背景+色块</td>
+          <td class="t-center" style="font-size:12px;">高亮背景</td>
+          <td class="t-center" style="font-size:12px;">高亮背景</td>
+        </tr>
+        <tr>
+          <td>标识设计（图标/徽章）</td>
+          <td class="t-center"><span class="tag-partial">△ 彩色前缀色块</span></td>
+          <td class="t-center"><span class="tag-full">✓ 丰富</span></td>
+          <td class="t-center"><span class="tag-partial">△ 基础</span></td>
+          <td class="t-center"><span class="tag-full">✓ 丰富</span></td>
+          <td class="t-center"><span class="tag-full">✓ 丰富</span></td>
+          <td class="t-center"><span class="tag-partial">△ 基础</span></td>
+        </tr>
+        <tr>
+          <td>任务状态指示</td>
+          <td class="t-center"><span class="tag-partial">△ 彩色圆点</span><br><small style="color:#999;font-size:11px;">无文字标签</small></td>
+          <td class="t-center"><span class="tag-full">✓ 运行/归档/Fork</span></td>
+          <td class="t-center"><span class="tag-none">✗ 无</span></td>
+          <td class="t-center"><span class="tag-full">✓ 进行/未读</span></td>
+          <td class="t-center"><span class="tag-full">✓ 完成/进行/警告</span></td>
+          <td class="t-center"><span class="tag-full">✓ 进行/等待授权/未读</span></td>
+        </tr>
+        <tr>
+          <td>时间戳</td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-partial">△ 分组标题</span></td>
+          <td class="t-center"><span class="tag-partial">△ 相对时间</span><br><small style="color:#999;font-size:11px;">如2天前/3周前</small></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+          <td class="t-center"><span class="tag-partial">△ 相对时间</span></td>
+          <td class="t-center"><span class="tag-none">✗ 不支持</span></td>
+        </tr>
+        <tr>
+          <td>字体排版</td>
+          <td class="t-center" style="font-size:12px;">规范，单行截断</td>
+          <td class="t-center" style="font-size:12px;">规范，层级对比强</td>
+          <td class="t-center" style="font-size:12px;">项目/对话字号差异</td>
+          <td class="t-center" style="font-size:12px;">分组加粗，任务常规</td>
+          <td class="t-center" style="font-size:12px;">状态色彩辅助排版</td>
+          <td class="t-center" style="font-size:12px;">简洁，字号较小</td>
+        </tr>
+        <tr>
+          <td>Hover 视觉反馈</td>
+          <td class="t-center"><span class="tag-full">✓ 背景色变化</span></td>
+          <td class="t-center"><span class="tag-full">✓ 背景+按钮显示</span></td>
+          <td class="t-center"><span class="tag-full">✓ 背景+按钮显示</span></td>
+          <td class="t-center"><span class="tag-full">✓ 背景+按钮显示</span></td>
+          <td class="t-center"><span class="tag-full">✓ 背景+按钮显示</span></td>
+          <td class="t-center"><span class="tag-full">✓ 背景色变化</span></td>
+        </tr>
+        <tr>
+          <td>滚动条样式</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，细条</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，标准</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，标准</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，细条</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，标准</td>
+          <td class="t-center" style="font-size:12px;">悬浮显示，极细</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="conclusion-box">
+      <strong>视觉表现结论：</strong>灵基Build视觉整体简洁规范，蓝色高亮选中态清晰可辨，双色模式是差异化优势。但最突出的视觉短板是<strong>缺少任务状态可视化</strong>——会话列表中无任何状态指示，用户无法通过扫视快速感知哪些任务正在运行。对比 Claude Code（运行状态动画）、WorkBuddy（三色状态系统）、悟空（多态角标），灵基Build的会话列表信息维度明显单薄。此外，<strong>标识设计偏基础</strong>，缺少图标、角标等辅助视觉元素，层级区分依赖于缩进与字重，在信息密集时区分度略显不足。
+    </div>
+  </div>
+  </div><!-- /dim-panel-4 -->
+
+</section>
+
+<!-- ===== PART 3: DEEP ANALYSIS ===== -->
+<section class="section" id="deep">
+  <div class="section-title"><span class="section-num">3</span>各产品深度分析</div>
+  <div class="product-tabs">
+    <div class="product-tab active" onclick="switchProductTab(this,'panel-lj')">★ 灵基Build</div>
+    <div class="product-tab" onclick="switchProductTab(this,'panel-cc')">Claude Code</div>
+    <div class="product-tab" onclick="switchProductTab(this,'panel-cx')">Codex</div>
+    <div class="product-tab" onclick="switchProductTab(this,'panel-qw')">QoderWork</div>
+    <div class="product-tab" onclick="switchProductTab(this,'panel-wb')">WorkBuddy</div>
+    <div class="product-tab" onclick="switchProductTab(this,'panel-wk')">悟空</div>
+  </div>
+
+  <!-- 灵基Build Panel -->
+  <div class="product-panel active" id="panel-lj">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/LingjiBuild.png" alt="灵基Build"></div>
+      <div class="panel-name">灵基Build</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">固定宽度 560px</span>
+        <span class="tag-green">顶部Tab导航</span>
+        <span class="tag-green">显示设置面板</span>
+        <span class="tag-green">会话/项目置顶</span>
+        <span class="tag-green">会话移动</span>
+        <span class="tag-red-label">无会话搜索</span>
+        <span class="tag-partial-label">△ 状态仅圆点无标签</span>
+        <span class="tag-red-label">无右键菜单</span>
+        <span class="tag-red-label">无拖拽</span>
+        <span class="tag-red-label">无归档</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_展开状态.png','展开状态')">
+        <img src="screenshots/灵基/灵基Build_侧导航_展开状态.png" alt="展开状态"><div class="ss-label">展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_收起状态.png','收起状态')">
+        <img src="screenshots/灵基/灵基Build_侧导航_收起状态.png" alt="收起状态"><div class="ss-label">收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_置顶、项目_展开状态.png','置顶+项目展开')">
+        <img src="screenshots/灵基/灵基Build_侧导航_置顶、项目_展开状态.png" alt="置顶+项目展开"><div class="ss-label">置顶+项目展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_置顶、项目_收起状态.png','置顶+项目收起')">
+        <img src="screenshots/灵基/灵基Build_侧导航_置顶、项目_收起状态.png" alt="置顶+项目收起"><div class="ss-label">置顶+项目收起</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_会话_不同状态.png','会话不同状态')">
+        <img src="screenshots/灵基/灵基Build_侧导航_会话_不同状态.png" alt="会话不同状态"><div class="ss-label">会话不同状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_会话_操作.png','会话操作菜单')">
+        <img src="screenshots/灵基/灵基Build_侧导航_会话_操作.png" alt="会话操作菜单"><div class="ss-label">会话操作菜单</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_会话_悬浮态.png','会话悬浮态')">
+        <img src="screenshots/灵基/灵基Build_侧导航_会话_悬浮态.png" alt="会话悬浮态"><div class="ss-label">会话悬浮态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_会话_置顶前.png','置顶前')">
+        <img src="screenshots/灵基/灵基Build_侧导航_会话_置顶前.png" alt="置顶前"><div class="ss-label">置顶前</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_会话_置顶后.png','置顶后')">
+        <img src="screenshots/灵基/灵基Build_侧导航_会话_置顶后.png" alt="置顶后"><div class="ss-label">置顶后</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_项目_操作.png','项目操作')">
+        <img src="screenshots/灵基/灵基Build_侧导航_项目_操作.png" alt="项目操作"><div class="ss-label">项目操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_项目_悬浮态.png','项目悬浮态')">
+        <img src="screenshots/灵基/灵基Build_侧导航_项目_悬浮态.png" alt="项目悬浮态"><div class="ss-label">项目悬浮态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_显示设置_分组依据_按日期.png','分组按日期')">
+        <img src="screenshots/灵基/灵基Build_侧导航_显示设置_分组依据_按日期.png" alt="分组按日期"><div class="ss-label">分组：按日期</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_显示设置_分组依据_按项目.png','分组按项目')">
+        <img src="screenshots/灵基/灵基Build_侧导航_显示设置_分组依据_按项目.png" alt="分组按项目"><div class="ss-label">分组：按项目</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_显示设置_显示所有项目.png','显示所有项目')">
+        <img src="screenshots/灵基/灵基Build_侧导航_显示设置_显示所有项目.png" alt="显示所有项目"><div class="ss-label">显示所有项目</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_移动会话.png','移动会话')">
+        <img src="screenshots/灵基/灵基Build_侧导航_移动会话.png" alt="移动会话"><div class="ss-label">移动会话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_设置功能.png','设置功能')">
+        <img src="screenshots/灵基/灵基Build_侧导航_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_固定宽度560.png','固定宽度560')">
+        <img src="screenshots/灵基/灵基Build_侧导航_固定宽度560.png" alt="固定宽度560"><div class="ss-label">固定宽度560px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/灵基/灵基Build_侧导航_顶部Tab的选中态&悬浮态.png','顶部Tab')">
+        <img src="screenshots/灵基/灵基Build_侧导航_顶部Tab的选中态&悬浮态.png" alt="顶部Tab"><div class="ss-label">顶部Tab状态</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>灵基Build的左侧导航整体结构清晰，顶部三段式 Tab（对话 / 工作 / 开发），是6款产品中与Claude Code共同采用的差异化设计。</p>
+      <p>在视觉层面，灵基Build的会话列表采用<strong>彩色前缀色块</strong>（绿/橙/蓝/紫）区分会话角色或类型，视觉辨识度较高，是6款产品中独有的设计语言。在显示设置方面，灵基Build提供了「分组依据（按日期/按项目/无）」和「显示项目范围」两套控制维度，是同类产品中<strong>显示自定义能力较强</strong>的设计，有效应对了会话量增长后的管理需求。会话和项目的移动操作也是一个实用的差异化能力，支持跨项目迁移工作内容。</p>
+      <p>然而，当前版本存在<span class="disadvantage">数个明显功能缺口</span>。最突出的是<strong>缺少会话搜索</strong>——这是6款产品中唯一不具备的，当会话数量积累后用户查找效率将大幅下降。其次，会话列表虽然使用<strong>彩色圆点</strong>进行状态指示，但<strong>缺少文字标签</strong>，依赖色觉感知状态；相较于 Claude Code、WorkBuddy、悟空等产品的图标+文字组合方案，可读性较弱，多任务并行时认知负担仍然偏高。</p>
+      <p>交互层面，<strong>不支持右键菜单和拖拽操作</strong>，所有操作均需通过悬浮态按钮触发，高频用户的效率路径偏长。固定宽度 560px 在大屏显示器上可能显得偏窄，也无法适配不同工作习惯的用户。底部设置区设计简洁规范，账户与设置入口集中，符合行业惯例。</p>
+      <p>综合来看，灵基Build的导航设计在<span class="advantage">结构清晰性、显示控制灵活性和彩色前缀色块的视觉辨识度</span>上有一定特色；但在搜索、状态感知（圆点升级为文字标签）、高效交互（右键菜单/快捷键）以及无项目会话灵活性等方向上与竞品有明显差距，是产品成熟度提升的优先方向。</p>
+    </div>
+  </div>
+
+  <!-- Claude Code Panel -->
+  <div class="product-panel" id="panel-cc">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/Claude.png" alt="Claude Code"></div>
+      <div class="panel-name">Claude Code</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">宽度可调 420–855px</span>
+        <span class="tag-green">多维过滤/排序</span>
+        <span class="tag-green">右键上下文菜单</span>
+        <span class="tag-green">拖拽置顶</span>
+        <span class="tag-green">批量全选操作</span>
+        <span class="tag-green">归档功能</span>
+        <span class="tag-green">运行状态可视化</span>
+        <span class="tag-green">主题/字体设置</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_切换边栏_展开状态.png','展开状态')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_切换边栏_展开状态.png" alt="展开状态"><div class="ss-label">展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_切换边栏-收起状态.png','收起状态')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_切换边栏-收起状态.png" alt="收起状态"><div class="ss-label">收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_置顶、项目_展开状态.png','置顶+项目')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_置顶、项目_展开状态.png" alt="置顶+项目"><div class="ss-label">置顶+项目展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_对话操作.png','对话操作')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_对话操作.png" alt="对话操作"><div class="ss-label">对话操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_对话运行状态.png','运行状态')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_对话运行状态.png" alt="运行状态"><div class="ss-label">运行状态可视化</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_对话_置顶前.png','置顶前')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_对话_置顶前.png" alt="置顶前"><div class="ss-label">置顶前</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_对话_置顶后.png','置顶后')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_对话_置顶后.png" alt="置顶后"><div class="ss-label">置顶后</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_拖拽置顶.png','拖拽置顶')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_拖拽置顶.png" alt="拖拽置顶"><div class="ss-label">拖拽置顶</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_归档状态.png','归档状态')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_归档状态.png" alt="归档状态"><div class="ss-label">归档状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_搜索对话和项目.png','搜索')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_搜索对话和项目.png" alt="搜索"><div class="ss-label">搜索会话和项目</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式.png','过滤面板')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式.png" alt="过滤面板"><div class="ss-label">过滤面板</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式按日期.png','按日期分组')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式按日期.png" alt="按日期分组"><div class="ss-label">按日期分组</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式按状态.png','按状态分组')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式按状态.png" alt="按状态分组"><div class="ss-label">按状态分组</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_全选.png','全选')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_全选.png" alt="全选"><div class="ss-label">批量全选</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_fork状态.png','Fork状态')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_fork状态.png" alt="Fork状态"><div class="ss-label">Fork 状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_最小宽度420.png','最小宽度420')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_最小宽度420.png" alt="最小宽度420"><div class="ss-label">最小宽度 420px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_最大宽度855.png','最大宽度855')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_最大宽度855.png" alt="最大宽度855"><div class="ss-label">最大宽度 855px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Claude Code/Claude Code_侧导航_设置功能.png','设置功能')">
+        <img src="screenshots/Claude Code/Claude Code_侧导航_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>Claude Code 的左侧导航是6款产品中<span class="advantage">功能最完整、交互最丰富</span>的设计。宽度可调（420–855px）让用户在不同屏幕尺寸下都能找到最适合的使用空间，而右键上下文菜单的引入则大幅提升了键鼠配合的操作效率。</p>
+      <p>最突出的是其<strong>多维度过滤与分组系统</strong>：支持按日期、项目、状态、环境4个维度分组，并提供排序方式选择，是所有竞品中过滤能力最强的产品。这对于有大量并发任务的开发者而言是核心价值所在。</p>
+      <p><strong>会话状态可视化</strong>设计十分完善：运行中任务有动态指示，Fork 状态有专属标记，归档状态清晰区分——用户无需点开任何对话即可从列表扫视掌握全局任务状态。</p>
+      <p>拖拽置顶是同类产品中唯一支持的设计，直观且高效。批量全选操作则面向大量任务清理或管理的场景，大幅降低重复操作成本。底部设置区还内置了主题与字体切换，让个性化配置触手可及。</p>
+      <p>不足之处在于功能密度较高，对新用户存在一定学习曲线；部分场景下顶部操作区信息量略显拥挤。但总体来说，Claude Code 的导航设计是明确面向<strong>高频率、重度使用场景</strong>打磨的产品，是灵基Build最重要的对标参考。</p>
+    </div>
+  </div>
+
+  <!-- Codex Panel -->
+  <div class="product-panel" id="panel-cx">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/Codex.png" alt="Codex"></div>
+      <div class="panel-name">Codex</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">宽度可调 480–1040px</span>
+        <span class="tag-green">树状三层结构</span>
+        <span class="tag-green">右键上下文菜单</span>
+        <span class="tag-green">会话归档</span>
+        <span class="tag-green">项目内新建对话</span>
+        <span class="tag-green">任务独立于项目</span>
+        <span class="tag-red-label">无状态可视化</span>
+        <span class="tag-partial-label">△ 过滤能力基础</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_置顶、项目、对话全展开.png','全展开')">
+        <img src="screenshots/Codex/Codex_侧导航_置顶、项目、对话全展开.png" alt="全展开"><div class="ss-label">全展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_置顶、项目、对话全收起.png','全收起')">
+        <img src="screenshots/Codex/Codex_侧导航_置顶、项目、对话全收起.png" alt="全收起"><div class="ss-label">全收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_项目展开.png','项目展开')">
+        <img src="screenshots/Codex/Codex_侧导航_项目展开.png" alt="项目展开"><div class="ss-label">项目展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_对话操作.png','对话操作')">
+        <img src="screenshots/Codex/Codex_侧导航_对话操作.png" alt="对话操作"><div class="ss-label">对话操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_项目操作.png','项目操作')">
+        <img src="screenshots/Codex/Codex_侧导航_项目操作.png" alt="项目操作"><div class="ss-label">项目操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_置顶对话.png','置顶对话')">
+        <img src="screenshots/Codex/Codex_侧导航_置顶对话.png" alt="置顶对话"><div class="ss-label">置顶对话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_归档对话1.png','归档对话')">
+        <img src="screenshots/Codex/Codex_侧导航_归档对话1.png" alt="归档对话"><div class="ss-label">归档对话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_搜索对话.png','搜索对话')">
+        <img src="screenshots/Codex/Codex_侧导航_搜索对话.png" alt="搜索对话"><div class="ss-label">搜索对话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_项目中对话设置.png','项目中对话设置')">
+        <img src="screenshots/Codex/Codex_侧导航_项目中对话设置.png" alt="项目中对话设置"><div class="ss-label">项目内对话设置</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_在当前项目开始新对话.png','项目内新建')">
+        <img src="screenshots/Codex/Codex_侧导航_在当前项目开始新对话.png" alt="项目内新建"><div class="ss-label">项目内新建对话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_最小宽度480.png','最小宽度480')">
+        <img src="screenshots/Codex/Codex_侧导航_最小宽度480.png" alt="最小宽度480"><div class="ss-label">最小宽度 480px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_最大宽度1040.png','最大宽度1040')">
+        <img src="screenshots/Codex/Codex_侧导航_最大宽度1040.png" alt="最大宽度1040"><div class="ss-label">最大宽度 1040px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_显示_整理侧边栏.png','整理侧边栏')">
+        <img src="screenshots/Codex/Codex_侧导航_显示_整理侧边栏.png" alt="整理侧边栏"><div class="ss-label">整理侧边栏</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_切换边栏_展开状态.png','切换边栏展开')">
+        <img src="screenshots/Codex/Codex_侧导航_切换边栏_展开状态.png" alt="切换边栏展开"><div class="ss-label">边栏切换展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/Codex/Codex_侧导航_设置功能.png','设置功能')">
+        <img src="screenshots/Codex/Codex_侧导航_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>Codex 采用了清晰的<strong>树状三层结构</strong>：置顶区 → 项目区（可展开收起）→ 独立对话区，层级关系在所有竞品中最为直观。用户能立刻理解内容的组织方式，学习成本低。</p>
+      <p>最大宽度 <strong>1040px</strong> 是6款产品中最宽的，为项目名称与对话标题的充分展示提供了充足空间。右键上下文菜单覆盖了项目和对话两个层级，操作效率高。允许对话不归属任何项目的设计增加了使用灵活性，适合随手记录式的非结构化工作流。</p>
+      <p>归档功能完整，可帮助用户管理历史对话而不占据主列表空间。「整理侧边栏」功能是一个独特设计，允许用户批量管理项目排序，适合项目数量较多的用户。</p>
+      <p>不足在于<strong>对话列表缺少状态可视化</strong>，无法从侧边栏感知任务运行状态；<strong>过滤与排序能力属于基础水平</strong>，虽支持整理侧边栏进行排序调整，但不及 Claude Code 的多维过滤系统全面。总体而言，Codex 是结构清晰、适合中度使用者的稳健设计。</p>
+    </div>
+  </div>
+
+  <!-- QoderWork Panel -->
+  <div class="product-panel" id="panel-qw">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/QoderWork.png" alt="QoderWork"></div>
+      <div class="panel-name">QoderWork</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">宽度可调 495–960px</span>
+        <span class="tag-green">分组管理体系</span>
+        <span class="tag-green">定时任务专区</span>
+        <span class="tag-green">右键上下文菜单</span>
+        <span class="tag-green">任务状态可视化</span>
+        <span class="tag-green">频道内对话</span>
+        <span class="tag-green">搜索功能</span>
+        <span class="tag-red-label">无归档</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_展开状态.png','展开状态')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_展开状态.png" alt="展开状态"><div class="ss-label">展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_收起状态.png','收起状态')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_收起状态.png" alt="收起状态"><div class="ss-label">收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_定时任务、分组、最近任务_展开状态.png','全展开')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_定时任务、分组、最近任务_展开状态.png" alt="全展开"><div class="ss-label">定时任务/分组展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_分组_展开状态.png','分组展开')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_分组_展开状态.png" alt="分组展开"><div class="ss-label">分组展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_任务操作.png','任务操作')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_任务操作.png" alt="任务操作"><div class="ss-label">任务操作菜单</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_分组操作.png','分组操作')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_分组操作.png" alt="分组操作"><div class="ss-label">分组操作菜单</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_任务置顶.png','任务置顶')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_任务置顶.png" alt="任务置顶"><div class="ss-label">任务置顶</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_任务未读状态.png','未读状态')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_任务未读状态.png" alt="未读状态"><div class="ss-label">未读状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_任务进行状态.png','进行状态')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_任务进行状态.png" alt="进行状态"><div class="ss-label">进行状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_搜索会话.png','搜索')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_搜索会话.png" alt="搜索"><div class="ss-label">搜索会话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_创建新任务.png','创建新任务')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_创建新任务.png" alt="创建新任务"><div class="ss-label">创建新任务</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_频道中的对话.png','频道中对话')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_频道中的对话.png" alt="频道中对话"><div class="ss-label">频道中的对话</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_最小宽度495.png','最小宽度495')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_最小宽度495.png" alt="最小宽度495"><div class="ss-label">最小宽度 495px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_最大宽度960.png','最大宽度960')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_最大宽度960.png" alt="最大宽度960"><div class="ss-label">最大宽度 960px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/QoderWork/QoderWork_侧边栏_设置功能.png','设置功能')">
+        <img src="screenshots/QoderWork/QoderWork_侧边栏_设置功能.png" alt="设置功能"><div class="ss-label">底部设置</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>QoderWork 以<strong>分组（Group）为核心组织单元</strong>，在6款产品中引入了「定时任务」专属区块——这一设计对于有定期执行任务需求的用户是独特价值，将时间维度直接融入导航结构。</p>
+      <p>任务状态可视化做得较为完整，<strong>未读状态</strong>（新消息角标）和<strong>进行中状态</strong>（动态指示）让用户无需逐一点开即可感知任务活跃程度。频道（Channel）概念的引入使得对话既可以是独立任务，也可以是某个主题频道中的子对话，信息组织更灵活。</p>
+      <p>右键菜单覆盖任务和分组两个层级，搜索功能覆盖全局，操作效率优秀。任务可游离于分组之外的设计适合快速捕获想法的使用场景。</p>
+      <p>不足方面，<strong>缺少归档功能</strong>，历史任务只能删除而无法归档保存；过滤能力属于基础水平，不支持多维度复合过滤。整体来看，QoderWork 的设计更面向<strong>协作型、重度任务管理</strong>场景，在分组管理与状态感知上有明显优势。</p>
+    </div>
+  </div>
+
+  <!-- WorkBuddy Panel -->
+  <div class="product-panel" id="panel-wb">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/WorkBuddy.png" alt="WorkBuddy"></div>
+      <div class="panel-name">WorkBuddy</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">固定宽度 600px</span>
+        <span class="tag-green">三态状态可视化</span>
+        <span class="tag-green">按状态/日期过滤</span>
+        <span class="tag-green">会话归档</span>
+        <span class="tag-green">工作空间管理</span>
+        <span class="tag-green">任务独立于工作空间</span>
+        <span class="tag-red-label">无右键菜单</span>
+        <span class="tag-red-label">宽度固定</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_展开状态.png','展开状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_展开状态.png" alt="展开状态"><div class="ss-label">展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_收起状态.png','收起状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_收起状态.png" alt="收起状态"><div class="ss-label">收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_初始状态.png','初始状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_初始状态.png" alt="初始状态"><div class="ss-label">初始状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_任务进行状态.png','进行状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_任务进行状态.png" alt="进行状态"><div class="ss-label">任务进行中</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_任务完成状态.png','完成状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_任务完成状态.png" alt="完成状态"><div class="ss-label">任务完成</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_警告状态.png','警告状态')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_警告状态.png" alt="警告状态"><div class="ss-label">警告状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_操作.png','任务操作')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_操作.png" alt="任务操作"><div class="ss-label">任务操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_归档.png','任务归档')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_归档.png" alt="任务归档"><div class="ss-label">归档任务</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_过滤_按状态.png','按状态过滤')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_过滤_按状态.png" alt="按状态过滤"><div class="ss-label">按状态过滤</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_过滤_按日期.png','按日期过滤')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_过滤_按日期.png" alt="按日期过滤"><div class="ss-label">按日期过滤</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_置顶前.png','置顶前')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_置顶前.png" alt="置顶前"><div class="ss-label">置顶前</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_置顶后.png','置顶后')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_置顶后.png" alt="置顶后"><div class="ss-label">置顶后</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_工作空间_操作.png','工作空间操作')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_工作空间_操作.png" alt="工作空间操作"><div class="ss-label">工作空间操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_新建工作空间.png','新建工作空间')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_新建工作空间.png" alt="新建工作空间"><div class="ss-label">新建工作空间</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度600.png','固定宽度600')">
+        <img src="screenshots/WorkBuddy/WorkBuddy_侧边栏_固定宽度600.png" alt="固定宽度600"><div class="ss-label">固定宽度 600px</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>WorkBuddy 的设计亮点在于<strong>任务状态三色系统</strong>：进行中（蓝色/动态）、完成（绿色/勾选）、警告（红色/感叹号）三态清晰区分，用户扫视列表即可快速掌握任务健康状况，这是所有竞品中状态可视化<strong>视觉辨识度最高</strong>的设计。</p>
+      <p>双维度过滤（按状态、按日期）设计实用，覆盖了大多数用户的主要管理需求。工作空间（Workspace）概念清晰，底部固定「新建工作空间」快捷入口设计值得借鉴，将高频创建操作固定在视觉稳定区域，减少用户寻找成本。</p>
+      <p>任务归档功能完整，既支持「任务区」的独立任务，也支持「工作空间」内任务的分层管理。搜索结果展示也经过专门设计，高亮匹配内容。</p>
+      <p>不足在于<strong>固定宽度 600px</strong> 不可调整；<strong>不支持右键菜单</strong>，所有操作需通过悬浮态按钮触发，高频用户效率受限。整体设计风格偏向<strong>任务管理工具</strong>，对新用户非常友好，适合轻中度使用场景。</p>
+    </div>
+  </div>
+
+  <!-- 悟空 Panel -->
+  <div class="product-panel" id="panel-wk">
+    <div class="product-panel-header">
+      <div class="panel-avatar"><img src="icons/Wukong.png" alt="悟空"></div>
+      <div class="panel-name">悟空</div>
+      <div class="tags-row">
+        <span class="tag-gray-label">宽度可调 480–800px</span>
+        <span class="tag-green">组织切换器</span>
+        <span class="tag-green">多态任务状态</span>
+        <span class="tag-green">一键折叠所有项目</span>
+        <span class="tag-green">任务筛选</span>
+        <span class="tag-green">新建任务/项目</span>
+        <span class="tag-red-label">无置顶</span>
+        <span class="tag-red-label">无会话搜索</span>
+        <span class="tag-partial-label">△ 右键仅重命名/删除</span>
+        <span class="tag-red-label">无归档</span>
+      </div>
+    </div>
+    <div class="screenshot-gallery">
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_展开状态.png','展开状态')">
+        <img src="screenshots/悟空/悟空_侧导航_展开状态.png" alt="展开状态"><div class="ss-label">展开状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_收起状态.png','收起状态')">
+        <img src="screenshots/悟空/悟空_侧导航_收起状态.png" alt="收起状态"><div class="ss-label">收起状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_初始状态.png','初始状态')">
+        <img src="screenshots/悟空/悟空_侧导航_初始状态.png" alt="初始状态"><div class="ss-label">初始状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_组织切换.png','组织切换')">
+        <img src="screenshots/悟空/悟空_侧导航_组织切换.png" alt="组织切换"><div class="ss-label">组织切换器</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_项目_展开状态.png','项目展开')">
+        <img src="screenshots/悟空/悟空_侧导航_项目_展开状态.png" alt="项目展开"><div class="ss-label">项目展开</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_项目_操作.png','项目操作')">
+        <img src="screenshots/悟空/悟空_侧导航_项目_操作.png" alt="项目操作"><div class="ss-label">项目操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_任务_操作.png','任务操作')">
+        <img src="screenshots/悟空/悟空_侧导航_任务_操作.png" alt="任务操作"><div class="ss-label">任务操作</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_任务_进行状态.png','进行状态')">
+        <img src="screenshots/悟空/悟空_侧导航_任务_进行状态.png" alt="进行状态"><div class="ss-label">任务进行中</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_任务_等待授权.png','等待授权')">
+        <img src="screenshots/悟空/悟空_侧导航_任务_等待授权.png" alt="等待授权"><div class="ss-label">等待授权状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_未读状态.png','未读状态')">
+        <img src="screenshots/悟空/悟空_侧导航_未读状态.png" alt="未读状态"><div class="ss-label">未读状态</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_筛选任务.png','筛选任务')">
+        <img src="screenshots/悟空/悟空_侧导航_筛选任务.png" alt="筛选任务"><div class="ss-label">筛选任务</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_折叠所有项目.png','折叠所有项目')">
+        <img src="screenshots/悟空/悟空_侧导航_折叠所有项目.png" alt="折叠所有项目"><div class="ss-label">一键折叠所有项目</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_添加新项目.png','添加新项目')">
+        <img src="screenshots/悟空/悟空_侧导航_添加新项目.png" alt="添加新项目"><div class="ss-label">添加新项目</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_最小宽度480.png','最小宽度480')">
+        <img src="screenshots/悟空/悟空_侧导航_最小宽度480.png" alt="最小宽度480"><div class="ss-label">最小宽度 480px</div></div>
+      <div class="screenshot-item" onclick="openLightbox('screenshots/悟空/悟空_侧导航_最大宽度800.png','最大宽度800')">
+        <img src="screenshots/悟空/悟空_侧导航_最大宽度800.png" alt="最大宽度800"><div class="ss-label">最大宽度 800px</div></div>
+    </div>
+    <div class="analysis-text">
+      <p>悟空的最大差异化设计是<strong>顶部组织切换器</strong>——在6款产品中唯一将「组织/团队」切换整合进侧边栏顶部，适合需要在多个组织账号间工作的企业用户，是典型的<strong>面向团队协作场景</strong>的设计决策。</p>
+      <p>任务状态可视化涵盖<strong>进行中、等待授权、未读消息</strong>三种状态，其中「等待授权」是最具特色的状态——明确提示用户某项任务因权限问题暂停，帮助用户快速定位需要人工干预的任务，减少盲目等待。</p>
+      <p>「一键折叠所有项目」设计在项目数量较多时极为实用，用户可以快速清空视野，专注于当前工作。宽度可调（480–800px）覆盖了主流使用场景，弹性适中。</p>
+      <p>不足在于<strong>不支持置顶</strong>，在会话历史较长时快速访问常用任务的路径较长；<strong>右键菜单仅支持重命名/删除两项基础操作</strong>（不及 Claude Code、Codex、QoderWork 完整的右键菜单能力），且<strong>缺少归档功能</strong>，与深度用户的操作习惯有差距；此外，悟空也不支持全局搜索，与灵基Build同存此缺口。整体设计简洁克制，面向<strong>多组织管理和协作驱动</strong>的场景，视觉风格清爽，新用户友好。</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== PART 4: ISSUES ===== -->
+<section class="section" id="issues">
+  <div class="section-title"><span class="section-num">4</span>灵基Build 现存问题</div>
+
+  <!-- I1 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I1</div>
+      <div class="issue-title">缺少会话搜索功能，长列表下查找效率极低</div>
+      <div class="issue-tags">
+        <span class="tag-severity-high">高 · 优先</span>
+        <span class="tag-category">产品功能</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">当用户的会话数量积累至数十条乃至数百条时（特别是长期用户），无法通过搜索快速定位历史会话，只能依赖记忆或手动滚动浏览，严重影响使用效率。灵基Build是本次分析6款产品中<strong>唯二不支持会话搜索</strong>的产品，这一功能缺口对高频用户的留存有直接负面影响。</div>
+        <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><strong>Claude Code、Codex、QoderWork、WorkBuddy</strong>均支持全局搜索（Claude Code 和 Codex 支持同时搜索对话与项目）；<strong>悟空</strong>同样不支持全局搜索，灵基Build与悟空在此功能上存在相同缺口</span></div>
+  </div>
+
+  <!-- I2 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I2</div>
+      <div class="issue-title">状态可视化仅依赖彩色圆点，缺少文字标签，色觉感知负担高</div>
+      <div class="issue-tags">
+        <span class="tag-severity-high">高 · 优先</span>
+        <span class="tag-category">产品功能</span>
+        <span class="tag-category">视觉表现</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">灵基Build已使用彩色圆点（●）在会话列表中提示状态，但<strong>仅凭颜色区分状态存在两个关键问题</strong>：① 色觉辨识受屏幕色温、环境光线影响，对色觉障碍用户不友好；② 颜色含义缺乏明确文字说明，新用户需要学习映射关系。多任务并行时（如同时有3条进行中的会话），用户仍需逐一点开确认详细状态，认知负担较高。竞品中悟空产品采用图标+文字标签的双通道设计（如"等待授权"），可同时满足视觉扫描效率与可读性。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（运行/归档/Fork状态动态指示）、<strong>WorkBuddy</strong>（进行/完成/警告三色系统）、<strong>悟空</strong>（进行中/等待授权/未读角标）、<strong>QoderWork</strong>（进行中/未读状态）</div>
+  </div>
+
+  <!-- I3 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I3</div>
+      <div class="issue-title">固定宽度 560px 不可调整，无法适配不同屏幕与使用习惯</div>
+      <div class="issue-tags">
+        <span class="tag-severity-mid">中</span>
+        <span class="tag-category">交互体验</span>
+        <span class="tag-category">产品功能</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">固定宽度 560px 在小屏幕（如 13 英寸笔记本）上占据主内容区较大比例，而在大屏显示器上则显得信息密度偏低，缺乏充分利用屏幕空间的能力。用户无法根据个人偏好或工作场景调整侧边栏宽度，灵活性不足。与WorkBuddy相同，是仅有的两款不支持宽度调整的产品。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（420–855px）、<strong>Codex</strong>（480–1040px）、<strong>QoderWork</strong>（495–960px）、<strong>悟空</strong>（480–800px）均支持拖拽调整宽度</div>
+  </div>
+
+  <!-- I4 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I4</div>
+      <div class="issue-title">缺少右键上下文菜单，高频操作路径冗长</div>
+      <div class="issue-tags">
+        <span class="tag-severity-mid">中</span>
+        <span class="tag-category">交互体验</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">所有会话和项目操作（重命名、置顶、删除、移动）均需通过悬浮态时出现的操作按钮触发，用户需要将鼠标精准移入目标行才能显示操作入口，再点击触发操作。高频用户在大量重复操作时效率低，且对于熟练用户而言缺少键鼠快捷路径。右键菜单能将操作路径从「移入 → 点击按钮 → 选择操作」缩短为「右键 → 选择」。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code、Codex、QoderWork</strong> 均支持对话/项目右键操作</div>
+  </div>
+
+  <!-- I5 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I5</div>
+      <div class="issue-title">缺少会话归档功能，历史会话只能删除无法保留</div>
+      <div class="issue-tags">
+        <span class="tag-severity-mid">中</span>
+        <span class="tag-category">产品功能</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">随着使用时间增长，会话列表会不断积累历史内容。在没有归档功能的情况下，用户只能在「保留所有历史」（列表冗长）与「删除旧会话」（永久丢失）之间二选一。对于有查阅历史记录需求的用户，这是一个明显的功能缺口。归档作为「软删除」机制，能有效清理主列表同时保留重要历史。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code、Codex、WorkBuddy</strong> 均支持归档功能</div>
+  </div>
+
+  <!-- I6 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I6</div>
+      <div class="issue-title">不支持拖拽操作，置顶/排序交互路径偏长</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">交互体验</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">将某条会话置顶或调整项目排序，目前需要通过操作菜单多步完成（移入 → 点击三点 → 选置顶）。而拖拽交互支持用户直接将条目拖到目标位置，符合「直接操控」的交互原则，对熟练用户而言更直觉、更高效。特别是对多个项目的排序调整，拖拽是最自然的方式。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持拖拽置顶（其他竞品均不支持拖拽排序）</div>
+  </div>
+
+  <!-- I7 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I7</div>
+      <div class="issue-title">缺少批量选择与操作，大量任务管理效率低</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">产品功能</span>
+        <span class="tag-category">交互体验</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">当用户需要清理大量旧会话（如删除上周的所有测试性会话）时，只能逐条操作，每条操作需要2-3次点击，清理20条需要40-60次操作。批量选择与批量删除/归档/移动功能可大幅降低此类管理任务的操作成本，是会话数量积累后的强需求。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持全选并批量操作（归档/删除），是6款产品中唯一实现批量操作的产品</div>
+  </div>
+
+  <!-- I8 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I8</div>
+      <div class="issue-title">视觉层级区分度中等，项目与会话的视觉权重差异不够突出</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">视觉表现</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">在项目视图中，当多个项目同时展开时，项目标题与其下属会话的视觉区分度依赖缩进和字重，但在内容量大时仍容易产生扫描混淆。用户需要更强的视觉线索（如颜色标记、图标、背景色块）来快速识别层级边界，特别是在快速浏览时。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（项目使用加粗+背景区分）、<strong>QoderWork</strong>（分组标题加粗+色块）、<strong>Codex</strong>（项目层字号更大）</div>
+  </div>
+
+  <!-- I9 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I9</div>
+      <div class="issue-title">缺少快捷键创建新会话，高频操作路径依赖鼠标</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">交互体验</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">创建新会话是用户最高频的操作之一，目前需要通过鼠标点击顶部「新建」按钮完成。对于键盘习惯型用户（开发者用户比例较高），缺少快捷键支持意味着每次创建都需要切换到鼠标操作，打断工作流。虽然此问题优先级较低，但对目标用户群（开发者）的影响高于一般产品。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持快捷键创建新对话</div>
+  </div>
+
+  <!-- I10 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I10</div>
+      <div class="issue-title">所有会话必须归属于项目，缺乏 Inbox / 无项目会话机制</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">产品功能</span>
+        <span class="tag-category">交互体验</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">灵基Build中的每条会话必须关联一个项目才能创建或存在，缺乏「无项目会话」或「收件箱（Inbox）」机制。在实际工作中，用户常有探索性、临时性的对话需求，在这些场景下强制关联项目会增加操作摩擦。特别是初次使用的用户，可能还未建立项目体系，被强制要求先建项目会造成上手阻力。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Codex、QoderWork、WorkBuddy</strong> 均支持创建不属于任何项目的独立任务/会话；<strong>Claude Code、悟空</strong> 与灵基Build相同，均要求项目归属</div>
+  </div>
+
+  <!-- I11 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I11</div>
+      <div class="issue-title">会话列表缺少时间信息，用户无法感知历史会话的时序</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">视觉表现</span>
+        <span class="tag-category">产品功能</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">会话列表中没有显示会话的创建时间或最后活跃时间，当用户有多条命名相似的历史会话时，难以通过时间信息辅助定位目标会话。竞品（Codex、QoderWork）已采用相对时间（「2天前」「3周前」）的方式在列表中展示时间信息，信息成本低、直觉感强；Claude Code 则通过日期分组标题（「今天」「昨天」「上周」）传达时序信息。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Codex</strong>（相对时间显示于会话右侧）、<strong>QoderWork</strong>（灰色小字相对时间）、<strong>Claude Code</strong>（日期分组标题传达时序）</div>
+  </div>
+
+  <!-- I12 -->
+  <div class="issue-item">
+    <div class="issue-header">
+      <div class="issue-num">I12</div>
+      <div class="issue-title">底部账户区信息量少，功能入口扩展性受限</div>
+      <div class="issue-tags">
+        <span class="tag-severity-low">低</span>
+        <span class="tag-category">产品功能</span>
+        <span class="tag-category">视觉表现</span>
+      </div>
+      <div class="issue-vote">
+        <button class="vote-btn agree" onclick="vote(this,'agree')">👍 认可 <span class="vote-count">0</span></button>
+        <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="issue-desc">灵基Build底部区域仅展示账户头像 + 设置齿轮，信息层次极简，但也导致缺少对常用功能的快速入口（如通知、快捷键说明、版本信息、帮助文档等）。随着产品功能扩展，底部区域可承载更多高频但次要操作的入口，当前设计的扩展空间有限。</div>
+    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（底部含主题/字体设置、账户、更多操作，功能最丰富）、<strong>WorkBuddy</strong>（底部固定「新建工作空间」快捷入口）</div>
+  </div>
+
+
+</section>
+
+<!-- ===== PART 5: OPPORTUNITIES ===== -->
+<section class="section" id="opportunities">
+  <div class="section-title"><span class="section-num">5</span>灵基Build 优化机会点</div>
+
+  <!-- O1 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O1</div>
+      <div class="opp-title">引入全局会话搜索功能</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I1</strong><br>
+      短期建议：在侧边栏顶部区域（新建按钮旁）增加搜索入口（🔍图标或搜索框），点击后展开搜索输入框，支持会话标题的模糊匹配搜索，搜索结果实时显示并高亮匹配关键词。<br><br>
+      长期建议：扩展搜索范围至项目名称、会话内容摘要；支持过滤搜索结果（如「仅在当前项目中搜索」）；探索⌘K/Ctrl+K 全局命令面板，将搜索和快速跳转整合为一个统一入口，提升整体产品效率感。<br><br>
+      取舍考量：搜索框占用顶部空间，需平衡与 Tab 和新建按钮的布局关系；建议默认折叠为图标，点击展开，避免顶部区域过于拥挤。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Codex</strong>（搜索与对话/项目同时搜索的整合体验）、<strong>Claude Code</strong>（搜索结果实时响应设计）</div>
+  </div>
+
+  <!-- O2 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O2</div>
+      <div class="opp-title">将状态圆点升级为图标+文字标签的双通道设计</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+        <span class="tag-opp-cat">视觉表现</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I2</strong><br>
+      现状说明：灵基Build已有彩色圆点状态指示，但仅依靠颜色表达状态，无文字标签辅助，可访问性和可读性不足。<br><br>
+      短期建议：在彩色圆点旁增加文字标签（如「运行中」「已完成」「需要输入」），或在 Hover 时显示状态 Tooltip，实现「颜色+文字」双通道感知；同时为运行中状态添加微动效（旋转/波纹），使实时进度更直观。<br><br>
+      长期建议：根据灵基Build的业务特点扩展状态类型（如「等待工具调用」「等待用户确认」「发生错误」），并支持按状态过滤会话列表，构建完整的任务状态感知体系。<br><br>
+      取舍考量：文字标签会增加行高或需要压缩会话名称显示区域，应做好响应式截断处理；可参考 Claude Code 的「Needs input」标签方案——仅在有特殊状态时显示标签，默认不显示，减少视觉噪音。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（运行状态动态指示）、<strong>WorkBuddy</strong>（三态颜色系统）、<strong>悟空</strong>（等待授权状态设计）</div>
+  </div>
+
+  <!-- O3 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O3</div>
+      <div class="opp-title">支持侧边栏宽度拖拽调整</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">交互体验</span>
+        <span class="tag-opp-cat">产品功能</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I3</strong><br>
+      短期建议：在侧边栏与内容区的分隔线上增加拖拽调整能力，鼠标移近分隔线时显示双向箭头光标，允许用户拖拽调整宽度。建议设定最小宽度 420px（保证核心功能可用）、最大宽度 800px（避免占用过多内容区）。<br><br>
+      长期建议：记住用户上次设定的宽度并在下次启动时恢复；可探索「紧凑模式」（小于 480px 时自动隐藏部分信息，如只显示会话图标不显示名称）。<br><br>
+      取舍考量：固定宽度在视觉一致性上有优势，改为可调需要对折叠/展开动画、内容截断逻辑进行相应调整，开发成本中等。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（420–855px，弹性最好）、<strong>悟空</strong>（480–800px，范围合理克制）</div>
+  </div>
+
+  <!-- O4 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O4</div>
+      <div class="opp-title">引入右键上下文菜单</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I4</strong><br>
+      短期建议：为会话条目和项目条目分别添加右键上下文菜单，菜单内容与现有悬浮态操作保持一致（重命名、置顶/取消置顶、移动、删除），无需增加新功能。<br><br>
+      长期建议：上下文菜单支持键盘导航（方向键选择、回车确认、ESC关闭），使快捷键用户也能全程不离键盘地完成操作；考虑在菜单项旁显示快捷键提示（如Delete键删除）。<br><br>
+      取舍考量：右键菜单在触屏设备上不适用，需确保触屏用户仍有良好的操作体验（悬浮态按钮作为降级方案保留）。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（右键菜单丰富且与悬浮态操作并行）、<strong>Codex</strong>（对话和项目两级右键菜单设计规范）</div>
+  </div>
+
+  <!-- O5 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O5</div>
+      <div class="opp-title">增加会话归档功能</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I5</strong><br>
+      短期建议：在会话操作菜单中增加「归档」选项，归档后的会话从主列表隐藏但不删除，并在底部或设置中提供「已归档」入口供用户查看和恢复。支持单条归档和批量归档。<br><br>
+      长期建议：支持自动归档策略（如超过30天未活跃的会话自动归档），用户可在设置中配置。归档列表支持搜索和恢复，确保历史数据不会真正丢失。<br><br>
+      取舍考量：归档会增加数据存储和列表管理的复杂度，需要评估对后端存储架构的影响。从用户价值来看，归档是使用深度增加后的强需求，建议在产品中期版本引入。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（归档后在列表中有专属状态显示）、<strong>Codex</strong>（归档对话可随时恢复）</div>
+  </div>
+
+  <!-- O6 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O6</div>
+      <div class="opp-title">支持拖拽置顶与项目排序</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I6</strong><br>
+      短期建议：支持在置顶区内拖拽调整置顶会话的顺序；支持通过拖拽将会话从普通列表拖入置顶区完成置顶操作，提供直观的「拖入即置顶」体验。<br><br>
+      长期建议：扩展至项目列表排序（拖拽调整项目在侧边栏中的上下位置），替代现有的通过菜单排序的间接方式。<br><br>
+      取舍考量：拖拽实现需要处理边界态（拖至区域外如何处理）、触屏兼容等问题，工程成本中等。建议先实现置顶区内的排序拖拽，再扩展至跨区域拖拽。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（拖拽置顶设计交互流畅，有明显的拖拽视觉反馈）</div>
+  </div>
+
+  <!-- O7 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O7</div>
+      <div class="opp-title">引入批量选择与批量操作能力</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I7</strong><br>
+      短期建议：在会话列表顶部增加「全选/取消全选」操作，选中状态下展示批量操作工具栏（归档、删除），支持Shift+单击选中范围。<br><br>
+      长期建议：支持跨项目批量移动（将多条会话批量迁移到某个项目），以及按条件批量归档（如「归档30天前的所有会话」）。<br><br>
+      取舍考量：批量操作需要配合归档功能（O5）一起实现才有完整价值；如归档暂不实现，批量操作的价值将局限于批量删除。建议与归档功能同期规划。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（全选按钮 + 批量操作工具栏设计，是同类产品唯一实现的）</div>
+  </div>
+
+  <!-- O8 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O8</div>
+      <div class="opp-title">强化视觉层级区分，增加项目/会话的辅助视觉标识</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">视觉表现</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I8</strong><br>
+      短期建议：为项目标题行增加更明显的视觉权重（更大字号 or 背景色块 or 左侧色条），与会话行形成更强的视觉层级对比；为不同项目提供可选的颜色标签或图标标记，辅助快速识别。<br><br>
+      长期建议：建立完整的图标语言体系，为不同类型的会话（代码、分析、对话等）提供语义化图标，提升列表的信息密度与可读性；支持用户自定义项目颜色标记。<br><br>
+      取舍考量：过多的视觉标识可能产生噪音，应遵循「最小必要原则」——只在有显著区分价值的地方引入视觉差异。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>QoderWork</strong>（分组标题加粗+背景色块区分）、<strong>Codex</strong>（项目层字号和字重明显大于对话层）</div>
+  </div>
+
+  <!-- O9 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O9</div>
+      <div class="opp-title">增加新建会话快捷键支持</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I9</strong><br>
+      短期建议：为「新建会话」绑定快捷键（建议 ⌘N / Ctrl+N），在快捷键触发后直接聚焦到新会话的输入框，让用户全程不需要触碰鼠标即可开始新对话。在按钮的悬浮 Tooltip 中显示快捷键提示，帮助用户发现该功能。<br><br>
+      长期建议：建立统一的快捷键体系，包括切换侧边栏焦点、在会话列表中上下选择、打开搜索等，形成完整的键盘操作闭环。在设置中提供快捷键一览表。<br><br>
+      取舍考量：快捷键需要避免与操作系统/浏览器快捷键冲突，且需提供用户自定义绑定的能力（长期）。此功能开发成本低，但对目标用户（开发者）的感知价值高，性价比突出。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（快捷键新建对话，并在 UI 中有明确的快捷键提示）</div>
+  </div>
+
+  <!-- O10 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O10</div>
+      <div class="opp-title">引入 Inbox / 无项目会话机制，降低新建摩擦</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+        <span class="tag-opp-cat">交互体验</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I10</strong><br>
+      短期建议：在「会话」Tab 下增加一个「收件箱（Inbox）」虚拟容器，允许用户创建不属于任何项目的临时会话；这些会话可以在后续通过「移动」操作归入特定项目，实现「先创建后归类」的工作流。<br><br>
+      长期建议：探索「智能归类」辅助功能，基于会话内容自动推荐可关联的项目，降低手动分类的认知负担；支持批量将 Inbox 会话移入项目。<br><br>
+      取舍考量：引入 Inbox 概念会改变现有的「项目必选」信息架构，需要评估对数据模型的影响；建议以可选功能形式推出，允许团队管理员设定是否强制要求项目归属。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Codex</strong>（对话可独立存在，不强制归入项目）、<strong>QoderWork</strong>（任务可不属于任何项目）</div>
+  </div>
+
+  <!-- O11 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O11</div>
+      <div class="opp-title">在会话列表增加相对时间戳显示</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">视觉表现</span>
+        <span class="tag-opp-cat">产品功能</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I11</strong><br>
+      短期建议：在会话名称右侧以灰色小字显示相对时间（如「2天前」「3周前」），默认常驻显示；采用相对时间而非绝对时间，减少阅读成本（「3天前」比「2024-01-15」更直觉）。<br><br>
+      长期建议：支持在「显示设置」中开关时间戳显示，满足不同密度偏好的用户；支持排序方式选择（按最近活跃 vs. 按创建时间），让时间戳与排序功能联动。<br><br>
+      取舍考量：时间戳会增加每行的视觉信息量，需在会话名称截断长度与时间戳之间做权衡；建议时间戳字号不大于 11px，颜色使用辅助色（#999/灰色），避免与主体内容竞争注意力。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Codex</strong>（会话右侧相对时间，2天前/3周前）</div>
+  </div>
+
+  <!-- O12 -->
+  <div class="opp-item">
+    <div class="opp-header">
+      <div class="opp-num">O12</div>
+      <div class="opp-title">丰富底部账户区，增加常用功能快捷入口</div>
+      <div class="tags-row">
+        <span class="tag-opp-cat">产品功能</span>
+        <span class="tag-opp-cat">视觉表现</span>
+      </div>
+      <div class="opp-vote" style="margin-left:auto;">
+        <button class="opp-vote-btn adopt" onclick="oppVote(this,'adopt')">✓ 采纳 <span class="vote-count">0</span></button>
+        <button class="opp-vote-btn reject" onclick="oppVote(this,'reject')">✗ 不采纳 <span class="vote-count">0</span></button>
+      </div>
+    </div>
+    <div class="opp-body">
+      <strong>对应问题：I12</strong><br>
+      短期建议：在底部账户区扩展展示内容，如：当前账户名称/Plan信息（对应 Claude Code 的 Plan 标签）、快捷键帮助入口（? 图标）、版本或更新通知；既提升信息密度，也减少用户进入账户设置的频率。<br><br>
+      长期建议：支持底部区域的可配置性，让用户可以将常用功能（如「切换主题」「查看配额」）固定到底部快捷区；借鉴 WorkBuddy「新建工作空间」的思路，将高频场景入口固定在视觉稳定区域。<br><br>
+      取舍考量：底部区域空间有限，增加内容需要权衡布局紧凑性；建议优先展示 Plan 信息（对付费用户有直接价值），其余入口以图标+Tooltip 形式呈现，减少文字占用。
+    </div>
+    <div class="opp-ref">📎 参考借鉴：<strong>Claude Code</strong>（底部含 Plan 标签+账户+设置多入口）、<strong>WorkBuddy</strong>（底部固定高频创建入口）</div>
+  </div>
+
+
+</section>
+
+</div><!-- /main-content -->
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-label" id="lightbox-label"></div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+// ===== Firebase 投票数据持久化配置 =====
+// 步骤：
+// 1) 访问 https://console.firebase.google.com/ 创建新项目
+// 2) 在项目中选择「构建」→「Firestore Database」→「创建数据库」→ 选择「测试模式」启动
+// 3) 在项目设置（齿轮图标）→「常规」→「您的应用」→ 选择Web应用 → 注册应用
+// 4) 将下方 firebaseConfig 中的占位符替换为你获得的真实配置值
+// 5) Firestore 安全规则建议设置为：
+//    rules_version = '2';
+//    service cloud.firestore {
+//      match /databases/{database}/documents {
+//        match /votes/{itemId} {
+//          allow read: if true;
+//          allow write: if true;
+//        }
+//      }
+//    }
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY_HERE",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// ===== Firebase 初始化 =====
+let firebaseReady = false;
+let db = null;
+try {
+  if (firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE') {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    firebaseReady = true;
+    console.log('Firebase 初始化成功，投票数据将持久化存储');
+  } else {
+    console.warn('Firebase 未配置，投票数据仅在本地浏览器中存储，无法跨用户累加');
+  }
+} catch (e) {
+  console.warn('Firebase 初始化失败:', e);
+}
+
+// ===== 投票数据持久化工具函数 =====
+const VOTE_STORAGE_KEY = 'lingji_build_votes';
+const COLLECTION_NAME = 'votes';
+
+function getUserVotes() {
+  try { return JSON.parse(localStorage.getItem(VOTE_STORAGE_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveUserVotes(votes) {
+  localStorage.setItem(VOTE_STORAGE_KEY, JSON.stringify(votes));
+}
+
+// 从 Firebase 加载所有投票计数并更新页面显示
+async function loadVoteCountsFromFirebase() {
+  if (!firebaseReady) return;
+  try {
+    const snapshot = await db.collection(COLLECTION_NAME).get();
+    snapshot.forEach(doc => {
+      const id = doc.id;
+      const data = doc.data();
+      if (id.startsWith('I')) {
+        document.querySelectorAll('.issue-item').forEach(item => {
+          if (item.querySelector('.issue-num')?.textContent === id) {
+            const vd = item.querySelector('.issue-vote');
+            if (vd) {
+              vd.querySelector('.vote-btn.agree .vote-count').textContent = Math.max(0, data.agree || 0);
+              vd.querySelector('.vote-btn.disagree .vote-count').textContent = Math.max(0, data.disagree || 0);
+            }
+          }
+        });
+      } else if (id.startsWith('O')) {
+        document.querySelectorAll('.opp-item').forEach(item => {
+          if (item.querySelector('.opp-num')?.textContent === id) {
+            const vd = item.querySelector('.opp-vote');
+            if (vd) {
+              vd.querySelector('.opp-vote-btn.adopt .vote-count').textContent = Math.max(0, data.adopt || 0);
+              vd.querySelector('.opp-vote-btn.reject .vote-count').textContent = Math.max(0, data.reject || 0);
+            }
+          }
+        });
+      }
+    });
+  } catch(e) { console.warn('从 Firebase 加载投票数据失败:', e); }
+}
+
+// 恢复用户自身投票状态（基于 localStorage）
+function restoreUserVoteStates() {
+  const userVotes = getUserVotes();
+  document.querySelectorAll('.issue-item').forEach(item => {
+    const id = item.querySelector('.issue-num')?.textContent;
+    if (!id) return;
+    const vd = item.querySelector('.issue-vote');
+    if (!vd) return;
+    vd.querySelector('.vote-btn.agree').classList.toggle('active', userVotes[id] === 'agree');
+    vd.querySelector('.vote-btn.disagree').classList.toggle('active', userVotes[id] === 'disagree');
+  });
+  document.querySelectorAll('.opp-item').forEach(item => {
+    const id = item.querySelector('.opp-num')?.textContent;
+    if (!id) return;
+    const vd = item.querySelector('.opp-vote');
+    if (!vd) return;
+    vd.querySelector('.opp-vote-btn.adopt').classList.toggle('active', userVotes[id] === 'adopt');
+    vd.querySelector('.opp-vote-btn.reject').classList.toggle('active', userVotes[id] === 'reject');
+  });
+}
+
+// Tab active state
+function setActiveTab(el) {
+  document.querySelectorAll('.section-tabs-bar a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Scroll-based tab highlight
+window.addEventListener('scroll', () => {
+  const sections = ['overview','comparison','deep','issues','opportunities'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  document.querySelectorAll('.section-tabs-bar a').forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('data-section') === current) a.classList.add('active');
+  });
+});
+
+// Product card toggle
+function toggleCard(card) {
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+
+// Dim tab switch (Part 2)
+function switchDimTab(tabEl, panelId) {
+  document.querySelectorAll('#dim-tabs .product-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#dim-panel-1,#dim-panel-2,#dim-panel-3,#dim-panel-4').forEach(p => p.classList.remove('active'));
+  tabEl.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// Product deep tab switch
+function switchProductTab(tabEl, panelId) {
+  document.querySelectorAll('#deep .product-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.product-panel').forEach(p => {
+    if (!p.id.startsWith('dim-panel')) p.classList.remove('active');
+  });
+  tabEl.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// Lightbox
+function openLightbox(src, label) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-label').textContent = label;
+  lb.classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Vote for issues (Firebase持久化版本)
+async function vote(btn, type) {
+  const issueItem = btn.closest('.issue-item');
+  const itemId = issueItem.querySelector('.issue-num').textContent;
+  const parent = btn.closest('.issue-vote');
+  const agreeBtn = parent.querySelector('.vote-btn.agree');
+  const disagreeBtn = parent.querySelector('.vote-btn.disagree');
+  const agreeCount = agreeBtn.querySelector('.vote-count');
+  const disagreeCount = disagreeBtn.querySelector('.vote-count');
+
+  const userVotes = getUserVotes();
+  const currentVote = userVotes[itemId] || null;
+  let agreeDelta = 0, disagreeDelta = 0;
+
+  if (type === 'agree') {
+    if (currentVote === 'agree') {
+      // 取消认可
+      agreeDelta = -1;
+      agreeBtn.classList.remove('active');
+      delete userVotes[itemId];
+    } else {
+      // 认可（可能从「不认可」切换过来）
+      if (currentVote === 'disagree') {
+        disagreeDelta = -1;
+        disagreeBtn.classList.remove('active');
+      }
+      agreeDelta = 1;
+      agreeBtn.classList.add('active');
+      userVotes[itemId] = 'agree';
+    }
+  } else {
+    if (currentVote === 'disagree') {
+      // 取消不认可
+      disagreeDelta = -1;
+      disagreeBtn.classList.remove('active');
+      delete userVotes[itemId];
+    } else {
+      // 不认可（可能从「认可」切换过来）
+      if (currentVote === 'agree') {
+        agreeDelta = -1;
+        agreeBtn.classList.remove('active');
+      }
+      disagreeDelta = 1;
+      disagreeBtn.classList.add('active');
+      userVotes[itemId] = 'disagree';
+    }
+  }
+
+  // 更新 DOM 计数
+  agreeCount.textContent = Math.max(0, parseInt(agreeCount.textContent) + agreeDelta);
+  disagreeCount.textContent = Math.max(0, parseInt(disagreeCount.textContent) + disagreeDelta);
+
+  // 保存用户投票状态到 localStorage
+  saveUserVotes(userVotes);
+
+  // 异步更新 Firebase（累加数据）
+  if (firebaseReady) {
+    try {
+      await db.collection(COLLECTION_NAME).doc(itemId).set({
+        agree: firebase.firestore.FieldValue.increment(agreeDelta),
+        disagree: firebase.firestore.FieldValue.increment(disagreeDelta)
+      }, { merge: true });
+    } catch(e) { console.warn('Firebase投票更新失败:', e); }
+  }
+}
+
+// Vote for opportunities (Firebase持久化版本)
+async function oppVote(btn, type) {
+  const oppItem = btn.closest('.opp-item');
+  const itemId = oppItem.querySelector('.opp-num').textContent;
+  const parent = btn.closest('.opp-vote');
+  const adoptBtn = parent.querySelector('.opp-vote-btn.adopt');
+  const rejectBtn = parent.querySelector('.opp-vote-btn.reject');
+  const adoptCount = adoptBtn.querySelector('.vote-count');
+  const rejectCount = rejectBtn.querySelector('.vote-count');
+
+  const userVotes = getUserVotes();
+  const currentVote = userVotes[itemId] || null;
+  let adoptDelta = 0, rejectDelta = 0;
+
+  if (type === 'adopt') {
+    if (currentVote === 'adopt') {
+      // 取消采纳
+      adoptDelta = -1;
+      adoptBtn.classList.remove('active');
+      delete userVotes[itemId];
+    } else {
+      // 采纳（可能从「不采纳」切换过来）
+      if (currentVote === 'reject') {
+        rejectDelta = -1;
+        rejectBtn.classList.remove('active');
+      }
+      adoptDelta = 1;
+      adoptBtn.classList.add('active');
+      userVotes[itemId] = 'adopt';
+    }
+  } else {
+    if (currentVote === 'reject') {
+      // 取消不采纳
+      rejectDelta = -1;
+      rejectBtn.classList.remove('active');
+      delete userVotes[itemId];
+    } else {
+      // 不采纳（可能从「采纳」切换过来）
+      if (currentVote === 'adopt') {
+        adoptDelta = -1;
+        adoptBtn.classList.remove('active');
+      }
+      rejectDelta = 1;
+      rejectBtn.classList.add('active');
+      userVotes[itemId] = 'reject';
+    }
+  }
+
+  // 更新 DOM 计数
+  adoptCount.textContent = Math.max(0, parseInt(adoptCount.textContent) + adoptDelta);
+  rejectCount.textContent = Math.max(0, parseInt(rejectCount.textContent) + rejectDelta);
+
+  // 保存用户投票状态到 localStorage
+  saveUserVotes(userVotes);
+
+  // 异步更新 Firebase（累加数据）
+  if (firebaseReady) {
+    try {
+      await db.collection(COLLECTION_NAME).doc(itemId).set({
+        adopt: firebase.firestore.FieldValue.increment(adoptDelta),
+        reject: firebase.firestore.FieldValue.increment(rejectDelta)
+      }, { merge: true });
+    } catch(e) { console.warn('Firebase投票更新失败:', e); }
+  }
+}
+
+// Smooth scroll for section tab links
+document.querySelectorAll('.section-tabs-bar a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    setActiveTab(a);
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ===== 页面加载时：恢复投票状态 + 加载Firebase累加数据 =====
+restoreUserVoteStates();
+loadVoteCountsFromFirebase();
+</script>
+</body>
+</html>
