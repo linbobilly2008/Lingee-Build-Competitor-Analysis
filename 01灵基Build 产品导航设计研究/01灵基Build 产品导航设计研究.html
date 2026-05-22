@@ -205,6 +205,26 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
   .product-cards { grid-template-columns: 1fr; }
   .screenshot-gallery { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ===== REF PRODUCT CHIP ===== */
+.ref-product { color: var(--primary); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; font-weight: 700; white-space: nowrap; transition: opacity .15s; }
+.ref-product:hover { opacity: 0.7; }
+
+/* ===== REF SCREENSHOT MODAL ===== */
+.ref-modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.65); align-items: center; justify-content: center; }
+.ref-modal-overlay.open { display: flex; }
+.ref-modal { background: #fff; border-radius: 14px; max-width: 880px; width: 92vw; max-height: 92vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.ref-modal-header { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.ref-modal-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.ref-modal-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+.ref-modal-close { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text-secondary); padding: 0 2px; line-height: 1; }
+.ref-modal-close:hover { color: var(--text); }
+.ref-modal-body { overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ref-modal-body img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.12); display: block; }
+.ref-modal-nav { display: flex; align-items: center; gap: 16px; }
+.ref-modal-nav button { background: var(--primary); color: #fff; border: none; border-radius: 6px; width: 32px; height: 32px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity .15s; }
+.ref-modal-nav button:hover { opacity: 0.8; }
+.ref-modal-nav span { font-size: 13px; color: var(--text-secondary); min-width: 48px; text-align: center; }
 </style>
 </head>
 <body>
@@ -1290,7 +1310,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">当用户的会话数量积累至数十条乃至数百条时（特别是长期用户），无法通过搜索快速定位历史会话，只能依赖记忆或手动滚动浏览，严重影响使用效率。灵基Build是本次分析6款产品中<strong>唯二不支持会话搜索</strong>的产品，这一功能缺口对高频用户的留存有直接负面影响。</div>
-        <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><strong>Claude Code、Codex、QoderWork、WorkBuddy</strong>均支持全局搜索（Claude Code 和 Codex 支持同时搜索对话与项目）；<strong>悟空</strong>同样不支持全局搜索，灵基Build与悟空在此功能上存在相同缺口</span></div>
+        <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_搜索对话和项目.png'], '侧导航 · 搜索对话和项目')">Claude Code</span>、<span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_搜索对话.png'], '侧导航 · 搜索对话')">Codex</span>、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_搜索会话.png'], '侧边栏 · 搜索会话')">QoderWork</span>、<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_搜索结果.png'], '侧边栏 · 搜索结果')">WorkBuddy</span> 均支持全局搜索（Claude Code 和 Codex 支持同时搜索对话与项目）；<strong>悟空</strong>同样不支持全局搜索，灵基Build与悟空在此功能上存在相同缺口</span></div>
   </div>
 
   <!-- I2 -->
@@ -1309,7 +1329,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">灵基Build已使用彩色圆点（●）在会话列表中提示状态，但<strong>仅凭颜色区分状态存在两个关键问题</strong>：① 色觉辨识受屏幕色温、环境光线影响，对色觉障碍用户不友好；② 颜色含义缺乏明确文字说明，新用户需要学习映射关系。多任务并行时（如同时有3条进行中的会话），用户仍需逐一点开确认详细状态，认知负担较高。竞品中悟空产品采用图标+文字标签的双通道设计（如"等待授权"），可同时满足视觉扫描效率与可读性。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（运行/归档/Fork状态动态指示）、<strong>WorkBuddy</strong>（进行/完成/警告三色系统）、<strong>悟空</strong>（进行中/等待授权/未读角标）、<strong>QoderWork</strong>（进行中/未读状态）</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><strong>Claude Code</strong>（<span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_对话运行状态.png'], '侧导航 · 对话运行状态')">运行</span>/<span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_归档状态.png'], '侧导航 · 归档状态')">归档</span>/<span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_fork状态.png'], '侧导航 · Fork状态')">Fork</span>状态动态指示）、<strong>WorkBuddy</strong>（<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_任务进行状态.png'], '侧边栏 · 任务进行状态')">进行</span>/<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_任务完成状态.png'], '侧边栏 · 任务完成状态')">完成</span>/<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_警告状态.png'], '侧边栏 · 警告状态')">警告</span>三色系统）、<strong>悟空</strong>（<span class="ref-product" onclick="showRefScreenshots('悟空', ['screenshots/悟空/悟空_侧导航_任务_进行状态.png'], '侧导航 · 任务进行状态')">进行中</span>/<span class="ref-product" onclick="showRefScreenshots('悟空', ['screenshots/悟空/悟空_侧导航_任务_等待授权.png'], '侧导航 · 任务等待授权')">等待授权</span>/<span class="ref-product" onclick="showRefScreenshots('悟空', ['screenshots/悟空/悟空_侧导航_未读状态.png'], '侧导航 · 未读角标')">未读角标</span>）、<strong>QoderWork</strong>（<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_任务进行状态.png'], '侧边栏 · 任务进行状态')">进行中</span>/<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_任务未读状态.png'], '侧边栏 · 任务未读状态')">未读状态</span>）</span></div>
   </div>
 
   <!-- I3 -->
@@ -1328,7 +1348,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">固定宽度 280px 在小屏幕（如 13 英寸笔记本）上占据主内容区较大比例，而在大屏显示器上则显得信息密度偏低，缺乏充分利用屏幕空间的能力。用户无法根据个人偏好或工作场景调整侧边栏宽度，灵活性不足。与WorkBuddy相同，是仅有的两款不支持宽度调整的产品。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（210-430px）、<strong>Codex</strong>（240–520px）、<strong>QoderWork</strong>（248-480px）、<strong>悟空</strong>（240-400px）均支持拖拽调整宽度</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_最小宽度420.png','screenshots/Claude Code/Claude Code_侧导航_最大宽度855.png'], '侧导航 · 宽度范围 210-430px')">Claude Code</span>（210-430px）、<span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_最小宽度480.png','screenshots/Codex/Codex_侧导航_最大宽度1040.png'], '侧导航 · 宽度范围 240–520px')">Codex</span>（240–520px）、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_最小宽度495.png','screenshots/QoderWork/QoderWork_侧边栏_最大宽度960.png'], '侧边栏 · 宽度范围 248-480px')">QoderWork</span>（248-480px）、<span class="ref-product" onclick="showRefScreenshots('悟空', ['screenshots/悟空/悟空_侧导航_最小宽度480.png','screenshots/悟空/悟空_侧导航_最大宽度800.png'], '侧导航 · 宽度范围 240-400px')">悟空</span>（240-400px）均支持拖拽调整宽度</span></div>
   </div>
 
   <!-- I4 -->
@@ -1346,7 +1366,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">所有会话和项目操作（重命名、置顶、删除、移动）均需通过悬浮态时出现的操作按钮触发，用户需要将鼠标精准移入目标行才能显示操作入口，再点击触发操作。高频用户在大量重复操作时效率低，且对于熟练用户而言缺少键鼠快捷路径。右键菜单能将操作路径从「移入 → 点击按钮 → 选择操作」缩短为「右键 → 选择」。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code、Codex、QoderWork</strong> 均支持对话/项目右键操作</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_对话操作.png'], '侧导航 · 对话右键操作')">Claude Code</span>、<span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_对话操作.png','screenshots/Codex/Codex_侧导航_项目操作.png'], '侧导航 · 对话/项目右键操作')">Codex</span>、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_任务操作.png'], '侧边栏 · 任务右键操作')">QoderWork</span> 均支持对话/项目右键操作</span></div>
   </div>
 
   <!-- I5 -->
@@ -1364,7 +1384,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">随着使用时间增长，会话列表会不断积累历史内容。在没有归档功能的情况下，用户只能在「保留所有历史」（列表冗长）与「删除旧会话」（永久丢失）之间二选一。对于有查阅历史记录需求的用户，这是一个明显的功能缺口。归档作为「软删除」机制，能有效清理主列表同时保留重要历史。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code、Codex、WorkBuddy</strong> 均支持归档功能</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_归档状态.png'], '侧导航 · 归档状态')">Claude Code</span>、<span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_归档对话1.png','screenshots/Codex/Codex_侧导航_归档对话2.png'], '侧导航 · 归档对话')">Codex</span>、<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_归档.png'], '侧边栏 · 任务归档')">WorkBuddy</span> 均支持归档功能</span></div>
   </div>
 
   <!-- I6 -->
@@ -1382,7 +1402,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">将某条会话置顶或调整项目排序，目前需要通过操作菜单多步完成（移入 → 点击三点 → 选置顶）。而拖拽交互支持用户直接将条目拖到目标位置，符合「直接操控」的交互原则，对熟练用户而言更直觉、更高效。特别是对多个项目的排序调整，拖拽是最自然的方式。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持拖拽置顶（其他竞品均不支持拖拽排序）</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_拖拽置顶.png'], '侧导航 · 拖拽置顶')">Claude Code</span> 支持拖拽置顶（其他竞品均不支持拖拽排序）</span></div>
   </div>
 
   <!-- I7 -->
@@ -1401,7 +1421,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">当用户需要清理大量旧会话（如删除上周的所有测试性会话）时，只能逐条操作，每条操作需要2-3次点击，清理20条需要40-60次操作。批量选择与批量删除/归档/移动功能可大幅降低此类管理任务的操作成本，是会话数量积累后的强需求。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持全选并批量操作（归档/删除），是6款产品中唯一实现批量操作的产品</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_全选.png','screenshots/Claude Code/Claude Code_侧导航_全选操作.png'], '侧导航 · 全选与批量操作')">Claude Code</span> 支持全选并批量操作（归档/删除），是6款产品中唯一实现批量操作的产品</span></div>
   </div>
 
   <!-- I8 -->
@@ -1419,7 +1439,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">在项目视图中，当多个项目同时展开时，项目标题与其下属会话的视觉区分度依赖缩进和字重，但在内容量大时仍容易产生扫描混淆。用户需要更强的视觉线索（如颜色标记、图标、背景色块）来快速识别层级边界，特别是在快速浏览时。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（项目使用加粗+背景区分）、<strong>QoderWork</strong>（分组标题加粗+色块）、<strong>Codex</strong>（项目层字号更大）</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_置顶、项目_展开状态.png'], '侧导航 · 项目使用加粗+背景区分')">Claude Code</span>（项目使用加粗+背景区分）、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_分组_展开状态.png'], '侧边栏 · 分组标题加粗+色块')">QoderWork</span>（分组标题加粗+色块）、<span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_项目展开.png'], '侧导航 · 项目层字号更大')">Codex</span>（项目层字号更大）</span></div>
   </div>
 
   <!-- I9 -->
@@ -1437,7 +1457,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">创建新会话是用户最高频的操作之一，目前需要通过鼠标点击顶部「新建」按钮完成。对于键盘习惯型用户（开发者用户比例较高），缺少快捷键支持意味着每次创建都需要切换到鼠标操作，打断工作流。虽然此问题优先级较低，但对目标用户群（开发者）的影响高于一般产品。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong> 支持快捷键创建新对话</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_新建快捷键.png'], '侧导航 · 新建快捷键')">Claude Code</span> 支持快捷键创建新对话</span></div>
   </div>
 
   <!-- I10 -->
@@ -1456,7 +1476,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">灵基Build中的每条会话必须关联一个项目才能创建或存在，缺乏「无项目会话」或「收件箱（Inbox）」机制。在实际工作中，用户常有探索性、临时性的对话需求，在这些场景下强制关联项目会增加操作摩擦。特别是初次使用的用户，可能还未建立项目体系，被强制要求先建项目会造成上手阻力。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Codex、QoderWork、WorkBuddy</strong> 均支持创建不属于任何项目的独立任务/会话；<strong>Claude Code、悟空</strong> 与灵基Build相同，均要求项目归属</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_对话操作.png'], '侧导航 · 对话操作')">Codex</span>、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_创建新任务.png'], '侧边栏 · 创建独立任务无需项目')">QoderWork</span>、<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_新建任务.png'], '侧边栏 · 新建独立任务无需工作空间')">WorkBuddy</span> 均支持创建不属于任何项目的独立任务/会话；<strong>Claude Code</strong>、<strong>悟空</strong> 与灵基Build相同，均要求项目归属</span></div>
   </div>
 
   <!-- I11 -->
@@ -1474,8 +1494,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
         <button class="vote-btn disagree" onclick="vote(this,'disagree')">👎 不认可 <span class="vote-count">0</span></button>
       </div>
     </div>
-    <div class="issue-desc">会话列表中没有显示会话的创建时间或最后活跃时间，当用户有多条命名相似的历史会话时，难以通过时间信息辅助定位目标会话。竞品（Codex、QoderWork）已采用相对时间（「2天前」「3周前」）的方式在列表中展示时间信息，信息成本低、直觉感强；Claude Code 则通过日期分组标题（「今天」「昨天」「上周」）传达时序信息。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Codex</strong>（相对时间显示于会话右侧）、<strong>QoderWork</strong>（灰色小字相对时间）、<strong>Claude Code</strong>（日期分组标题传达时序）</div>
+    <div class="issue-desc">会话列表中没有显示会话的创建时间或最后活跃时间，当用户有多条命名相似的历史会话时，难以通过时间信息辅助定位目标会话。竞品（Codex、WorkBuddy）已采用相对时间（「2天前」「3周前」）的方式在列表中展示时间信息，信息成本低、直觉感强；Claude Code 则通过日期分组标题（「今天」「昨天」「上周」）传达时序信息。</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Codex', ['screenshots/Codex/Codex_侧导航_对话列表_悬浮态.png'], '侧导航 · 相对时间显示于会话右侧')">Codex</span>（相对时间显示于会话右侧）、<span class="ref-product" onclick="showRefScreenshots('WorkBuddy', ['screenshots/WorkBuddy/WorkBuddy_侧边栏_任务_悬浮态.png'], '侧边栏 · 相对时间显示于会话右侧')">WorkBuddy</span>（相对时间显示于会话右侧）、<span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_显示过滤_分组方式按日期.png'], '侧导航 · 日期分组标题传达时序')">Claude Code</span>（日期分组标题传达时序）</span></div>
   </div>
 
   <!-- I12 -->
@@ -1494,7 +1514,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
       </div>
     </div>
     <div class="issue-desc">灵基Build底部区域仅展示账户头像 + 设置齿轮，信息层次极简，但也导致缺少对常用功能的快速入口（如通知、快捷键说明、版本信息、帮助文档等）。随着产品功能扩展，底部区域可承载更多高频但次要操作的入口，当前设计的扩展空间有限。</div>
-    <div class="issue-ref">📎 参考竞品：<strong>Claude Code</strong>（底部含主题/字体设置、账户、更多操作，功能最丰富）、<strong>WorkBuddy</strong>（底部固定「新建工作空间」快捷入口）</div>
+    <div class="issue-ref"><span class="issue-ref-label">📎 参考竞品：</span><span><span class="ref-product" onclick="showRefScreenshots('Claude Code', ['screenshots/Claude Code/Claude Code_侧导航_设置功能.png','screenshots/Claude Code/Claude Code_侧导航_主题、字体设置.png'], '侧导航 · 底部设置/主题/字体功能')">Claude Code</span>（底部含主题/字体设置、账户、更多操作，功能最丰富）、<span class="ref-product" onclick="showRefScreenshots('QoderWork', ['screenshots/QoderWork/QoderWork_侧边栏_设置功能.png'], '侧边栏 · 底部设置功能入口')">QoderWork</span>（底部设置功能入口）</span></div>
   </div>
 
 
@@ -2090,6 +2110,38 @@ async function oppVote(btn, type) {
   }
 }
 
+// ===== 参考竞品截图 Modal =====
+let _refImgs = [], _refImgIdx = 0;
+function showRefScreenshots(name, imgs, subtitle) {
+  _refImgs = imgs;
+  _refImgIdx = 0;
+  document.getElementById('refModalTitle').textContent = name;
+  document.getElementById('refModalSubtitle').textContent = subtitle || '';
+  _updateRefImg();
+  document.getElementById('refModal').classList.add('open');
+}
+function _updateRefImg() {
+  document.getElementById('refModalImg').src = _refImgs[_refImgIdx];
+  document.getElementById('refModalImg').alt = '参考截图 ' + (_refImgIdx + 1);
+  const nav = document.getElementById('refModalNav');
+  if (_refImgs.length > 1) {
+    nav.style.display = 'flex';
+    document.getElementById('refModalPage').textContent = (_refImgIdx + 1) + ' / ' + _refImgs.length;
+  } else {
+    nav.style.display = 'none';
+  }
+}
+function changeRefImg(delta) {
+  _refImgIdx = (_refImgIdx + delta + _refImgs.length) % _refImgs.length;
+  _updateRefImg();
+}
+function closeRefModal(e) {
+  if (!e || e.target === document.getElementById('refModal')) {
+    document.getElementById('refModal').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRefModal(); });
+
 // Smooth scroll for section tab links
 document.querySelectorAll('.section-tabs-bar a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
@@ -2104,5 +2156,27 @@ document.querySelectorAll('.section-tabs-bar a[href^="#"]').forEach(a => {
 restoreUserVoteStates();
 loadVoteCountsFromFirebase();
 </script>
+
+<!-- 参考竞品截图 Modal -->
+<div id="refModal" class="ref-modal-overlay" onclick="closeRefModal(event)">
+  <div class="ref-modal">
+    <div class="ref-modal-header">
+      <div>
+        <div class="ref-modal-title" id="refModalTitle"></div>
+        <div class="ref-modal-subtitle" id="refModalSubtitle"></div>
+      </div>
+      <button class="ref-modal-close" onclick="closeRefModal()">✕</button>
+    </div>
+    <div class="ref-modal-body">
+      <img id="refModalImg" src="" alt="" />
+      <div class="ref-modal-nav" id="refModalNav" style="display:none">
+        <button onclick="changeRefImg(-1)">‹</button>
+        <span id="refModalPage"></span>
+        <button onclick="changeRefImg(1)">›</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
