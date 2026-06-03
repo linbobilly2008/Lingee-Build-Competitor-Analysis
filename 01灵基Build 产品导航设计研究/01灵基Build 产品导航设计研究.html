@@ -231,10 +231,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino 
 
 <!-- TOP NAV -->
 <nav class="top-nav">
-  <span class="nav-logo">灵基Build 竞品研究</span>
+  <span class="nav-logo">灵基 竞品研究</span>
   <div class="nav-spacer"></div>
-  <select class="topic-select">
-    <option>第一期：左侧导航设计研究</option>
+  <select class="topic-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">第一期：左侧导航设计研究</option>
+    <option value="../02个人中心模块竞品对比分析/个人中心模块竞品对比分析报告.html">第二期：个人中心模块对比分析</option>
   </select>
 </nav>
 

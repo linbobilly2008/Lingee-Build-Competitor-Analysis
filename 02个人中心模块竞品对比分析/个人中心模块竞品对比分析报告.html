@@ -5,13 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>灵基个人中心模块竞品对比分析报告</title>
 <style>
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== TOP NAV ===== */
+.top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: #15803d; border-bottom: none; display: flex; align-items: center; padding: 0 32px; height: 52px; gap: 0; box-shadow: 0 1px 6px rgba(0,0,0,0.18); }
+.nav-logo { font-weight: 700; font-size: 15px; color: rgba(255,255,255,0.95); margin-right: 24px; white-space: nowrap; }
+.nav-spacer { flex: 1; }
+.topic-select { border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.12); cursor: pointer; }
+.topic-select option { color: #111827; background: #fff; }
+
 :root {
   --ink:#111827; --text:#1f2937; --muted:#6b7280; --line:#e5e7eb;
   --green:#16a34a; --blue:#2563eb; --amber:#d97706; --red:#dc2626; --purple:#7c3aed;
   --bg:#f6f8fb; --card:#ffffff;
 }
-body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif; line-height:1.75; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif; line-height:1.75; padding-top:52px; }
 .container { max-width:1120px; margin:0 auto; padding:48px 36px 72px; }
 .report-header { padding:30px 32px; background:linear-gradient(135deg,#ffffff 0%,#f0fdf4 100%); border:1px solid #bbf7d0; border-radius:16px; box-shadow:0 12px 28px rgba(17,24,39,.06); }
 .report-header h1 { margin:0 0 12px; font-size:34px; line-height:1.25; color:var(--ink); letter-spacing:0; }
@@ -533,6 +541,17 @@ td .status-yes{ color:var(--green); } td .status-no{ color:var(--red); } td .sta
 </style>
 </head>
 <body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <span class="nav-logo">灵基 竞品研究</span>
+  <div class="nav-spacer"></div>
+  <select class="topic-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">第二期：个人中心模块对比分析</option>
+    <option value="../01灵基Build 产品导航设计研究/01灵基Build 产品导航设计研究.html">第一期：左侧导航设计研究</option>
+  </select>
+</nav>
+
 <div class="container">
 <header class="report-header">
 <h1>灵基（Lingee）个人中心模块<br>竞品对比分析报告</h1>
