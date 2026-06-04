@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic OS 产品用户反馈体系竞品分析报告</title>
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --accent: #4f46e5;
+    --accent-light: #818cf8;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --neutral: #6b7280;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --p1: #dc2626;
+    --p2: #d97706;
+    --p3: #059669;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; padding-top: 52px; }
+
+  /* ── TOP NAV ── */
+  .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: #302b63; border-bottom: none; display: flex; align-items: center; padding: 0 32px; height: 52px; box-shadow: 0 1px 6px rgba(0,0,0,0.18); }
+  .nav-logo { font-weight: 700; font-size: 15px; color: rgba(255,255,255,0.95); margin-right: 24px; white-space: nowrap; }
+  .nav-spacer { flex: 1; }
+  .topic-select { border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.12); cursor: pointer; }
+  .topic-select option { color: #111827; background: #fff; }
+
+  /* ── HEADER ── */
+  .report-header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white; padding: 60px 48px 48px;
+    position: relative; overflow: hidden;
+  }
+  .report-header::before {
+    content: ''; position: absolute; top: -50%; right: -10%;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,70,229,0.3) 0%, transparent 70%);
+  }
+  .report-header .tag { display: inline-block; background: rgba(79,70,229,0.4); border: 1px solid rgba(129,140,248,0.4); border-radius: 20px; padding: 4px 14px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; color: #a5b4fc; }
+  .report-header h1 { font-size: 32px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+  .report-header .subtitle { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+  .report-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .report-meta .meta-item { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .report-meta .meta-item strong { display: block; font-size: 14px; color: rgba(255,255,255,0.85); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .content-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 40px 24px; max-width: 1100px; margin: 0 auto; }
+
+  /* ── SIDEBAR TOC ── */
+  .toc { position: sticky; top: 24px; height: fit-content; }
+  .toc-inner { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .toc-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .toc a { display: block; font-size: 13px; color: var(--text-muted); text-decoration: none; padding: 4px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.2s; }
+  .toc a:hover { color: var(--accent); border-left-color: var(--accent); }
+  .toc a.sub { padding-left: 20px; font-size: 12px; }
+
+  /* ── SECTIONS ── */
+  .main-content section { margin-bottom: 56px; }
+  h2 { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 8px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 10px; }
+  h2 .section-num { background: var(--accent); color: white; border-radius: 6px; padding: 2px 9px; font-size: 13px; font-weight: 700; }
+  h3 { font-size: 17px; font-weight: 600; color: var(--primary); margin: 24px 0 12px; }
+  h4 { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin: 18px 0 8px; }
+  p { margin-bottom: 14px; color: #374151; }
+
+  /* ── ABSTRACT BOX ── */
+  .abstract-box { background: linear-gradient(135deg, #ede9fe, #dbeafe); border: 1px solid #c4b5fd; border-radius: 14px; padding: 28px 32px; margin-bottom: 40px; }
+  .abstract-box .abstract-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7c3aed; margin-bottom: 14px; }
+  .abstract-box p { color: #3730a3; margin-bottom: 10px; }
+  .key-findings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+  .finding-card { background: white; border-radius: 10px; padding: 14px 16px; border: 1px solid #ddd6fe; }
+  .finding-card .num { font-size: 24px; font-weight: 800; color: var(--accent); }
+  .finding-card .label { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+  /* ── COMPETITOR CARDS ── */
+  .competitor-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; margin-bottom: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .comp-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .comp-logo { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .comp-logo.claude { background: linear-gradient(135deg, #f97316, #fb923c); }
+  .comp-logo.openai { background: linear-gradient(135deg, #10b981, #059669); }
+  .comp-logo.qoderwork { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+  .comp-logo.qoder { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .comp-logo.workbuddy { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+  .comp-name { font-size: 19px; font-weight: 700; }
+  .comp-maker { font-size: 13px; color: var(--text-muted); }
+  .comp-score { margin-left: auto; text-align: right; }
+  .score-val { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .score-label { font-size: 11px; color: var(--text-muted); }
+
+  /* ── SCREENSHOT BOXES ── */
+  .screenshot-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 20px 0; }
+  .screenshot-box { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #f8fafc; }
+  .screenshot-box .ss-header { background: #1f2937; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+  .screenshot-box .ss-header .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .screenshot-box .ss-header .dot.r { background: #ef4444; }
+  .screenshot-box .ss-header .dot.y { background: #f59e0b; }
+  .screenshot-box .ss-header .dot.g { background: #10b981; }
+  .screenshot-box .ss-header .title { font-size: 11px; color: rgba(255,255,255,0.6); margin-left: 6px; font-family: monospace; }
+  .screenshot-box .ss-body { padding: 16px; }
+  .screenshot-box .ss-caption { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-style: italic; }
+  .screenshot-box .ss-content { background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 14px; }
+  .ss-modal-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #111; }
+  .ss-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .ss-chip { font-size: 11px; border: 1px solid #d1d5db; border-radius: 20px; padding: 3px 10px; color: #374151; background: #f9fafb; }
+  .ss-chip.highlight { background: #ede9fe; border-color: #c4b5fd; color: #7c3aed; }
+  .ss-textarea { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #9ca3af; width: 100%; margin-bottom: 8px; }
+  .ss-dropdown { border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: #374151; width: 100%; margin-bottom: 8px; background: white; display: flex; justify-content: space-between; }
+  .ss-footer-text { font-size: 11px; color: #9ca3af; margin-top: 8px; }
+  .ss-uuid { font-size: 12px; font-family: monospace; background: #f3f4f6; padding: 8px 10px; border-radius: 6px; color: #374151; margin-top: 6px; }
+  .ss-submit { background: #111; color: white; border-radius: 8px; padding: 8px 20px; font-size: 13px; display: inline-block; margin-top: 8px; }
+  .ss-submit.blue { background: #2563eb; }
+  .ss-checkbox { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #374151; margin-top: 8px; }
+  .ss-checkbox .cb { width: 16px; height: 16px; background: #10b981; border-radius: 3px; flex-shrink: 0; margin-top: 1px; }
+  .ss-emoji-row { display: flex; justify-content: center; gap: 12px; font-size: 22px; margin-top: 12px; }
+  .ss-forum-item { padding: 10px 0; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; }
+  .ss-forum-item:last-child { border-bottom: none; }
+  .ss-forum-title { font-size: 13px; color: #1d4ed8; }
+  .ss-forum-meta { font-size: 11px; color: #9ca3af; }
+  .ss-tag { font-size: 10px; background: #fef3c7; color: #92400e; border-radius: 4px; padding: 1px 6px; margin-right: 4px; }
+  .ss-vote { font-size: 11px; background: #ecfdf5; color: #065f46; border-radius: 4px; padding: 1px 6px; }
+
+  /* ── INSIGHT TAGS ── */
+  .insight { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 4px 10px; margin: 3px 3px 3px 0; }
+  .insight.green { background: #dcfce7; color: #166534; }
+  .insight.red { background: #fee2e2; color: #991b1b; }
+  .insight.yellow { background: #fef9c3; color: #854d0e; }
+  .insight.blue { background: #dbeafe; color: #1e40af; }
+  .insight.gray { background: #f3f4f6; color: #374151; }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; }
+  .comp-table thead tr { background: var(--primary); color: white; }
+  .comp-table th { padding: 12px 14px; text-align: left; font-weight: 600; font-size: 12px; }
+  .comp-table td { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; }
+  .comp-table tbody tr:hover { background: #f9fafb; }
+  .comp-table tbody tr:last-child td { border-bottom: none; }
+  .cell-yes { color: #059669; font-weight: 600; }
+  .cell-no { color: #dc2626; }
+  .cell-partial { color: #d97706; }
+  .check { font-size: 16px; }
+
+  /* ── RADAR / SCORE ── */
+  .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .score-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .score-item .s-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .score-bar { height: 6px; border-radius: 3px; background: #e5e7eb; margin-top: 8px; }
+  .score-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.3s; }
+
+  /* ── RECOMMENDATION CARDS ── */
+  .rec-card { border-radius: 14px; padding: 24px 28px; margin-bottom: 20px; border-left: 5px solid; }
+  .rec-card.p1 { background: #fff5f5; border-color: var(--p1); }
+  .rec-card.p2 { background: #fffbeb; border-color: var(--p2); }
+  .rec-card.p3 { background: #f0fdf4; border-color: var(--p3); }
+  .priority-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; border-radius: 20px; padding: 4px 12px; margin-bottom: 12px; }
+  .priority-badge.p1 { background: #fee2e2; color: var(--p1); }
+  .priority-badge.p2 { background: #fef3c7; color: var(--p2); }
+  .priority-badge.p3 { background: #dcfce7; color: var(--p3); }
+  .rec-card h3 { margin-top: 0; font-size: 17px; }
+  .ref-tag { font-size: 11px; background: rgba(79,70,229,0.1); color: var(--accent); border-radius: 4px; padding: 2px 8px; margin-left: 6px; }
+  .impl-steps { margin-top: 14px; }
+  .impl-step { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .impl-step .step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .impl-step .step-text { font-size: 14px; }
+  .ai-assist { background: #f5f3ff; border: 1px dashed #c4b5fd; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; }
+  .ai-assist .ai-label { font-size: 11px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+
+  /* ── TIMELINE ── */
+  .timeline { margin: 20px 0; }
+  .timeline-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; margin-bottom: 20px; }
+  .timeline-period { background: var(--accent); color: white; border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; text-align: center; height: fit-content; }
+  .timeline-items { display: flex; flex-direction: column; gap: 8px; }
+  .timeline-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .timeline-item .tl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .tl-dot.p1 { background: var(--p1); }
+  .tl-dot.p2 { background: var(--p2); }
+  .tl-dot.p3 { background: var(--p3); }
+
+  /* ── CALLOUT ── */
+  .callout { border-radius: 10px; padding: 16px 20px; margin: 16px 0; display: flex; gap: 14px; }
+  .callout.info { background: #eff6ff; border: 1px solid #bfdbfe; }
+  .callout.warn { background: #fffbeb; border: 1px solid #fde68a; }
+  .callout.insight-box { background: #f5f3ff; border: 1px solid #ddd6fe; }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .callout-text { font-size: 13.5px; line-height: 1.6; }
+  .callout-text strong { display: block; margin-bottom: 4px; }
+
+  /* ── CHAPTER DIVIDER ── */
+  .chapter-divider { height: 3px; background: linear-gradient(90deg, var(--accent), transparent); border-radius: 2px; margin: 48px 0 32px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--primary); color: rgba(255,255,255,0.5); text-align: center; padding: 32px; font-size: 13px; margin-top: 60px; }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 768px) {
+    .content-wrap { grid-template-columns: 1fr; }
+    .toc { display: none; }
+    .key-findings { grid-template-columns: 1fr; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <span class="nav-logo">灵基 竞品研究</span>
+  <div class="nav-spacer"></div>
+  <select class="topic-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="../01灵基Build 产品导航设计研究/01灵基Build 产品导航设计研究.html">第一期：灵基Build 产品导航设计研究</option>
+    <option value="../02个人中心模块竞品对比分析/个人中心模块竞品对比分析报告.html">第二期：个人中心模块竞品对比分析</option>
+    <option value="" selected>第三期：用户反馈体系竞品分析与规划建议</option>
+  </select>
+</nav>
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="report-header">
+  <div class="tag">内部机密报告</div>
+  <h1>Agentic Operating System 产品<br>用户反馈体系竞品分析与规划建议</h1>
+  <p class="subtitle">User Feedback, Community & Support Channel Competitive Analysis</p>
+  <div class="report-meta">
+    <div class="meta-item"><strong>报告日期</strong>2026年5月</div>
+    <div class="meta-item"><strong>报告版本</strong>V1.0</div>
+    <div class="meta-item"><strong>读者</strong>内部团队 · 管理层</div>
+    <div class="meta-item"><strong>覆盖竞品</strong>Claude / ChatGPT / Codex / Qoderwork / Qoder / WorkBuddy</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ MAIN LAYOUT ═══════════════════════════ -->
+<div class="content-wrap">
+
+  <!-- SIDEBAR TOC -->
+  <aside class="toc">
+    <div class="toc-inner">
+      <div class="toc-title">目录</div>
+      <a href="#abstract">摘要</a>
+      <a href="#background">第一章：研究背景</a>
+      <a href="#competitors">第二章：竞品分析</a>
+      <a href="#claude" class="sub">2.1 Claude (Anthropic)</a>
+      <a href="#openai" class="sub">2.2 ChatGPT & Codex</a>
+      <a href="#qoderwork" class="sub">2.3 Qoderwork</a>
+      <a href="#qoder" class="sub">2.4 Qoder (阿里)</a>
+      <a href="#workbuddy" class="sub">2.5 WorkBuddy (腾讯)</a>
+      <a href="#matrix">第三章：横向对比矩阵</a>
+      <a href="#recommendations">第四章：规划建议</a>
+      <a href="#rec-p1" class="sub">P1 · 即时反馈机制</a>
+      <a href="#rec-p2" class="sub">P2 · 工单客服渠道</a>
+      <a href="#rec-p3" class="sub">P3 · 社区论坛</a>
+      <a href="#roadmap" class="sub">实施路线图</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ═══ 摘要 ═══ -->
+    <section id="abstract">
+      <div class="abstract-box">
+        <div class="abstract-label">📋 执行摘要</div>
+        <p>本报告面向内部团队与管理层，系统梳理了当前主流 Agentic/AI 编程产品（Claude、ChatGPT、Codex、Qoderwork、Qoder、WorkBuddy）在<strong>用户反馈采集、社区论坛建设与工单服务渠道</strong>三个维度的设计现状，揭示行业普遍存在的"反馈黑洞"问题，并针对公司即将上线的 <strong>Agentic Operating System（AOS）产品</strong>，提出分优先级的系统性用户聆听体系规划建议。</p>
+        <p>核心结论：当前竞品在用户反馈领域普遍采用"轻采集、弱闭环"模式，<strong>Qoder（阿里）是唯一构建了公开投票社区的产品</strong>。AOS 产品作为 Agentic 场景的操作系统，具备通过 AI 能力实现差异化反馈体验的独特优势。</p>
+        <div class="key-findings">
+          <div class="finding-card">
+            <div class="num">5/6</div>
+            <div class="label">竞品存在"反馈黑洞"——用户提交后无任何感知闭环</div>
+          </div>
+          <div class="finding-card">
+            <div class="num">1个</div>
+            <div class="label">竞品（Qoder）建立了公开投票社区论坛</div>
+          </div>
+          <div class="finding-card">
+            <div class="num">3层</div>
+            <div class="label">建议 AOS 构建：即时反馈 → 工单支持 → 社区论坛</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 第一章 ═══ -->
+    <section id="background">
+      <h2><span class="section-num">01</span>研究背景与目标</h2>
+      <p>随着 Agentic AI 产品进入大规模商用阶段，用户的反馈场景和诉求已显著区别于传统对话式 AI。本报告旨在回答三个核心问题：</p>
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="s-label">竞品如何采集反馈信号？</div>
+          <p style="font-size:13px;color:#374151;margin-top:8px;">消息级点赞踩、表单反馈、日志上传等机制的设计差异</p>
+        </div>
+        <div class="score-item">
+          <div class="s-label">反馈闭环如何设计？</div>
+          <p style="font-size:13px;color:#374151;margin-top:8px;">工单号/UUID、CSAT 评分、用户感知设计的对比</p>
+        </div>
+        <div class="score-item">
+          <div class="s-label">社区建设处于什么水平？</div>
+          <p style="font-size:13px;color:#374151;margin-top:8px;">论坛、投票机制、in-app 集成的现状</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-icon">⚙️</div>
+        <div class="callout-text">
+          <strong>AOS 产品的特殊性</strong>
+          Agentic OS 场景中，用户与产品的交互不再是单次对话，而是多步骤任务执行链路。这意味着：反馈粒度需覆盖<strong>任务级、步骤级、工具调用级</strong>；错误归因更复杂（是模型能力问题、工具调用问题还是规划问题？）；用户对"agent 没做好"的描述通常模糊，需要更多上下文数据辅助诊断。
+        </div>
+      </div>
+    </section>
+
+    <div class="chapter-divider"></div>
+
+    <!-- ═══ 第二章 ═══ -->
+    <section id="competitors">
+      <h2><span class="section-num">02</span>竞品逐一分析</h2>
+
+      <!-- ─── 2.1 Claude ─── -->
+      <div class="competitor-card" id="claude">
+        <div class="comp-header">
+          <div class="comp-logo claude">◆</div>
+          <div>
+            <div class="comp-name">Claude</div>
+            <div class="comp-maker">Anthropic · Chat / Cowork / Code 三端</div>
+          </div>
+          <div class="comp-score">
+            <div class="score-val">6.5</div>
+            <div class="score-label">/ 10 综合评分</div>
+          </div>
+        </div>
+
+        <span class="insight green">✓ 分类最细致</span>
+        <span class="insight blue">◎ 三端差异化设计</span>
+        <span class="insight yellow">△ 无公开社区</span>
+        <span class="insight red">✗ Chat/Cowork 无闭环</span>
+
+        <h3>2.1.1 Chat & Cowork：消息级点赞/踩机制</h3>
+        <p>Claude 在 Chat 和 Cowork 端均设置了消息级别的点赞/踩按钮，但两端的反馈分类设计存在显著差异，反映了不同的产品场景定位。</p>
+
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">claude.ai · Chat 端 — 点踩反馈弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：Chat 端点踩弹窗，共 13 个分类选项</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">Give negative feedback</div>
+                <div style="font-size:12px;color:#6b7280;margin-bottom:8px;">What type of issue do you wish to report? (optional)</div>
+                <div class="ss-dropdown"><span>Select...</span><span>∨</span></div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">Chat 端独有分类（共 13 项）：</div>
+                <div class="ss-chips">
+                  <span class="ss-chip highlight">Overactive refusal</span>
+                  <span class="ss-chip highlight">Did not fully follow my request</span>
+                  <span class="ss-chip highlight">Should have triggered thinking</span>
+                  <span class="ss-chip highlight">Shouldn't have searched the web</span>
+                  <span class="ss-chip highlight">Don't like the cited sources</span>
+                  <span class="ss-chip highlight">Memory not applied correctly</span>
+                  <span class="ss-chip">Not factually correct</span>
+                  <span class="ss-chip">Incomplete response</span>
+                  <span class="ss-chip">UI bug</span>
+                  <span class="ss-chip">Report content</span>
+                </div>
+                <div class="ss-footer-text">Submitting this report will send the entire current conversation to Anthropic for future improvements to our models.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">claude.ai · Cowork 端 — 点踩反馈弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：Cowork 端仅 6 个分类，功能感知型分类全部缺失</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">Give negative feedback</div>
+                <div style="font-size:12px;color:#6b7280;margin-bottom:8px;">What type of issue do you wish to report? (optional)</div>
+                <div class="ss-dropdown"><span>Select...</span><span>∨</span></div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">Cowork 端仅保留 6 项基础分类：</div>
+                <div class="ss-chips">
+                  <span class="ss-chip">UI bug</span>
+                  <span class="ss-chip">Not factually correct</span>
+                  <span class="ss-chip">Incomplete response</span>
+                  <span class="ss-chip">Report content</span>
+                  <span class="ss-chip">Not in keeping with Claude's Constitution</span>
+                  <span class="ss-chip">Other</span>
+                </div>
+                <div class="ss-footer-text">Submitting this report will send the entire current conversation to Anthropic for future improvements to our models.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout insight-box">
+          <div class="callout-icon">🔍</div>
+          <div class="callout-text">
+            <strong>Chat vs Cowork 分类差异的设计逻辑</strong>
+            Chat 端独有的 7 项分类（过度拒绝、深度思考、联网搜索、记忆功能等）均对应 Chat 的具体功能特性。Cowork 以 Agent 任务执行为主，这些功能感知维度被折叠，反馈粒度更粗——这可能是产品尚处于早期迭代阶段，分类体系待细化。
+          </div>
+        </div>
+
+        <h3>2.1.2 数据政策：点赞与点踩均提交整段对话</h3>
+        <p>根据 Anthropic 官方隐私政策（privacy.claude.com），无论点赞还是点踩，<strong>整段对话将被保留最长 5 年</strong>，但数据在使用前会与用户 ID（邮箱）脱钩。这意味着两点：数据不会和用户其他对话合并；Anthropic 无法主动联系用户回复。</p>
+
+        <h3>2.1.3 Claude Code：/feedback + Reference UUID</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">Claude Code — 反馈提交成功弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：提交后显示 Reference ID，用于与支持团队关联</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">Submit feedback</div>
+                <p style="font-size:12px;color:#374151;margin-bottom:8px;">Feedback sent. If you're working with Anthropic support, include the reference ID below.</p>
+                <div class="ss-uuid">11b6b028-bfd5-445a-8d8c-0b47bb8deeda</div>
+                <div class="ss-footer-text" style="margin-top:8px;">⚠️ 关键措辞："If you're working with support"——需用户主动开工单，ID 仅作关联用途，不自动开案</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2.1.4 官方客服渠道：Intercom Fin AI Agent</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">Claude Cowork — Intercom Fin AI Agent 客服入口</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：Fin AI Agent 对话流程（数据同时归属 Anthropic 和 Intercom）</div>
+              <div class="ss-content">
+                <div style="font-size:13px;font-weight:600;margin-bottom:8px;">🤖 Fin AI Agent</div>
+                <div style="font-size:12px;background:#eff6ff;border-radius:6px;padding:8px;margin-bottom:8px;color:#1e40af;">您对此聊天机器人的使用和聊天数据将被 Anthropic 及我们的第三方聊天机器人提供商（<strong>Intercom</strong>）监控、保留和使用。</div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">✅ 对话 ID：215474358305998（真实工单，可追踪）</div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">✅ 可升级至人工支持</div>
+                <div class="ss-emoji-row" style="font-size:18px;">😡 😟 😐 😊 😄</div>
+                <div style="font-size:11px;color:#9ca3af;text-align:center;margin-top:4px;">CSAT 5 档 emoji 评分（对话结束后触发）</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-text">
+            <strong>值得注意：Anthropic 自己不用 Claude 做客服</strong>
+            官方支持渠道使用的是 Intercom 的 Fin AI Agent（第三方产品），而非 Claude 本身。这是一个"不吃自己狗粮"的现象，可能源于历史合同或对准确性的风险隔离考量。AOS 产品有机会在此形成差异——用自身 Agent 能力赋能 L1 支持。
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2.2 OpenAI ─── -->
+      <div class="competitor-card" id="openai">
+        <div class="comp-header">
+          <div class="comp-logo openai">⬡</div>
+          <div>
+            <div class="comp-name">ChatGPT & Codex</div>
+            <div class="comp-maker">OpenAI · 对话产品 + Agentic 编程产品</div>
+          </div>
+          <div class="comp-score">
+            <div class="score-val">5.5</div>
+            <div class="score-label">/ 10 综合评分</div>
+          </div>
+        </div>
+
+        <span class="insight green">✓ 数据政策透明</span>
+        <span class="insight yellow">△ 分类偏少</span>
+        <span class="insight red">✗ 无论坛无社区</span>
+        <span class="insight red">✗ 无 UUID</span>
+
+        <h3>2.2.1 Codex 反馈机制</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">Codex — 提交反馈弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：Codex 反馈弹窗，采用 chip 选择 + 自由文本组合</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">提交反馈</div>
+                <div class="ss-chips" style="margin-top:8px;">
+                  <span class="ss-chip">+ 不正确或不完整</span>
+                  <span class="ss-chip">+ 没有遵循我的指示</span>
+                  <span class="ss-chip">+ 偏题 / 超出范围</span>
+                  <span class="ss-chip">+ 丢失上下文</span>
+                  <span class="ss-chip">+ 速度慢或有故障</span>
+                  <span class="ss-chip">+ 其他</span>
+                </div>
+                <div class="ss-textarea">填写详情（选填）</div>
+                <div class="ss-footer-text">您的反馈可用于改进 Codex。了解更多。</div>
+                <div style="text-align:right;margin-top:10px;"><span class="ss-submit">提交</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">ChatGPT — 点踩反馈弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：ChatGPT 下拉菜单式分类，有 2000 字文本框</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">Give negative feedback</div>
+                <div style="font-size:12px;color:#6b7280;margin-bottom:6px;">有哪些不足之处？</div>
+                <div style="font-size:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:8px;margin-bottom:8px;">
+                  <div>不正确或不完整</div>
+                  <div style="color:#6b7280;">与期望不符</div>
+                  <div style="color:#6b7280;">速度慢或存在问题</div>
+                  <div style="color:#6b7280;">风格或语气</div>
+                  <div style="color:#6b7280;">安全或法律疑虑</div>
+                  <div style="color:#6b7280;">其他</div>
+                </div>
+                <div class="ss-footer-text">提交此报告会将你当前的完整对话发送给 OpenAI，以帮助改进我们的模型。0/2000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>ChatGPT 与 Codex 的分类数量（6项）明显少于 Claude Chat（13项），且 Codex 专门针对 Agentic 场景设计了"丢失上下文"这一分类，体现对 Agent 任务链路连贯性的关注。两者均无工单号生成，提交后没有任何追踪凭证。</p>
+
+        <h3>2.2.2 OpenAI 官方客服</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">help.openai.com — AI 支持专员</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：OpenAI 帮助中心嵌入 AI 支持 bot，定位为"AI 辅助的 OpenAI 支持专员"</div>
+              <div class="ss-content">
+                <div style="font-size:13px;color:#374151;margin-bottom:6px;"><strong>我是 AI 辅助的 OpenAI 支持专员。</strong>你想用的是哪种 Codex：网页、App、CLI、还是 VS Code 插件？</div>
+                <div style="font-size:12px;color:#6b7280;">先快速开始（通用）：直接使用你的 ChatGPT 账号登录对应客户端即可</div>
+                <div style="font-size:11px;background:#fef9c3;border-radius:4px;padding:4px 8px;margin-top:8px;">AI 支持可能会出错</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2.3 Qoderwork ─── -->
+      <div class="competitor-card" id="qoderwork">
+        <div class="comp-header">
+          <div class="comp-logo qoderwork">Q</div>
+          <div>
+            <div class="comp-name">Qoderwork</div>
+            <div class="comp-maker">AI 编程产品 · 独立团队</div>
+          </div>
+          <div class="comp-score">
+            <div class="score-val">7.0</div>
+            <div class="score-label">/ 10 综合评分</div>
+          </div>
+        </div>
+
+        <span class="insight green">✓ 唯一收集联系邮箱</span>
+        <span class="insight green">✓ 生成 UUID</span>
+        <span class="insight green">✓ 截图上传</span>
+        <span class="insight red">✗ 无社区</span>
+
+        <h3>2.3.1 反馈表单：功能最完整的单一反馈入口</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">Qoderwork — 问题反馈表单</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：表单包含文字描述、截图上传和联系邮箱三大模块</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">问题反馈</div>
+                <div style="font-size:12px;color:#6b7280;margin-bottom:8px;">如果您在使用过程中遇到任何问题，请随时反馈给我们。</div>
+                <div class="ss-textarea">如果用户点赞和点踩，会将对话记录拿去分析吗？</div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">📎 屏幕截图：（已上传 1 张）</div>
+                <div style="font-size:12px;color:#374151;margin-bottom:6px;">📧 联系邮箱：joyce_shang@kingdee.com</div>
+                <div style="text-align:right;"><span class="ss-submit blue">提交</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">Qoderwork — 提交成功 UUID</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：提交成功后弹出 UUID，格式与 Claude Code 一致</div>
+              <div class="ss-content">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <span style="color:#10b981;font-size:16px;">✓</span>
+                  <strong style="font-size:14px;">反馈提交成功</strong>
+                </div>
+                <div class="ss-uuid">ID: 5f31d512-f03b-499e-a42f-df2818c235b3 📋</div>
+                <div style="margin-top:10px;font-size:12px;background:#f0fdf4;border-radius:6px;padding:8px;color:#166534;">
+                  <strong>关键差异：</strong> 收集了邮箱 → 平台有能力主动联系用户回复。这是所有竞品中唯一保留"主动回复能力"的设计。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div class="callout-text">
+            Qoderwork 是所有竞品中数据采集与用户关系建立做得最平衡的：用邮箱换取了主动回复能力，同时用 UUID 给用户信心凭证。代价是：每条反馈都承担了回复的隐性压力，需要相应的支持团队承接。
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2.4 Qoder ─── -->
+      <div class="competitor-card" id="qoder">
+        <div class="comp-header">
+          <div class="comp-logo qoder">⚡</div>
+          <div>
+            <div class="comp-name">Qoder</div>
+            <div class="comp-maker">阿里巴巴 · Agentic 编程产品</div>
+          </div>
+          <div class="comp-score">
+            <div class="score-val">9.0</div>
+            <div class="score-label">/ 10 综合评分</div>
+          </div>
+        </div>
+
+        <span class="insight green">✓ 唯一有 in-app 社区</span>
+        <span class="insight green">✓ 公开投票机制</span>
+        <span class="insight green">✓ 结构化分类管理</span>
+        <span class="insight blue">◎ 行业领先</span>
+
+        <h3>2.4.1 In-app 社区论坛：行业唯一，设计最领先</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box" style="grid-column: 1 / -1;">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">forum.qoder.com — Feature Requests 论坛（in-app 集成）</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：论坛支持在 App 内打开，Discourse 架构，Feature Requests 分区支持投票排序</div>
+              <div class="ss-content">
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                  <span style="font-size:12px;background:#3b82f6;color:white;border-radius:6px;padding:3px 10px;">📋 Feature Requests</span>
+                  <span style="font-size:12px;border:1px solid #e5e7eb;border-radius:6px;padding:3px 10px;color:#374151;">Votes</span>
+                  <span style="font-size:12px;border:1px solid #e5e7eb;border-radius:6px;padding:3px 10px;color:#374151;">My Votes</span>
+                  <span style="font-size:12px;border:1px solid #e5e7eb;border-radius:6px;padding:3px 10px;color:#374151;">Top</span>
+                  <span style="font-size:12px;border-bottom:2px solid #10b981;border-radius:0;padding:3px 10px;color:#059669;font-weight:600;">Latest</span>
+                </div>
+                <div class="ss-forum-item">
+                  <div>
+                    <div class="ss-forum-title">为什么 qoder deepseek v4 上下文长度才 200k，不应该是 1M 吗</div>
+                    <div class="ss-forum-meta"><span class="ss-tag">agent</span><span class="ss-vote">7 votes</span></div>
+                  </div>
+                  <div style="text-align:right;font-size:12px;color:#6b7280;">604 views · 23h</div>
+                </div>
+                <div class="ss-forum-item">
+                  <div>
+                    <div class="ss-forum-title">Team版本支持自定义模型</div>
+                    <div class="ss-forum-meta"><span class="ss-tag">settings</span><span class="ss-vote">0 votes</span></div>
+                  </div>
+                  <div style="text-align:right;font-size:12px;color:#6b7280;">47 views · 3h</div>
+                </div>
+                <div class="ss-forum-item">
+                  <div>
+                    <div class="ss-forum-title">希望quest模式可以选择不要自主执行</div>
+                    <div class="ss-forum-meta"><span class="ss-tag">quest-mode</span></div>
+                  </div>
+                  <div style="text-align:right;font-size:12px;color:#6b7280;">14 views · 5h</div>
+                </div>
+                <div class="ss-forum-item">
+                  <div>
+                    <div class="ss-forum-title">能不能增加会话级记忆</div>
+                    <div class="ss-forum-meta"><span class="ss-tag">memory</span><span class="ss-vote">1 vote</span></div>
+                  </div>
+                  <div style="text-align:right;font-size:12px;color:#6b7280;">27 views · 1d</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout insight-box">
+          <div class="callout-icon">🏆</div>
+          <div class="callout-text">
+            <strong>Qoder 的社区模式为何领先？</strong>
+            投票数量直接量化用户优先级信号，产品团队无需自行解读；公开透明让用户互相确认问题是否共性；in-app 集成降低参与门槛；Discourse 架构可搜索、可沉淀，解决了 Discord/Reddit 信息流动过快的历史知识丢失问题。
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2.5 WorkBuddy ─── -->
+      <div class="competitor-card" id="workbuddy">
+        <div class="comp-header">
+          <div class="comp-logo workbuddy">🐧</div>
+          <div>
+            <div class="comp-name">WorkBuddy / CodeBuddy</div>
+            <div class="comp-maker">腾讯 · AI 工作/编程助手</div>
+          </div>
+          <div class="comp-score">
+            <div class="score-val">5.0</div>
+            <div class="score-label">/ 10 综合评分</div>
+          </div>
+        </div>
+
+        <span class="insight green">✓ 日志上传最丰富</span>
+        <span class="insight green">✓ 截图上传（4张）</span>
+        <span class="insight red">✗ 无 UUID 无闭环</span>
+        <span class="insight red">✗ 无社区无论坛</span>
+
+        <h3>2.5.1 反馈表单：数据采集最强，用户感知最弱</h3>
+        <div class="screenshot-group">
+          <div class="screenshot-box">
+            <div class="ss-header">
+              <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+              <div class="title">WorkBuddy — 意见反馈弹窗</div>
+            </div>
+            <div class="ss-body">
+              <div class="ss-caption">📸 截图：最大特点是默认勾选的日志上传选项，数据维度最丰富</div>
+              <div class="ss-content">
+                <div class="ss-modal-title">意见反馈</div>
+                <div class="ss-textarea">你可以描述你遇到的问题 <span style="float:right;color:#9ca3af">0/300</span></div>
+                <div style="font-size:12px;color:#374151;margin-bottom:8px;">📎 上传图片 (0/4)</div>
+                <div class="ss-checkbox">
+                  <div class="cb"></div>
+                  <span>上传日志，仅用于排查问题，可能包含对话记录、设备信息等数据。详情请查阅<span style="color:#10b981;">隐私保护声明</span></span>
+                </div>
+                <div style="text-align:right;margin-top:12px;"><span class="ss-submit blue">提交</span></div>
+                <div style="margin-top:10px;font-size:12px;background:#fff7ed;border-radius:6px;padding:8px;color:#92400e;">
+                  <strong>提交后：无 UUID，无任何追踪凭证</strong>——数据采集能力最强，但用户反馈闭环完全缺失
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>WorkBuddy 的反馈设计沿用了移动端 Crash Report 的范式：工程师主动筛查日志，用户无需跟进。日志 opt-out 默认勾选是行业中最透明的数据采集告知设计，但与此同时，提交后没有任何 UUID 或确认号，用户完全不知道反馈"去哪了"。</p>
+
+        <h3>2.5.2 官方客服：腾讯云工单体系</h3>
+        <p>WorkBuddy/CodeBuddy 依托腾讯云成熟的企业工单体系提供支持，适合 B2B 企业客户，但对散户开发者和个人用户不够友好。CodeBuddy 目前没有公开论坛或社区平台。</p>
+      </div>
+    </section>
+
+    <div class="chapter-divider"></div>
+
+    <!-- ═══ 第三章 ═══ -->
+    <section id="matrix">
+      <h2><span class="section-num">03</span>横向竞品对比矩阵</h2>
+
+      <h3>3.1 反馈采集与闭环能力总表</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>Claude (Chat/Cowork)</th>
+            <th>Claude Code</th>
+            <th>ChatGPT/Codex</th>
+            <th>Qoderwork</th>
+            <th>Qoder</th>
+            <th>WorkBuddy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>预设分类</strong></td>
+            <td class="cell-yes">✅ 6–13项</td>
+            <td class="cell-yes">✅ 有</td>
+            <td class="cell-yes">✅ 6项</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>自由文本</strong></td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-yes">✅ 2000字</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-yes">✅ 300字</td>
+          </tr>
+          <tr>
+            <td><strong>截图上传</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ 最多4张</td>
+          </tr>
+          <tr>
+            <td><strong>日志上传</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ opt-out默认</td>
+          </tr>
+          <tr>
+            <td><strong>联系邮箱收集</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ 唯一</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>生成 UUID/工单号</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ Reference ID</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ UUID</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>主动回复能力</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-partial">△ 需用户先开工单</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>CSAT 评分</strong></td>
+            <td class="cell-partial">△ Intercom 对话级</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>公开社区论坛</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ 唯一</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>投票机制</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>in-app 社区集成</strong></td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅</td>
+            <td class="cell-no">❌</td>
+          </tr>
+          <tr>
+            <td><strong>AI 客服</strong></td>
+            <td class="cell-yes">✅ Intercom Fin</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-yes">✅ 自研</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-no">❌</td>
+            <td class="cell-partial">△ 腾讯云工单</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout insight-box">
+        <div class="callout-icon">📊</div>
+        <div class="callout-text">
+          <strong>核心洞察：行业"反馈黑洞"是普遍现象</strong>
+          除 Qoder 外，所有竞品的用户反馈体系都停留在"单向数据采集管道"阶段——数据流向产品团队，用户不知道反馈的去向和结果。Qoder 通过社区论坛+投票打破了这一模式，构建了双向广场。AOS 产品有机会在此形成明显的产品差异化。
+        </div>
+      </div>
+    </section>
+
+    <div class="chapter-divider"></div>
+
+    <!-- ═══ 第四章 ═══ -->
+    <section id="recommendations">
+      <h2><span class="section-num">04</span>AOS 产品用户聆听体系规划建议</h2>
+
+      <div class="callout warn">
+        <div class="callout-icon">🤖</div>
+        <div class="callout-text">
+          <strong>Agentic OS 的反馈特殊挑战</strong>
+          与对话式 AI 不同，AOS 的任务链路可能包含数十个 Agent 步骤。用户很难精确描述"哪一步出了问题"。因此，AOS 的反馈体系需要覆盖：任务级（整体成功/失败）、步骤级（具体 Agent 动作）、工具调用级（外部 API/工具失败）三个粒度，并通过系统自动上下文采集来弥补用户描述的模糊性。
+        </div>
+      </div>
+
+      <!-- P1 -->
+      <div class="rec-card p1" id="rec-p1">
+        <div class="priority-badge p1">🔴 第一优先级 · 0–6 周上线</div>
+        <h3>即时反馈机制：任务/消息级点赞踩 + AOS 专属分类</h3>
+        <p>参考竞品：<span class="ref-tag">Claude Chat</span><span class="ref-tag">Codex</span><span class="ref-tag">Qoderwork</span></p>
+        <p>在每个 Agent 任务完成节点设置即时反馈入口，设计 AOS 专属的反馈分类体系，覆盖 Agentic 场景的特有失败模式。</p>
+
+        <h4>AOS 专属反馈分类建议</h4>
+        <div class="ss-chips" style="margin-bottom:16px;">
+          <span class="ss-chip highlight">任务未完成 / 中途中断</span>
+          <span class="ss-chip highlight">工具调用失败</span>
+          <span class="ss-chip highlight">步骤规划错误</span>
+          <span class="ss-chip highlight">上下文丢失</span>
+          <span class="ss-chip highlight">权限越界</span>
+          <span class="ss-chip">结果不符合预期</span>
+          <span class="ss-chip">速度过慢</span>
+          <span class="ss-chip">UI/体验问题</span>
+          <span class="ss-chip">其他</span>
+        </div>
+
+        <div class="impl-steps">
+          <div class="impl-step"><div class="step-num">1</div><div class="step-text">确定反馈触发点：任务完成/失败时自动弹出，或用户手动触发</div></div>
+          <div class="impl-step"><div class="step-num">2</div><div class="step-text">设计反馈数据模型：除用户输入外，自动附加任务 ID、执行链路日志、工具调用记录</div></div>
+          <div class="impl-step"><div class="step-num">3</div><div class="step-text">生成 Reference UUID，提交成功后展示，并告知用户用途（参考 Claude Code 措辞）</div></div>
+          <div class="impl-step"><div class="step-num">4</div><div class="step-text">建立内部 dashboard，按分类统计周频率，优先处理高频 Agentic 专属问题</div></div>
+        </div>
+
+        <div class="ai-assist">
+          <div class="ai-label">🤖 AI 辅助机会</div>
+          用 AOS 自身的 Agent 能力对反馈数据自动打标（聚类相似问题、识别异常模式）；当任务失败率超过阈值时，主动触发"您是否遇到了问题？"的反馈邀请，而非等待用户主动点踩。
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="rec-card p2" id="rec-p2">
+        <div class="priority-badge p2">🟡 第二优先级 · 1–2 个月上线</div>
+        <h3>工单与客服渠道：AI-First 支持 + 真实工单 ID + CSAT</h3>
+        <p>参考竞品：<span class="ref-tag">Claude Intercom Fin</span><span class="ref-tag">Qoderwork 邮箱机制</span></p>
+        <p>建立可追踪的正式支持渠道，采用 AI 优先处理 L1 问题，并设计完整的满意度收集闭环。</p>
+
+        <h4>渠道设计建议</h4>
+        <div class="impl-steps">
+          <div class="impl-step"><div class="step-num">1</div><div class="step-text"><strong>AI L1 客服</strong>：用 AOS 自身 Agent 能力处理常见问题（产品功能解释、操作指导），实现"吃自己的狗粮"，这是所有竞品都没有做到的差异化——Anthropic 用了 Intercom，OpenAI 用了自研但非旗舰模型</div></div>
+          <div class="impl-step"><div class="step-num">2</div><div class="step-text"><strong>真实工单 ID</strong>：每个支持会话生成可追踪的工单号，用户可凭此查询进度，不同于 Claude Code 的"仅关联"UUID</div></div>
+          <div class="impl-step"><div class="step-num">3</div><div class="step-text"><strong>人工 L2 升级路径</strong>：AI 无法解决时，平滑转交人工并保持上下文，避免用户重复描述问题</div></div>
+          <div class="impl-step"><div class="step-num">4</div><div class="step-text"><strong>CSAT 收集</strong>：对话结束时触发满意度评分，参考 Claude 的 emoji 5档设计，简洁易点击</div></div>
+        </div>
+
+        <div class="ai-assist">
+          <div class="ai-label">🤖 AI 辅助机会</div>
+          将 P1 反馈数据与工单数据交叉分析：当同一类 feedback 分类在 7 天内出现超过 N 次，自动触发工单分类标记和产品团队告警；用 Agent 自动生成工单回复草稿，人工审核后发送，提升响应效率。
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="rec-card p3" id="rec-p3">
+        <div class="priority-badge p3">🟢 第三优先级（可选）· 3–6 个月</div>
+        <h3>社区论坛：Feature Requests 投票 + Bug Reports + in-app 集成</h3>
+        <p>参考竞品：<span class="ref-tag">Qoder 论坛模式</span></p>
+        <p>构建公开的、可沉淀的用户声音广场，用投票量化需求优先级，打破所有竞品的"反馈黑洞"现状。</p>
+
+        <div class="impl-steps">
+          <div class="impl-step"><div class="step-num">1</div><div class="step-text"><strong>选型</strong>：推荐使用 Discourse（Qoder 方案），成熟稳定、可搜索、支持投票插件，运营成本低于自建</div></div>
+          <div class="impl-step"><div class="step-num">2</div><div class="step-text"><strong>分区设计</strong>：Announcements（官方公告）/ Feature Requests（需求投票）/ Bug Reports（问题追踪）/ General（自由讨论）/ AOS 专区（Agentic 场景交流）</div></div>
+          <div class="impl-step"><div class="step-num">3</div><div class="step-text"><strong>in-app 入口</strong>：在产品内的帮助/设置菜单设置论坛入口，降低参与门槛（对标 Qoder 的关键优势）</div></div>
+          <div class="impl-step"><div class="step-num">4</div><div class="step-text"><strong>官方参与规范</strong>：明确产品团队响应 SLA（如：Feature Requests 超过 10 票需在 2 周内官方回复）</div></div>
+        </div>
+
+        <div class="ai-assist">
+          <div class="ai-label">🤖 AI 辅助机会</div>
+          用 AOS Agent 自动扫描新帖，识别重复需求并提示合并；对高票帖生成"产品团队回复草稿"供 PM 审核修改；定期生成"社区月报"（热门需求 TOP10、本月修复 Bug 列表），增强用户对平台响应的信任感。
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <section id="roadmap">
+        <h3 style="margin-top:32px;">分阶段实施路线图</h3>
+        <div class="timeline">
+          <div class="timeline-row">
+            <div class="timeline-period">0 – 6 周<br><span style="font-weight:400;font-size:11px;">第一阶段</span></div>
+            <div class="timeline-items">
+              <div class="timeline-item"><div class="tl-dot p1"></div>设计 AOS 专属反馈分类体系（含 Agentic 失败模式覆盖）</div>
+              <div class="timeline-item"><div class="tl-dot p1"></div>上线任务级点赞/踩 + 自动上下文采集</div>
+              <div class="timeline-item"><div class="tl-dot p1"></div>实现提交后生成 Reference UUID</div>
+              <div class="timeline-item"><div class="tl-dot p1"></div>搭建内部反馈 dashboard（按分类/时间/严重度分析）</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-period">1 – 2 月<br><span style="font-weight:400;font-size:11px;">第二阶段</span></div>
+            <div class="timeline-items">
+              <div class="timeline-item"><div class="tl-dot p2"></div>上线 AI-First 客服（用 AOS Agent 处理 L1）</div>
+              <div class="timeline-item"><div class="tl-dot p2"></div>集成真实工单系统（含工单 ID 和状态追踪）</div>
+              <div class="timeline-item"><div class="tl-dot p2"></div>上线 CSAT 评分（对话结束触发）</div>
+              <div class="timeline-item"><div class="tl-dot p2"></div>打通 P1 反馈数据与工单系统的自动关联</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-period">3 – 6 月<br><span style="font-weight:400;font-size:11px;">第三阶段（可选）</span></div>
+            <div class="timeline-items">
+              <div class="timeline-item"><div class="tl-dot p3"></div>部署 Discourse 论坛，配置 Feature Requests 投票插件</div>
+              <div class="timeline-item"><div class="tl-dot p3"></div>产品内嵌入论坛入口（in-app 集成）</div>
+              <div class="timeline-item"><div class="tl-dot p3"></div>上线 AI 社区助手（帖子归类、重复识别、月报生成）</div>
+              <div class="timeline-item"><div class="tl-dot p3"></div>制定官方响应 SLA 并对外公示</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="callout insight-box" style="margin-top:28px;">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-text">
+          <strong>风险提示</strong>
+          ① 论坛建设需配套运营人员，没有官方参与的论坛容易沦为抱怨聚集地；② AI 客服准确性需严格测试，错误回复对品牌伤害大于无 AI 客服；③ 反馈数据涉及用户对话内容，上线前需完成隐私政策更新和用户告知设计（可参考 Anthropic 的隐私政策措辞）；④ UUID 生成后需配套内部查询系统，否则对支持团队毫无意义。
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <strong>Agentic OS · 用户反馈体系竞品分析报告 V1.0</strong><br>
+  <span>分析范围：Claude (Anthropic) · ChatGPT & Codex (OpenAI) · Qoderwork · Qoder (阿里) · WorkBuddy/CodeBuddy (腾讯)</span><br>
+  <span style="margin-top:8px;display:block;">内部机密文件 · 仅供内部团队与管理层参阅 · 2026年5月</span>
+</footer>
+
+</body>
+</html>
