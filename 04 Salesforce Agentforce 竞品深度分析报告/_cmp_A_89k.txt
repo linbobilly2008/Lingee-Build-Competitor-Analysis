@@ -1,0 +1,514 @@
+Salesforce Agentforce 竞品分析报告 · 竞品分析报告
+Agentforce 竞品分析
+Salesforce Agentforce 竞品分析
+📋 深度分析版
+Salesforce Agentforce 竞品分析报告
+围绕 Salesforce Agentforce 的功能设计、用户体验、发展策略进行深度分析，并转化为金蝶灵基 Build 智能体构建能力研发规划建议。
+研究课题：
+Salesforce Agentforce 竞品分析
+分析维度：
+研究信息 · 核心结论 · 产品概览 · 功能模块 · 生命周期 · 用户体验 · 商业模式 · 技术壁垒 · 市场定位 · 规划建议
+更新时间：
+2026-06-11
+用户研究员：
+林波
+Salesforce Agentforce
+金蝶灵基 Build
+研究信息
+核心结论
+产品概览
+功能模块
+生命周期
+用户体验
+商业模式
+技术壁垒
+市场定位
+规划建议
+参考材料
+1
+研究基本信息
+说明研究范围、资料覆盖和可访问性限制。
+研究课题与目标
+研究课题：Salesforce Agentforce 竞品分析。研究目标：找出 Agentforce 在功能设计、用户体验、发展策略上的核心优势与不足，提炼对金蝶灵基 Build 智能体构建能力的关键优化方向。
+资料范围
+已覆盖 Salesforce 官网、Developer Guide、Help 主页面与 18 个深层子链接、Agentforce Studio 196 张有效截图、AgentExchange/MCP/Multi-Agent/Context Engineering/Pricing/Observability 等官方材料，以及金蝶灵基 Build 操作手册。
+访问说明
+Salesforce 官网部分页面在本机 Chrome 自动化访问时返回 Access Denied，本报告改用可访问官方页面和 Help 抓取内容交叉核实。Gartner、IDC 付费原文未直接访问，因此不引用不可核实的付费原文结论。
+截图分析范围
+已全量审阅 196 张 Agentforce Studio 有效截图，覆盖智能体、测试套件、数据、设置 Einstein、Einstein Studio、提示模板、分析、优化、AI 模型、Agentforce DX。
+结论证据等级说明
+未标注内容为官方资料或截图可直接支持的事实；
+【分析推断】
+表示基于截图、官方资料和对标逻辑形成的产品判断；
+【规划建议】
+表示面向灵基 Build 的研发建议；
+【证据限制】
+表示本次资料范围内不能充分证实，需谨慎使用。
+2
+核心结论摘要
+重点呈现对灵基 Build 的可借鉴点与需规避风险。
+总体判断
+【分析推断】
+Agentforce 的核心优势不是“能用自然语言创建智能体”，而是围绕智能体资产形成结构化定义、版本提交、Preview/Trace、测试套件、评分器、知识检索、MCP 注册、Trust Layer、Analytics、Optimization 的完整操作系统。
+可借鉴点：结构化智能体资产
+将智能体拆成角色、子智能体、指令、动作、规则、变量、数据、连接、权限、测试、版本。
+【规划建议】
+灵基 Build 应把“对话即开发”落成可迁移、可回放、可审计、可回滚的工程资产。
+可借鉴点：测试与观测前置
+Agentforce 将 Testing Center、Preview/Trace、Agent Analytics、Optimization 放入生命周期。
+【规划建议】
+灵基 Build 应把测试门禁和运行观测作为第一期平台能力，而不是上线后的补丁。
+可借鉴点：MCP 与工具生态治理
+Agentforce 把 MCP 包装成带 Registry、OAuth、scope、凭据、权限集、网关策略、AgentExchange 分发的企业工具治理能力。
+【规划建议】
+灵基 Build 可围绕 ERP 连接器、客户私有工具、ISV 行业能力建立工具注册表。
+需规避风险：自然语言创建不等于生产可用
+【分析推断】
+若缺少测试、Trace、版本、审计、权限、脱敏、回滚和成本控制，智能体很难进入 ERP 生产系统。
+【规划建议】
+灵基 Build 不应把“对话即开发”窄化为生成入口。
+需规避风险：Trust Layer 不能泛化宣传
+Salesforce Help 展示数据屏蔽能力，但也提示 agent 场景下 LLM data masking disabled。灵基 Build 需要逐链路验证输入、RAG、工具调用、模型请求、响应、审计日志、失败回放是否真正脱敏。
+需规避风险：过度后台化
+【分析推断】
+Agentforce 能力完整，但 Setup、Einstein Studio、Data Cloud、Agent Authoring 等入口割裂。
+【规划建议】
+灵基 Build 应保留统一工作台主线，让高级设置渐进展开。
+3
+产品概览
+对 Agentforce 与灵基 Build 的定位、能力资产和平台差异进行总览。
+S
+Salesforce Agentforce
+企业智能体运营平台
+主体
+【分析归纳】面向构建、测试、发布、观测、优化的企业智能体运营平台
+以 subagent、instruction、action、rule、variable、data、connection 组织智能体资产
+通过 Data 360、Flow、Apex、MuleSoft、Slack、AgentExchange 深嵌 Salesforce 生态
+以 Trust Layer、ABAC、Audit/Feedback、Digital Wallet 支撑企业治理与计费
+金
+金蝶灵基 Build
+企业级 AI 原生构建平台
+核心理念是“对话即开发”，覆盖智能体、技能、应用、原型探索到生产部署
+智能体开发支持自然语言创建、角色设定、技能配置、测试与提交审核
+Skill 是独立业务能力模块，支持流程型、知识型、能力型，并可通过 MCP/Agent 编排
+拥有 ERP 业务对象、规则、流程、权限与行业经验沉淀的场景优势
+4
+功能模块分析
+按核心功能模块逐项分析：每张卡片包含技术实现逻辑、模块总结和来源。
+4.1 Agentforce Studio 信息架构
+技术实现逻辑：Agentforce Studio 将 Build 与 Observe 合并为智能体工作台，构建侧包含智能体、测试、提示模板、数据、AI 模型、Agentforce DX，观察侧包含分析、优化、评分器。它复用 Salesforce Setup、Einstein Studio、Data Cloud、Agent Authoring 等既有容器，获得平台能力复用，也带来跨系统跳转。
+模块总结：Agentforce Studio 广度强但一致性不足。灵基 Build 应吸收其生命周期覆盖，但坚持单一工作台主线。
+来源：本地截图目录 /Users/linbo/Desktop/Claude/竞品研究/Agentforce Studio截图原图；截图底稿 agentforce_screenshot_audit/screenshot_analysis.md
+4.2 Agent Builder / 智能体生成器
+技术实现逻辑：三栏结构由左侧对象树、中间 Preview/定义工作区、右侧 Agentforce 助手组成；对象树包含设置、系统、语言、子智能体、变量、连接、数据；支持画布视图与脚本视图，顶部提供保存、提交版本、激活/停用等操作。
+模块总结：最值得借鉴的是“对话助手 + 结构化对象树 + 工程视图”组合。灵基 Build 需要业务视图和开发者视图共享同一份定义。
+来源：Agentforce Builder
+https://www.salesforce.com/in/agentforce/agent-builder/
+；Salesforce Help - Set Up Your Agent
+https://help.salesforce.com/s/articleView?id=ai.agent_parent_setup.htm&type=5&language=en_US
+4.3 Subagent 与多智能体编排
+技术实现逻辑：Primary Agent 作为单一入口识别意图，再由 Atlas Reasoning Engine 根据 agent description、instructions、available actions 路由到 Secondary Agents / Subagents。官方说明 multi-agent orchestration 支持统一用户体验、A2A、治理与可观测。
+模块总结：灵基 Build 可围绕财务、人力、供应链建立“业务主智能体 + 专家子智能体”，同时必须做职责重叠检测、路由测试和数量治理。
+来源：Multi-Agent Orchestration
+https://www.salesforce.com/agentforce/multi-agent-orchestration/
+；Salesforce Help - Subagent Instructions Best Practices
+https://help.salesforce.com/s/articleView?id=ai.copilot_topics_instructions.htm&type=5&language=en_US
+4.4 Actions / Tools / ERP 连接
+技术实现逻辑：公开资料确认 Agentforce 可连接 Flow、Apex、MuleSoft API、Prompt Template 等能力；截图与相关页面显示 Predictive Model、MCP Tools 是 Agentforce Studio/生态中的可用资产。Help 文档将 actions 描述为 agent 可调用工具，并强调 instructions 要具体、可测试、避免冲突。
+模块总结：
+【分析推断】
+对 ERP 场景，Tools 不只是接口调用，而是带权限、参数、业务副作用、审批和回滚的操作资产。
+【规划建议】
+灵基 Build 的 Skill 应升级为可测试、可审计、可治理的工具资产。
+来源：Agentforce Builder
+https://www.salesforce.com/in/agentforce/agent-builder/
+；Action Instructions Best Practices
+https://help.salesforce.com/s/articleView?id=ai.copilot_actions_instructions.htm&type=5&language=en_US
+；金蝶灵基 Build 手册
+https://www.kingdee.com/docs/lingee#lingji-build-guide
+4.5 MCP 与 AgentExchange
+技术实现逻辑：MCP 注册表分 API 与 MCP Server；注册 MCP 连接需要 URL、OAuth 2.0、IdP URL、scope、client id/secret，并会创建命名凭据、外部凭据和权限集。AgentExchange 支持第三方 agents、subagents、MCP servers 的发现、采购、激活。
+模块总结：
+【分析推断】
+MCP 的产品价值不是协议本身，而是企业工具治理和生态分发。
+【规划建议】
+灵基 Build 应建立企业工具注册表与 ISV 生态市场。
+来源：MCP Support
+https://www.salesforce.com/agentforce/mcp-support/
+；AgentExchange
+https://www.salesforce.com/agentforce/agentexchange/
+；本地截图 设置Einstein/MCP 注册
+4.6 数据、知识库、Retriever 与 Search Index
+技术实现逻辑：Agentforce 将知识 grounding 拆为 Data Library、Retriever、Search Index、RAG 多层；Search Index 支持源对象、chunk、向量化、筛选字段、排名、构建历史；Prompt Builder 可通过 individual retriever、ensemble retriever、web retriever grounding。
+模块总结：
+【分析推断】
+企业 RAG 不是上传文件，而是数据建模、索引、检索策略、权限过滤、测试和质量评估。
+【规划建议】
+灵基 Build 应建设 ERP 业务语义层。
+来源：Ground Agentforce in Your Data
+https://help.salesforce.com/s/articleView?id=ai.agent_parent_data.htm&type=5&language=en_US
+；Ground with Knowledge Using RAG
+https://help.salesforce.com/s/articleView?id=ai.prompt_builder_ground_rag.htm&type=5&language=en_US
+；本地截图 数据/Search Index
+4.7 Prompt Builder、AI 模型与 Einstein Studio
+技术实现逻辑：Prompt Builder 支持插入输入、操作、全局配置、资源、预览设置和 Performance Insights；Einstein Studio 覆盖分类模型、生成式模型、预测模型、模型库和 Playground。
+模块总结：Agentforce 把 Prompt 和模型都资产化。灵基 Build 不应只做大模型配置，还要让预测、分类、风控、异常检测等模型成为智能体可调用能力。
+来源：Prompt Builder
+https://help.salesforce.com/s/articleView?id=ai.prompt_builder_about.htm&type=5&language=en_US
+；Prompt Performance Insights
+https://help.salesforce.com/s/articleView?id=ai.prompt_builder_performance_insights_metrics.htm&type=5&language=en_US
+；本地截图 Prompt/Einstien Studio
+4.8 测试套件、评分器与 Agentforce DX
+技术实现逻辑：Testing Center 可从 core subagents/actions、knowledge content、Data Library 或上传文件生成测试用例；测试字段覆盖 Conversation History、Utterance、Expected Subagent、Expected Actions、Expected Response；支持 completeness、coherence、conciseness、latency、instruction adherence 等评估。
+模块总结：
+【分析推断】
+Agentforce 把测试从聊天预览升级为发布门禁。
+【规划建议】
+灵基 Build 应将测试中心作为 P0 能力，覆盖路由、技能参数、权限、副作用、回复质量、延迟与成本。
+来源：Agentforce Testing Center
+https://help.salesforce.com/s/articleView?id=ai.agent_testing_center.htm&type=5&language=en_US
+；Developer Guide Custom Evaluation Criteria
+https://developer.salesforce.com/docs/ai/agentforce/guide/testing-api-custom-evaluation-criteria.html
+4.9 Preview、Trace 与调试体验
+技术实现逻辑：Preview 支持模拟模式与现场测试，Trace 展示输入、子智能体转换、推理说明、变量更新、耗时、父级跨度，右侧助手可解释 trace。
+模块总结：
+【分析推断】
+Trace 是智能体从黑盒变成可审查系统的关键。
+【规划建议】
+灵基 Build 应为业务人员提供“为什么这样做、用了哪些数据、哪里失败、建议怎么改”的解释层。
+来源：本地截图 智能体/01_Agentforce生成器_预览_模拟模式_跟踪.png；Agentforce Builder
+https://www.salesforce.com/in/agentforce/agent-builder/
+4.10 分析、优化、健康监控
+技术实现逻辑：Agent Analytics 基于 Agent Session Tracing，引用每次 LLM call，并可与 feedback、guardrails、Flex Credit analytics 关联；截图显示 Agent Performance Overview 覆盖使用情况、信任度、健康、有效性、满意度、质量，并按 actions/intents/subagents breakdown。
+模块总结：
+【分析推断】
+Agentforce 将智能体作为生产系统运营。
+【规划建议】
+灵基 Build 应围绕 ERP 业务结果建设 AgentOps，例如关账效率、审批周期、库存异常处理、应收回款。
+来源：Agent Analytics
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_agent_analytics.htm&type=5&language=en_US
+；Observability News
+https://www.salesforce.com/news/stories/agentforce-studio-observability-tools-announcement/
+4.11 Trust Layer 与可信 AI 治理
+技术实现逻辑：Einstein Trust Layer 包含安全检索、Prompt Defense、数据屏蔽、审计、反馈、毒性评分等；Data Masking 分 pattern-based 和 field-based。Help 同时提示 agent 场景下 LLM data masking disabled，需要谨慎理解覆盖范围。
+模块总结：
+【分析推断】
+可信 AI 不是一个开关，而是构建、测试、发布、运行、审计全链路能力。
+【规划建议】
+灵基 Build 要把字段权限、脱敏、审批、审计责任人嵌入智能体运行链路。
+来源：Einstein Trust Layer
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_trust_layer.htm&type=5&language=en_US
+；Large Language Model Data Masking
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_mask_data.htm&type=5&language=en_US
+5
+全生命周期管理
+覆盖构建、配置、测试、发布、运行、检测、迭代和版本管理。
+阶段
+Agentforce 能力证据
+灵基 Build 建议
+来源
+构建
+模板库、自然语言创建、Agent Builder、脚本/画布视图
+按 ERP 场景预置智能体模板、Skill、知识、测试集
+https://www.salesforce.com/in/agentforce/agent-builder/
+配置
+Subagent、instructions、actions、rules、variables、connections、data
+配置对象化，支持自然语言与结构化编辑双向切换
+https://www.salesforce.com/in/agentforce/guide/
+测试
+Preview、模拟/现场测试、Testing Center、评分器、DX 测试 API
+建立发布前测试门禁，覆盖 Prompt、路由、Skill、权限、业务结果
+https://help.salesforce.com/s/articleView?id=ai.agent_testing_center.htm&type=5&language=en_US
+发布
+版本提交、激活/停用、多渠道部署、connections、Omni-Channel flows
+支持草稿、版本 diff、灰度发布、回滚、发布检查清单
+https://help.salesforce.com/s/articleView?id=ai.agent_parent_deploy.htm&type=5&language=en_US
+运行
+Lightning、Mobile、Slack、Messaging、Email 等渠道
+支持金蝶云、移动端、企业 IM、API 嵌入、业务系统侧边栏
+https://www.salesforce.com/in/agentforce/agentforce-for-employees/
+检测
+Agent Analytics、Optimization、Health、Audit Trail、toxicity score、feedback data
+默认内建 AgentOps 指标、风险评分、用户反馈、业务 KPI
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_agent_analytics.htm&type=5&language=en_US
+迭代
+Session tracing、失败会话、quality feedback、prompt adjustments、版本升级
+从失败会话一键生成修复建议和回归测试用例
+https://www.salesforce.com/news/stories/agentforce-studio-observability-tools-announcement/
+6
+用户体验分析
+覆盖界面交互、操作体验、开发者工具、企业级部署和用户痛点。
+界面交互设计
+优点：三栏 Builder 适合复杂对象编辑，右侧助手嵌入工作流，Preview/Trace 增强透明度。问题：多个后台容器切换，中英文混杂，概念密度高。
+来源：本地截图全量分析 agentforce_screenshot_audit/screenshot_analysis.md
+操作体验
+优点：版本、预览、提交、启停位置清楚；Search Index 有“轻松设置/高级设置”渐进设计。问题：MCP、Retriever、Trust Layer 等页面字段技术化，业务人员理解成本高。
+来源：本地截图 数据、设置Einstein、智能体模块
+开发者工具易用性
+Agentforce DX 提供 CLI、脚本、测试 API、元数据能力，说明 Salesforce 同时面向管理员、业务配置者和开发者。灵基 Build 也需要 CLI/导出/版本化/CI/CD/测试 API。
+来源：Developer Guide
+https://developer.salesforce.com/docs/ai/agentforce/guide/get-started.html
+；本地截图 Agentforce DX
+企业级部署能力
+Agentforce 支持多渠道部署，connection 可包含 behind-the-scenes instructions、adaptive response formats 和 Omni-Channel flows。灵基 Build 应把发布前测试、权限、成本、回滚与渠道适配统一成发布检查清单。
+来源：Deploy Your Agent to Channels
+https://help.salesforce.com/s/articleView?id=ai.agent_parent_deploy.htm&type=5&language=en_US
+核心用户痛点
+Agentforce 暴露的痛点是企业智能体平台很容易过重：数据、模型、工具、权限、渠道、观测都必要，但若缺少统一任务流，业务用户会迷失。灵基 Build 应用业务语言包装高级能力。
+来源：本地截图全量分析；金蝶灵基 Build 手册
+https://www.kingdee.com/docs/lingee#lingji-build-guide
+7
+商业模式分析
+覆盖核心竞争策略、定价策略、客户案例、生态合作模式。
+核心竞争策略
+【分析推断】
+Salesforce 的策略是平台绑定与价值计量：用 CRM/Data 360/Flow/Apex/MuleSoft/Slack 锁定既有客户，用 AgentExchange 扩展第三方 agents、subagents、MCP servers，用 Digital Wallet 将 action 级用量和 ROI 可视化。
+来源：Agentforce
+https://www.salesforce.com/agentforce/
+；AgentExchange
+https://www.salesforce.com/agentforce/agentexchange/
+定价策略
+公开 pricing 显示 Agentforce User License、Flex Credits、Agentforce actions、Voice actions、Conversations、Flat Fee Access 等组合；Pricing Calculator 显示估算受产品、用例、数据基础、subagents、actions、seats 影响。价格和套餐可能随时间变化，需以 Salesforce 最新官方页面为准。
+来源：Pricing
+https://www.salesforce.com/agentforce/pricing/
+；Calculator
+https://www.salesforce.com/agentforce/pricing/calculator/
+客户成功案例
+Observability 新闻稿提到 1-800Accountant、Engine、Nexo、Reddit 等 pilot customers；公开材料中 Reddit 提到支持案例 deflection，Engine/Nexo 提到月度或年度咨询量规模。报告仅引用公开新闻稿，不扩展未验证指标。
+来源：Observability News
+https://www.salesforce.com/news/stories/agentforce-studio-observability-tools-announcement/
+生态合作模式
+AgentExchange 是可信市场，支持发现、评估、采购、激活 agents/apps/Slack solutions/MCP servers，并强调安全审核、透明定价、统一计费和管理员控制数据边界/API scopes。
+来源：AgentExchange
+https://www.salesforce.com/agentforce/agentexchange/
+对灵基 Build 的商业启示
+【分析推断】
+ERP 客户更关心预算确定性和业务结果。
+【规划建议】
+建议采用基础能力包 + 高级模型/外部工具用量 + 任务级预算提醒，并把客户成功指标绑定关账效率、审批周期、库存周转、应收回款、招聘响应等 ERP 结果。
+8
+技术壁垒分析
+覆盖底层架构、数据训练来源、专利布局与治理壁垒。
+底层架构壁垒
+【分析推断】
+Agentforce 的壁垒不是单一模型，而是 CRM/业务数据原生性、Data 360 上下文、Flow/Apex/MuleSoft 自动化资产、Atlas Reasoning、Agentforce Script、Testing/Analytics/Trust Layer 的组合。
+来源：Context Engineering Guide
+https://www.salesforce.com/in/agentforce/guide/
+；How Agentforce Works
+https://www.salesforce.com/in/agentforce/how-it-works/
+数据与训练来源
+【证据限制】
+本次已读公开资料未证明 Salesforce 使用客户数据训练基础模型；其表述重点是 grounding in trusted enterprise data、Data 360、CRM/external applications。
+【分析推断】
+Agentforce 更像模型无关的企业上下文和治理平台。
+来源：Agentforce
+https://www.salesforce.com/agentforce/
+；Einstein Trust Layer Help
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_trust_layer.htm&type=5&language=en_US
+专利布局
+【证据限制】
+在本次用户提供资料、Salesforce 官方页面和已访问公开资料范围内，未找到可直接对应 Agentforce / Atlas Reasoning Engine 的具体专利清单；不能据此断言 Salesforce 没有相关专利，也不能虚构专利数量或权利要求。
+【分析推断】
+可观察到的壁垒主要体现在平台组合、既有客户数据/流程/权限体系与生态。
+治理与可观测壁垒
+Agent Session Tracing、Audit/Feedback Data Model、Gateway request/response、tokens、model details、masked prompt/response 等运行数据是官方 Help 可见能力。
+【分析推断】
+这些数据可形成持续优化闭环。
+【规划建议】
+灵基 Build 应从第一版生产架构开始沉淀 AgentOps 数据资产。
+来源：Agent Analytics
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_agent_analytics.htm&type=5&language=en_US
+；Audit Feedback Data Model
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_feedback_data_model.htm&type=5&language=en_US
+金蝶对应机会
+【规划建议】
+金蝶的壁垒不应只押注大模型，而应押注 ERP 业务语义层 + 规则层 + Skill 工具层 + 权限/审批/审计 + 运行观测闭环。
+【分析推断】
+ERP 业务规则和领域数据相对更难被通用平台复制，但仍需通过产品化资产和客户验证形成壁垒。
+9
+市场定位分析
+覆盖目标人群和核心卖点。
+目标用户
+核心需求
+Agentforce 对应能力
+灵基 Build 启示
+Salesforce 管理员
+配置智能体、权限、数据、渠道、测试
+Agentforce Studio、Builder、Setup、Permission Sets
+【规划建议】
+灵基 Build 需要企业 Console、权限、审核、发布、监控一体化
+业务运营/服务负责人
+降低服务成本、提升响应质量、监控效果
+Service Agent、Analytics、Optimization
+【规划建议】
+提供业务 KPI 看板，而不只是技术调用日志
+开发者/架构师
+复杂逻辑、外部系统集成、CI/CD
+Agentforce DX、Apex、MuleSoft、External Service、Metadata API
+【规划建议】
+提供 CLI/导出/测试 API/CI/CD，与低代码共用定义
+ISV/生态伙伴
+发布 agents、subagents、tools、MCP servers
+AgentExchange
+【规划建议】
+建设金蝶行业 Skill/MCP/智能体模板市场
+企业员工
+在工作流中获得专家型助手
+Lightning、Mobile、Slack、Employee Agent
+【规划建议】
+嵌入金蝶云、移动端、企业 IM、业务单据页面
+10
+规划建议
+按 P0/P1/P2 转化为灵基 Build 智能体构建能力研发方向。
+P0-1
+P0：智能体结构化定义模型
+平台底座
+工程化
+✓ 采纳
+0
+✗ 不采纳
+0
+先定义智能体 schema 与版本模型，再让对话助手围绕 schema 生成和修改配置。
+P0-2
+P0：ERP 原生 Skill 资产库
+ERP
+Tools
+✓ 采纳
+0
+✗ 不采纳
+0
+优先封装高频、强规则、可度量的 ERP 工作流，不追求泛化智能体数量。
+P0-3
+P0：智能体测试中心
+测试
+发布门禁
+✓ 采纳
+0
+✗ 不采纳
+0
+从真实失败会话和典型 ERP 任务自动生成测试用例，降低业务团队维护成本。
+P0-4
+P0：版本与发布门禁
+生命周期
+治理
+✓ 采纳
+0
+✗ 不采纳
+0
+将发布检查清单产品化，避免智能体配置直接进入生产。
+P0-5
+P0：Agent Trace 运行链路
+调试
+可解释性
+✓ 采纳
+0
+✗ 不采纳
+0
+Trace 不只给开发者看，也要用业务语言解释“为什么这样做、错在哪里、下一步怎么改”。
+P1-1
+P1：ERP 业务语义层 / Metadata Studio
+数据
+RAG
+✓ 采纳
+0
+✗ 不采纳
+0
+知识库配置以业务对象为中心，底层 chunk、embedding、ranking 作为专家高级设置。
+P1-2
+P1：MCP / 企业工具注册表
+生态
+MCP
+✓ 采纳
+0
+✗ 不采纳
+0
+把 MCP 从技术入口升级为企业工具治理和生态分发中心。
+P1-3
+P1：AgentOps 与业务 KPI 观测
+观测
+ROI
+✓ 采纳
+0
+✗ 不采纳
+0
+从失败会话一键生成修复建议和回归测试，让运行分析回流到构建器。
+P1-4
+P1：Trust Layer / AI 治理中心
+安全
+审计
+✓ 采纳
+0
+✗ 不采纳
+0
+逐链路验证脱敏覆盖范围，不把安全能力停留在平台营销层。
+P2-1
+P2：多智能体编排与生态市场
+多智能体
+生态
+✓ 采纳
+0
+✗ 不采纳
+0
+先围绕财务、人力、供应链形成专家子智能体，再逐步开放 ISV/OEM 生态。
+附
+参考材料说明
+列出主要引用来源、截图底稿和资料限制。
+Salesforce 官方资料
+Agentforce 官网
+https://www.salesforce.com/agentforce/
+；Developer Guide
+https://developer.salesforce.com/docs/ai/agentforce/guide/get-started.html
+；Builder
+https://www.salesforce.com/in/agentforce/agent-builder/
+；Context Engineering
+https://www.salesforce.com/in/agentforce/guide/
+；MCP Support
+https://www.salesforce.com/agentforce/mcp-support/
+；AgentExchange
+https://www.salesforce.com/agentforce/agentexchange/
+；Pricing
+https://www.salesforce.com/agentforce/pricing/
+；Observability News
+https://www.salesforce.com/news/stories/agentforce-studio-observability-tools-announcement/
+Salesforce Help 深层资料
+Agentforce Testing Center
+https://help.salesforce.com/s/articleView?id=ai.agent_testing_center.htm&type=5&language=en_US
+；Agent Analytics
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_agent_analytics.htm&type=5&language=en_US
+；Data Masking
+https://help.salesforce.com/s/articleView?id=ai.generative_ai_mask_data.htm&type=5&language=en_US
+；RAG
+https://help.salesforce.com/s/articleView?id=ai.prompt_builder_ground_rag.htm&type=5&language=en_US
+；Deploy Channels
+https://help.salesforce.com/s/articleView?id=ai.agent_parent_deploy.htm&type=5&language=en_US
+本地资料与截图
+截图目录 /Users/linbo/Desktop/Claude/竞品研究/Agentforce Studio截图原图；截图全量分析 /Users/linbo/Desktop/Codex/New project/agentforce_screenshot_audit/screenshot_analysis.md；Help 抓取索引 /Users/linbo/Desktop/Codex/New project/salesforce_help_deep_batch/index.md；金蝶手册抓取文本 /Users/linbo/Desktop/Codex/New project/provided_source_capture/text/kingdee_lingee_docs.txt
+金蝶与第三方资料
+金蝶灵基 Build 手册
+https://www.kingdee.com/docs/lingee#lingji-build-guide
+；MIT Sloan Agentic AI
+https://mitsloan.mit.edu/ideas-made-to-matter/agentic-ai-explained
+；TechRadar 对 Gartner 研究转述
+https://www.techradar.com/pro/2026-the-year-enterprise-ai-finally-gets-to-work
+；Business Insider Agentforce 报道
+https://www.businessinsider.com/inside-salesforce-struggles-agentforce-flagship-ai-agent-wars-benioff-2025-11
+资料使用限制
+Gartner、IDC 等付费报告原文未能直接访问，因此报告未引用不可核实的付费原文结论。Salesforce Help 页面在普通抓取工具中存在加载问题，本次使用本机 Chrome 自动化浏览器完成渲染抓取；未抓取的 Help 子链接不做细节推断。
+严谨性审计：需按推断口径理解的结论
+【分析推断】
+Agentforce 是企业智能体运营平台、Salesforce 的策略是平台绑定与价值计量、Agentforce 的壁垒是平台组合、ERP 业务规则更难被通用平台复制、企业 RAG 不只是上传文件、Trace 是黑盒治理关键。
+【规划建议】
+所有面向灵基 Build 的 P0/P1/P2 建议、工具注册表、ERP 业务语义层、AgentOps、Trust Layer、生态市场均为基于竞品证据的研发建议，不是 Salesforce 官方结论。
+【证据限制】
+专利布局、Salesforce 是否用客户数据训练基础模型、Gartner/IDC 付费原文结论不能充分证实。
+证据强度增强记录
+已增强证据链的结论：1）“Agentforce 不只是 Builder，而是生命周期平台”由 Agentforce Builder 官方页、Observability 新闻稿、Testing Center Help、196 张截图共同支持；2）“MCP 是企业工具治理能力”由 MCP Support 官方页的 centralized registry/security/governance/rate limiting、AgentExchange 官方页和 MCP 注册截图共同支持；3）“测试与观测是生产门槛”由 Testing Center Help、Developer Guide、Observability 新闻稿和测试套件截图共同支持；4）“数据/RAG 是工程链路”由 Data Library/RAG Help、Search Index/Retriever 截图共同支持；5）“Trust Layer 需逐链路验证”由 Trust Layer 截图和 Data Masking Help 的 agent 场景限制共同支持。
+仍未研究分析到位 / 不能强化为强结论的部分
+1）Gartner、IDC 付费原文未访问，只能使用公开二级资料作为趋势参考；2）专利布局未做专利数据库系统检索，只能说明本次资料范围未找到具体 Agentforce / Atlas 专利清单；3）客户案例只基于 Salesforce 新闻稿，未独立验证 ROI 与真实使用效果；4）Salesforce Help 范围限定为“Agentforce 和 Einstein 生成式人工智能”相关子页面，没有也不需要覆盖 Salesforce Help 全站；5）Salesforce 官网部分页面本机 Chrome 返回 Access Denied，已用 web.open 官方页面和 Help 抓取交叉核实，但不宣称页面所有动态内容都被完整采集；6）金蝶灵基 Build 仅基于公开操作手册与用户描述，未获得内部产品路线图、真实客户使用数据或灵基 Build 智能体开发全量截图。
+×
+参考竞品
+参考截图
+×
+‹
+1 / 1
+›
